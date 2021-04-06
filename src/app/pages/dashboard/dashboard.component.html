@@ -1,5 +1,6 @@
 <div>
-    <mat-toolbar color="primary">
+<!-- Toolbar -->
+  <mat-toolbar color="primary">
       <mat-toolbar-row>
         <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
           <mat-icon>menu</mat-icon>
@@ -10,12 +11,25 @@
           <!-- The following menu items will be hidden on both SM and XS screen sizes -->
           <a href="#" mat-button>Home</a>
           <a href="#" mat-button>Order</a>
+          <!-- Search -->
           <input type="search" class="sbutton" matInput placeholder="Search.">
-          <a href="#" mat-button><span><img src="../../assets/images/cart.svg" width="28px" height="28px"></span>Cart</a>         
+          <!-- Cart -->
+          <a href="#" mat-button><span matBadge="8" matBadgePosition="after" matBadgeColor="accent"><img src="../../assets/images/cart.svg" width="28px" height="28px"></span></a>
+          <!-- User Options -->
+          <a class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="https://img.icons8.com/cotton/24/000000/person-male--v2.png"/>{{user}}
+            </button>
+            <a class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" [routerLink]="['/login']" routerLinkActive="router-link-active" >Login</a>
+              <a class="dropdown-item" (click)="signout()">Logout</a>
+              <a class="dropdown-item" href="#">Profile</a>
+            </a>
+          </a>         
         </div>
       </mat-toolbar-row>
     </mat-toolbar>
-  
+  <!-- Sidenav -->
     <mat-sidenav-container fxFlexFill>
       <mat-sidenav #sidenav>
         <mat-nav-list>
@@ -28,6 +42,7 @@
         </mat-nav-list>
         
       </mat-sidenav>
+      <!-- The Content of the page strats from here -->
       <mat-sidenav-content fxFlexFill>
           <app-carousel></app-carousel><br>
           <app-cards></app-cards><br>

@@ -5,6 +5,8 @@ import { DashboardComponent } from '../app/pages/dashboard/dashboard.component';
 import { MyAccountComponent } from '../app/pages/my-account/my-account.component';
 import { ProductComponent } from '../app/pages/product/product.component';
 import { LoginComponent } from '../app/pages/login/login.component'
+import { RegistrationComponent } from '../app/pages/registration/registration.component';
+import { AuthconfirmGuard } from '../assets/services/authconfirm.guard';
 
 const routes: Routes = [
   {
@@ -12,15 +14,16 @@ const routes: Routes = [
     redirectTo: 'dashboard',
     pathMatch: 'full'
 },
-  {path:'cart', component: CartComponent },
+  {path:'cart', canActivate : [AuthconfirmGuard] , component: CartComponent },
   {path:'dashboard', component: DashboardComponent },
   // {path:'dashboard/:id', canActivate : [AuthGuard], component: DashboardComponent },
   // {path:'checkout', component: CheckoutComponent },
-  {path:'my-account', component: MyAccountComponent },
+  {path:'my-account', canActivate : [AuthconfirmGuard], component: MyAccountComponent },
   // {path:'order', component: OrderComponent },
-  {path:'product', component: ProductComponent },
-  {path:'login', component:LoginComponent}
+  {path:'product/:_id', component: ProductComponent },
+  {path:'login', component:LoginComponent},
   // {path:'user', component: UserComponent }
+  {path:'registration' , component:RegistrationComponent}
 ];
 
 @NgModule({

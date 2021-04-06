@@ -1,9 +1,12 @@
+// Spacing Handler Navbar
 .menu-spacer {
     flex: 1 1 auto;
 }
+// Hover Color Navbar Anchors
 .mat-button:hover{
     color:yellow;
 }
+// NeoStore LOGO
 .neo{
     color: white;
     font-weight: 700;
@@ -12,6 +15,8 @@
     color: red;
     font-weight: 700;
 }
+// Search Button
 .sbutton{
     border: none;
+    max-width: 20vh;
 }

@@ -1,31 +1,36 @@
+// Footer Color
 .footer{
     background: #000000;
     color:white;
-    
-    p{
-    color: rgba(255, 255, 255, 0.508);
-    }
-    .links{
-    ul {list-style-type: none;}
-    li a{
-    color: white;
-    transition: color .2s;
-    &:hover{
-    text-decoration:none;
-    color:#4180CB;
-    }
-    }
-    }
-    .about-company{
-    i{font-size: 25px;}
-    a{
-    color:white;
-    transition: color .2s;
-    &:hover{color:#4180CB}
-    }
-    }
-    .location{
-    i{font-size: 18px;}
-    }
-    .copyright {border-top:1px solid rgba(255,255,255,.8); text-align: center;}
-    }  
+// Text Color Footer items    
+p{
+color: rgba(255, 255, 255, 0.508);
+}
+// Links hover color
+.links{
+ul {list-style-type: none;}
+li a{
+color: white;
+transition: color .2s;
+&:hover{
+text-decoration:none;
+color:#4180CB;
+}
+}
+}
+// About Company
+.about-company{
+i{font-size: 25px;}
+a{
+color:white;
+transition: color .2s;
+&:hover{color:#4180CB}
+}
+}
+// Location
+.location{
+i{font-size: 18px;}
+}
+// Copyright
+.copyright {border-top:1px solid rgba(255,255,255,.8); text-align: center;}
+}  

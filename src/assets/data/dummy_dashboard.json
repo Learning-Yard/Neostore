@@ -1,0 +1,18 @@
+[
+{
+    "_id": "5cfe3c5aea821930af69281e",
+   "category_name": " Jaipur Sofa",
+   "product_image": "../../../assets/images/pexels-pixabay-276583.jpg",
+   "category_id": "5cfe3c5aea821930af69281e",
+    "created_at": "2019-06-10T11:17:46.699Z",
+   "__v": 0
+   },
+  {
+   "_id": "5cfe3c65ea821930af69281f",
+   "category_name": "Udaipur Sofa",
+   "category_id": "5cfe3c65ea821930af69281f",
+   "product_image": "../../../assets/images/pexels-pixabay-276583.jpg",
+    "created_at": "2019-06-10T11:17:57.569Z",
+    "__v": 0
+}
+]

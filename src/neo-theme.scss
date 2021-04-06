@@ -1,12 +1,16 @@
 @import '~@angular/material/theming';
 
+// mat core fuction theme maker
 @include mat-core();
 
+// primary color
 $neo-theme-primary: mat-palette($mat-cyan);
+// accent color
 $neo-theme-accent:  mat-palette($mat-lime, A200, A100, A400);
-
+// warning color
 $neo-theme-warn:mat-palette($mat-red);
 
+// neo light theme combo elements
 $neo-full-theme: mat-light-theme((
   color: (
     primary: $neo-theme-primary,

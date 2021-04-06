@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-lg-* card-margin">
+  <mat-card>
+      <mat-card-title><span class="neo">Neo</span><span class="scrum">Store</span></mat-card-title>
+  <mat-card-content>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <p>
+      <mat-form-field>
+        <input type="text" matInput placeholder="Name" formControlName="name">
+      </mat-form-field>
+    </p>
+  
+    <p>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
+      </p>      
+
+    <p>
+      <mat-form-field>
+        <input type="password" matInput placeholder="Password" formControlName="password"><mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field>
+    </p>
+  
+    <p>
+        <mat-form-field>
+          <input type="password" matInput placeholder="Confirm Password" formControlName="confirm_password"><mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+      </p>
+      <p>Gender</p>
+      <mat-radio-group aria-label="Gender">
+        <mat-radio-button value="1" color="primary">Male</mat-radio-button>&nbsp;
+        <mat-radio-button value="2" color="primary">Female</mat-radio-button>
+      </mat-radio-group>
+      
+    <div  *ngIf="error; else success"class="error">
+      {{ error }}
+    </div>
+  
+    <ng-template class="success" #success>
+      <!-- {{success}} -->
+    </ng-template>
+  <br>
+    <div class="button">
+      <button type="submit" mat-raised-button color="accent">Register</button>
+    </div><br>
+    <p style="text-align: center;">Already a Part of NeoStore yet?</p>
+    <div class="button">
+      <button type="submit" mat-raised-button color="accent" [routerLink]="['/login']">Login</button>
+    </div><br>
+    <!-- <div class="button">
+      <button type="button" mat-raised-button color="accent" (click)="signOut()">Logout</button>
+    </div><br> -->
+    
+    <div class="separator text-muted">OR</div><br>
+  
+    <button class="loginBtn loginBtn--facebook" (click)="signInWithFB()">
+      Register with Facebook
+    </button>
+    
+    <button class="loginBtn loginBtn--google" (click)="signInWithGoogle()">
+        Register with Google
+    </button>
+  </form>
+  </mat-card-content>
+  </mat-card>
+  </div>
+  </div>
+  </div>

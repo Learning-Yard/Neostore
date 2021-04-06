@@ -1,43 +1,17 @@
 <div class="container">
     <div class="row">
-      <div class="col-sm-6 col-12 col-lg-4 mb-4 card-margin" style="text-align: center;">
+      <div class="col-sm-6 col-12 col-lg-4 mb-4 card-margin" style="text-align: center;" *ngFor="let items of products" (click)="passdata( items._id )">
   <mat-card class="example-card">
     <mat-card-header>
     </mat-card-header>
-    <img mat-card-image src="../../../assets/images/pexels-pixabay-276583.jpg" alt="Photo of a Shiba Inu">
+    <img mat-card-image src="{{items.product_image}}" alt="Photo of a Shiba Inu">
     <mat-card-content>
-        <p>Black Jaipur Sofa</p>
+        <p>{{items.category_name}}</p>
         <p><b>INR 22,500</b></p>
     </mat-card-content>
     <mat-card-actions>
     </mat-card-actions>
   </mat-card>
   </div> 
-  <div class="col-sm-6 col-12 col-lg-4 mb-4 card-margin" style="text-align: center;">
-    <mat-card class="example-card">
-      <mat-card-header>
-      </mat-card-header>
-      <img mat-card-image src="../../../assets/images/pexels-pixabay-276583.jpg" alt="Photo of a Shiba Inu">
-      <mat-card-content>
-          <p>Semi Black Udaipur Sofa</p>
-        <p><b>INR 33,200</b></p>
-      </mat-card-content>
-      <mat-card-actions>
-      </mat-card-actions>
-    </mat-card>
-    </div>
-    <div class="col-sm-6 col-12 col-lg-4 mb-4 card-margin" style="text-align: center;">
-      <mat-card class="example-card">
-        <mat-card-header>
-        </mat-card-header>
-        <img mat-card-image src="../../../assets/images/pexels-pixabay-276583.jpg" alt="Photo of a Shiba Inu">
-        <mat-card-content>
-            <p>Euroflush Sofa</p>
-            <p><b>INR 66,500</b></p>
-        </mat-card-content>
-        <mat-card-actions>
-        </mat-card-actions>
-      </mat-card>
-      </div>
     </div>
     </div>
