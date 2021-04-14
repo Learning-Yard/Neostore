@@ -1,1 +1,90 @@
-<p>cart works!</p>
+<div class="container mt-5" style="align-items: center">
+    <div class="row" *ngFor="let item of product_details">
+        <!-- <span class="col-* textCenter headFont">My Acount</span> -->
+        <div class="col-sm-12 col-lg-8 mt-5">
+            <mat-card class="example-card textCenter">
+                <div class="row">
+                    <div class="col-2">
+                        <span>Product</span>
+                    </div>
+                    <div class="col-4">
+                        <span></span>
+                    </div>
+                    <div class="col-3">
+                        <span>Quantity</span>
+                    </div>
+                    <div class="col-1">
+                        <span>Price</span>
+                    </div>
+                    <div class="col-1">
+                        <span>Total</span>
+                    </div>
+                    <div class="col-1">
+                        <span></span>
+                    </div>
+                </div>
+                <div *ngFor="let item of product_details">
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-2 mb-1">
+                            <img class="productImage" src={{item.product_image}} />
+                        </div>
+                        <div class="col-lg-4 col-xs-8 col-md-4 mb-1" style="text-align: left">
+                            <span class="m-1 productName">{{item.name}} </span><br />
+                            <span class="m-1 creator text-muted">By {{item.producer}} </span><br />
+                            <span class="m-1">Status:</span><span class="stock"> {{item.stock_available===true? "In Stock" : "Out of Stock"}} </span>
+                        </div>
+                        <div class="col-4 col-lg-3 col-sm-4 col-md-3 mb-1">
+                            <button mat-mini-fab>
+                                <mat-icon (click)="removeno_of_Item(id)">remove</mat-icon>
+                            </button>
+                            <span><b>&nbsp;&nbsp;{{item.quantity}}</b></span>
+                            <button mat-mini-fab>
+                                <mat-icon (click)="addno_of_Item(id)">add</mat-icon>
+                            </button>
+                        </div>
+                        <div class="col-3 col-lg-1 col-xs-2 col-sm-3 col-md-1">
+                            <span> {{item.product_cost}} </span>
+                        </div>
+                        <div class="col-3 col-lg-1 col-xs-2 col-sm-3 col-md-1">
+                            <span #total>{{item.total_cost}}</span>
+                        </div>
+                        <div class="col-2 col-lg-1 col-xs-2 col-sm-2 col-md-1">
+                            <mat-icon>delete_outline</mat-icon>
+                        </div>
+                    </div>
+                    <!-- <hr /> -->
+                </div>
+            </mat-card>
+        </div>
+        <div class="col-sm-12 col-lg-4 mt-5">
+            <mat-card class="example-card ">
+                <div class="container m-3">
+                    <span class="reviewOrderFont">Review Order</span>
+                </div>
+                <!-- <hr> -->
+                
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Subtotal</td>
+                            <td>{{item.total_cost}}</td>
+                        </tr>
+                        <tr>
+                            <td>GST(5%)</td>
+                            <td>{{(item.total_cost)*0.05}}</td>
+                        </tr>
+                        <tr>
+                            <td>Order Total</td>
+                            <td>{{(item.total_cost)+((item.total_cost)*0.05)}}</td>
+                        </tr>   
+                    </tbody>
+                </table>
+            <div class="textCenter">
+                <button class="proceedToPayButton textCenter" mat-raised-button color="primary">Proceed to Pay</button>
+            </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

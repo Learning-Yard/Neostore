@@ -30,6 +30,11 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatRadioModule} from '@angular/material/radio';
 import { LoginComponent } from './pages/login/login.component';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ShareModule } from 'ngx-sharebuttons';
+import { CustomFormsModule } from 'ngx-custom-validators';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import {
   GoogleLoginProvider,
@@ -78,7 +83,12 @@ import { RegistrationComponent } from './pages/registration/registration.compone
     SocialLoginModule,
     MatExpansionModule,
     MatTabsModule,
-    MatRadioModule
+    MatRadioModule,
+    ShareButtonsModule,
+    ShareIconsModule,
+    FontAwesomeModule,
+    ShareModule,
+    CustomFormsModule
   ],
   providers: [
     {

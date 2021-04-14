@@ -1,70 +1,132 @@
 <div class="container">
-    <div class="row">
-      <div class="col-sm-12 col-lg-* card-margin">
-  <mat-card>
-      <mat-card-title><span class="neo">Neo</span><span class="scrum">Store</span></mat-card-title>
-  <mat-card-content>
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <p>
-      <mat-form-field>
-        <input type="text" matInput placeholder="Name" formControlName="name">
-      </mat-form-field>
-    </p>
-  
-    <p>
-        <mat-form-field>
-          <input type="text" matInput placeholder="Email" formControlName="email">
-        </mat-form-field>
-      </p>      
+  <div class="row">
+    <div class="col-sm-12 col-lg-* card-margin">
+      <mat-card>
+        <!-- NeoStore Branding -->
+        <mat-card-title><span class="neo">Neo</span><span class="scrum">Store</span></mat-card-title>
+        <mat-card-content>
+          <form [formGroup]="form" (ngSubmit)="submit()">
 
-    <p>
-      <mat-form-field>
-        <input type="password" matInput placeholder="Password" formControlName="password"><mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </mat-form-field>
-    </p>
-  
-    <p>
-        <mat-form-field>
-          <input type="password" matInput placeholder="Confirm Password" formControlName="confirm_password"><mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </mat-form-field>
-      </p>
-      <p>Gender</p>
-      <mat-radio-group aria-label="Gender">
-        <mat-radio-button value="1" color="primary">Male</mat-radio-button>&nbsp;
-        <mat-radio-button value="2" color="primary">Female</mat-radio-button>
-      </mat-radio-group>
-      
-    <div  *ngIf="error; else success"class="error">
-      {{ error }}
-    </div>
-  
-    <ng-template class="success" #success>
-      <!-- {{success}} -->
-    </ng-template>
-  <br>
-    <div class="button">
-      <button type="submit" mat-raised-button color="accent">Register</button>
-    </div><br>
-    <p style="text-align: center;">Already a Part of NeoStore yet?</p>
-    <div class="button">
-      <button type="submit" mat-raised-button color="accent" [routerLink]="['/login']">Login</button>
-    </div><br>
-    <!-- <div class="button">
+            <!-- First Name -->
+            <p>
+              <mat-form-field>
+                <input type="text" matInput placeholder="First Name" formControlName="f_name">
+                <mat-error *ngIf="checkError('f_name', 'required')">First Name is required</mat-error>
+                <mat-error *ngIf="checkError('f_name', 'minlength')">First Name should be more than 5 characters
+                </mat-error>
+                <mat-error *ngIf="checkError('f_name', 'maxlength')">First Name should be less than 20 characters
+                </mat-error>
+                <mat-error *ngIf="checkError('f_name', 'pattern')">Only Alphabets</mat-error>
+              </mat-form-field>
+            </p>
+
+            <!-- Last Name -->
+            <p>
+              <mat-form-field>
+                <input type="text" matInput placeholder="Last Name" formControlName="l_name">
+                <mat-error *ngIf="checkError('l_name', 'required')">Last Name is required</mat-error>
+                <mat-error *ngIf="checkError('l_name', 'minlength')">Last Name should be more than 5 characters
+                </mat-error>
+                <mat-error *ngIf="checkError('l_name', 'maxlength')">Last Name should be less than 20 characters
+                </mat-error>
+                <mat-error *ngIf="checkError('l_name', 'pattern')">Only Alphabets</mat-error>
+              </mat-form-field>
+            </p>
+
+            <!-- Email -->
+            <p>
+              <mat-form-field>
+                <input type="text" matInput placeholder="Email" formControlName="email">
+                <mat-error *ngIf="checkError('email', 'required')">Email is required</mat-error>
+                <mat-error *ngIf="checkError('email', 'email')">Invalid Email</mat-error>
+              </mat-form-field>
+            </p>
+
+            <!-- Password -->
+            <p>
+              <mat-form-field appearance="fill">
+                <mat-label>Enter your password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="checkError('password', 'required')">Password is required</mat-error>
+                <mat-error *ngIf="checkError('password', 'minlength')">Last Name should be more than 8 characters
+                </mat-error>
+                <mat-error *ngIf="checkError('password', 'maxlength')">Last Name should be less than 14 characters
+                </mat-error>
+                <mat-error *ngIf="checkError('password', 'pattern')">Only Alphanumeric is allowed</mat-error>
+                </mat-form-field>
+            </p>
+
+            <!-- Confirm Password -->
+            <p>
+              <mat-form-field appearance="fill">
+                <mat-label>Enter your password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Confirm Password" formControlName="confirm_password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="checkError('confirm_password', 'required')">Please Confirm Password</mat-error>
+                <mat-error *ngIf="checkError('confirm_password', 'minlength')">Last Name should be more than 8
+                  characters</mat-error>
+                <mat-error *ngIf="checkError('confirm_password', 'maxlength')">Last Name should be less than 14
+                  characters</mat-error>
+                <mat-error *ngIf="checkError('confirm_password', 'pattern')">Only Alphanumeric is allowed</mat-error>
+                <mat-error *ngIf="checkError('confirm_password', 'pattern')">Only Alphanumeric is allowed</mat-error>
+                </mat-form-field>
+            </p>
+
+            <!-- Phone Number -->
+            <p>
+              <mat-form-field>
+                <input type="text" matInput placeholder="Phone Number" formControlName="phone_number">
+                <mat-error *ngIf="checkError('phone_number', 'required')">Phone Number is required</mat-error>
+                <!-- <mat-error *ngIf="checkError('phone_number', 'minlength')">Phone Number should be of 10 digits only</mat-error>
+          <mat-error *ngIf="checkError('phone_number', 'maxlength')">Phone Number should be of 10 digits only</mat-error> -->
+                <mat-error *ngIf="checkError('phone_number', 'pattern')">Please Enter 10 digit Mobile number only
+                </mat-error>
+              </mat-form-field>
+            </p>
+
+            <!-- Gender -->
+            <p>Gender</p>
+            <mat-radio-group aria-label="Gender" formControlName="gender">
+              <mat-radio-button value="Male" color="primary">Male</mat-radio-button>&nbsp;
+              <mat-radio-button value="Female" color="primary">Female</mat-radio-button>
+              <mat-error *ngIf="checkError('gender', 'required')">Gender is required</mat-error>
+            </mat-radio-group><br>
+
+            <!-- Register -->
+            <div class="button">
+              <button type="submit" mat-raised-button color="accent">Register</button>
+            </div><br>
+
+            <p style="text-align: center;">Already a Part of NeoStore yet?</p>
+
+            <!-- Login -->
+            <div class="button">
+              <button type="submit" mat-raised-button color="accent" [routerLink]="['/login']">Login</button>
+            </div><br>
+            <!-- <div class="button">
       <button type="button" mat-raised-button color="accent" (click)="signOut()">Logout</button>
     </div><br> -->
-    
-    <div class="separator text-muted">OR</div><br>
-  
-    <button class="loginBtn loginBtn--facebook" (click)="signInWithFB()">
-      Register with Facebook
-    </button>
-    
-    <button class="loginBtn loginBtn--google" (click)="signInWithGoogle()">
-        Register with Google
-    </button>
-  </form>
-  </mat-card-content>
-  </mat-card>
+
+            <!-- OR Seperator  -->
+            <div class="separator text-muted">OR</div><br>
+
+            <!-- Register with FB -->
+            <button class="loginBtn loginBtn--facebook" (click)="signInWithFB()">
+              Register with Facebook
+            </button>
+
+            <!-- Register with Google -->
+            <button class="loginBtn loginBtn--google" (click)="signInWithGoogle()">
+              Register with Google
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
-  </div>
-  </div>
+</div>

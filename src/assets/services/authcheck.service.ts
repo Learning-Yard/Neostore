@@ -42,8 +42,13 @@ export class AuthcheckService {
       }
     });
   }
-
-  sendData(name:string){
+/**
+ *
+ *
+ * @param {string} name
+ * @memberof AuthcheckService
+ */
+sendData(name:string){
     localStorage.setItem("name",name);
     this.username = localStorage.getItem("name");
   }

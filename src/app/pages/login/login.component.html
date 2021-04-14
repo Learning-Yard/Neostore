@@ -1,53 +1,68 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-lg-* card-margin">
-<mat-card>
-    <mat-card-title><span class="neo">Neo</span><span class="scrum">Store</span></mat-card-title>
-<mat-card-content>
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <p>
-    <mat-form-field>
-      <input type="text" matInput placeholder="Username" formControlName="username">
-    </mat-form-field>
-  </p>
+      <mat-card>
+        <!-- NeoStore Branding -->
+        <mat-card-title><span class="neo">Neo</span><span class="scrum">Store</span></mat-card-title>
+        <mat-card-content>
+          <form [formGroup]="form" (ngSubmit)="submit()">
 
-  <p>
-    <mat-form-field>
-      <input type="password" matInput placeholder="Password" formControlName="password"><mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </mat-form-field>
-  </p>
+            <!-- Username -->
+            <p>
+              <mat-form-field>
+                <input type="text" matInput placeholder="Username" formControlName="username">
+              </mat-form-field>
+            </p>
 
-  <div  *ngIf="error; else success"class="error">
-    {{ error }}
-  </div>
+            <!-- Password -->
+            <p>
+              <mat-form-field>
+                <input type="password" matInput placeholder="Password" formControlName="password">
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </mat-form-field>
+            </p>
 
-  <ng-template class="success" #success>
-    <!-- {{success}} -->
-  </ng-template>
-<br>
-  <div class="button">
-    <button type="submit" mat-raised-button color="accent">Login</button>
-  </div><br>
-  <p style="text-align: center;">Not A Part of NeoStore yet?</p>
-  <div class="button">
-    <button type="submit" mat-raised-button color="accent" [routerLink]="['/registration']" routerLinkActive="router-link-active" >Register</button>
-  </div><br>
-  <!-- <div class="button">
+            <!-- Error Display Span -->
+            <div *ngIf="error; else success" class="error">
+              {{ error }}
+            </div>
+
+            <ng-template class="success" #success>
+              <!-- {{success}} -->
+            </ng-template>
+            <br>
+
+            <!-- Login -->
+            <div class="button">
+              <button type="submit" mat-raised-button color="accent">Login</button>
+            </div><br>
+
+            <p style="text-align: center;">Not A Part of NeoStore yet?</p>
+
+            <!-- Register  -->
+            <div class="button">
+              <button type="submit" mat-raised-button color="accent" [routerLink]="['/registration']"
+                routerLinkActive="router-link-active">Register</button>
+            </div><br>
+            <!-- <div class="button">
     <button type="button" mat-raised-button color="accent" (click)="signOut()">Logout</button>
   </div><br> -->
-  
-  <div class="separator text-muted">OR</div><br>
 
-  <button class="loginBtn loginBtn--facebook" (click)="signInWithFB()">
-    Login with Facebook
-  </button>
-  
-  <button class="loginBtn loginBtn--google" (click)="signInWithGoogle()">
-    Login with Google
-  </button>
-</form>
-</mat-card-content>
-</mat-card>
-</div>
-</div>
+            <!-- OR Seperator -->
+            <div class="separator text-muted">OR</div><br>
+
+            <!-- Login with FB -->
+            <button class="loginBtn loginBtn--facebook" (click)="signInWithFB()">
+              Login with Facebook
+            </button>
+
+            <!-- Login with Google -->
+            <button class="loginBtn loginBtn--google" (click)="signInWithGoogle()">
+              Login with Google
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
 </div>

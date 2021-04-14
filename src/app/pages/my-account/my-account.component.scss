@@ -1,0 +1,33 @@
+.profilePic{
+    max-height: 80%;
+    max-width: 80%;
+    }
+    .nameFont{
+    font-size: 4vh;
+    }
+    
+    .headFont{
+    font-size: 7vh;
+    }
+    
+    .profileContentFont{
+    font-size: 2vw;
+    }
+    
+    .boldFont{
+    font-weight: bolder;
+    }
+    
+    mat-stroked-button{
+    width: 200vh;
+    }
+    
+    .button{
+    // width: 50vh;
+    width: 90%;
+    }
+    
+    .profileHeading{
+    // background-color: burlywood;
+    background-image: radial-gradient(circle, #d9eced, #dbecf0, #deedf2, #e1edf4, #e5edf5, #e4edf5, #e4edf5, #e3edf5, #deedf4, #d8edf2, #d3ecef, #d0ecea);
+    }

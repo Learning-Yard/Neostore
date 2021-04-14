@@ -1,26 +1,40 @@
 <div class="container-fluid mt-4">
     <mat-card class="example-card">
-    <div class="row">
-    <div class="col-sm-6 col-12 col-lg-6 mb-4 mt-4" style="text-align: center;">
-        <img mat-card-image src="{{big_image}}" alt="Photo of Product">
-      </div>
-      <div class="col-sm-6 col-6 col-lg-4 mb-4" style="text-align: center; justify-content: center; align-content: center;">
-            <h3><b>{{product_name}}</b></h3>
-            <p>INR.{{product_cost}}</p>
-            <p>Color: <button mat-raised-button disabled title="{{color_name}}" [style.background-color]=color_hex>&nbsp;&nbsp;&nbsp;</button></p><br>
+        <div class="row">
+
+            <!-- Product big image -->
+            <div class="col-sm-6 col-12 col-lg-6 mb-4 mt-4" style="text-align: center;">
+                <img mat-card-image src="{{big_image}}" alt="Photo of Product">
+            </div>
+
+            <!-- other coloumn -->
+            <div class="col-sm-6 col-6 col-lg-4 mb-4"
+                style="text-align: center; justify-content: center; align-content: center;">
+                <h3><b>{{product_name}}</b></h3>
+                <p>INR.{{product_cost}}</p>
+
+                <!-- product color -->
+                <p>Color: <button mat-raised-button disabled title="{{color_name}}"
+                        [style.background-color]=color_hex>&nbsp;&nbsp;&nbsp;</button></p><br>
+
+                        <!-- Social share buttons -->
+                <share-buttons mat-fab [theme]="'circles-dark'"
+                    [include]="['facebook','twitter','pinterest','telegram','messenger','whatsapp','sms','email','print','copy']"
+                    [show]="5" [size]="-1" [url]="'https://twitter.com/'" [autoSetMeta]="false"></share-buttons><br>
                 <button type="button" mat-raised-button color="accent">Add to Cart</button>&nbsp;
                 <button type="button" mat-raised-button color="primary">Rate Product</button>
-    </div>
-</div>
-<div class="row">
-    <mat-tab-group>
-        <mat-tab label="Description"> {{product_desc}}</mat-tab>
-        <mat-tab label="Features">
-            <p>Product Material : {{product_material}}</p>
-            <p>Product Dimensions : {{dimension}}</p>
-            <p>Product Color : {{color_name}}</p>
-        </mat-tab>
-      </mat-tab-group>      
-</div>
-</mat-card>
+            </div>
+        </div>
+        <!-- Product Description and Features area -->
+        <div class="row">
+            <mat-tab-group>
+                <mat-tab label="Description"> {{product_desc}}</mat-tab>
+                <mat-tab label="Features">
+                    <p>Product Material : {{product_material}}</p>
+                    <p>Product Dimensions : {{dimension}}</p>
+                    <p>Product Color : {{color_name}}</p>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </mat-card>
 </div>
