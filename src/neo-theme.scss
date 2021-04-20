@@ -4,9 +4,9 @@
 @include mat-core();
 
 // primary color
-$neo-theme-primary: mat-palette($mat-cyan);
+$neo-theme-primary: mat-palette($mat-blue-grey);
 // accent color
-$neo-theme-accent:  mat-palette($mat-lime, A200, A100, A400);
+$neo-theme-accent:  mat-palette($mat-amber, A200, A100, A400);
 // warning color
 $neo-theme-warn:mat-palette($mat-red);
 

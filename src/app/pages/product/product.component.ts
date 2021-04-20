@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import ProductDataList from '../../../assets/data/dummy_product_list.json';
 import { CartFunctionsService } from '../../../assets/services/cart-functions.service';
 
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -36,6 +37,7 @@ export class ProductComponent implements OnInit {
 
   id: any; // ID
   big_image: any;  // Big size Image
+  // imgSrc:any;
   product_name: string = ""; // Product Name
   product_cost: number = 0; // Product Cost
   color_name: string = "";  // Product Cost
@@ -44,7 +46,8 @@ export class ProductComponent implements OnInit {
   product_desc: string = ""; // Product Description
   dimension: any; // Dimensions of the item
   product_material: string = ""; // Product Material
-
+  
+  
   constructor(private router: ActivatedRoute, private service: CartFunctionsService) { }
 /**
  * Here we have took the product id of the product from card layout of dashboard of item we selected
@@ -66,11 +69,13 @@ ngOnInit() {
       this.product_desc = this.dummyList[0].product_details[0].product_desc;
       this.dimension = this.dummyList[0].product_details[0].product_dimension;
       this.product_material = this.dummyList[0].product_details[0].product_material;
+      // this.imgSrc = this.dummyList[0].product_details[0].category_id.product_image;
+      // console.log(this.imgSrc)
       // this.service.cardmodulereciever(this.dummyList,{})
     } else {
       console.log("Product doesnt exist")
     }
     return null
   }
-
+  
 }

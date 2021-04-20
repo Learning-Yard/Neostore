@@ -7,6 +7,11 @@ import { ProductComponent } from '../app/pages/product/product.component';
 import { LoginComponent } from '../app/pages/login/login.component'
 import { RegistrationComponent } from '../app/pages/registration/registration.component';
 import { AuthconfirmGuard } from '../assets/services/authconfirm.guard';
+import { ForgetPasswordComponent } from '../app/pages/forget-password/forget-password.component';
+import { ForgetPasswordNextComponent } from '../app/pages/forget-password-next/forget-password-next.component';
+import { ProfileComponent } from '../app/pages/profile/profile.component'
+import { ChangePasswordComponent } from '../app/pages/change-password/change-password.component';
+import { ChangeAddressComponent } from '../app/pages/change-address/change-address.component';
 
 const routes: Routes = [
   {
@@ -23,7 +28,12 @@ const routes: Routes = [
   {path:'product/:_id', component: ProductComponent },
   {path:'login', component:LoginComponent},
   // {path:'user', component: UserComponent }
-  {path:'registration' , component:RegistrationComponent}
+  {path:'registration' , component:RegistrationComponent},
+  {path:'forget-password' , component:ForgetPasswordComponent},
+  {path:'forget-password-next', component:ForgetPasswordNextComponent},
+  {path: 'profile' , component:ProfileComponent},
+  {path: 'change-password' , component:ChangePasswordComponent},
+  {path: 'change-address' , component:ChangeAddressComponent},
 ];
 
 @NgModule({

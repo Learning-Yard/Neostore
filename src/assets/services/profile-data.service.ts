@@ -22,4 +22,8 @@ export class ProfileDataService {
    } = ProfileData
 
   constructor() { }
+
+  getUserProfile() {
+    return this.UserProfile;
+  }
 }

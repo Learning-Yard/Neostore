@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-4">
   <div class="row">
     <div class="col-sm-12 col-lg-* card-margin">
       <mat-card>
@@ -63,18 +63,21 @@
             <p>
               <mat-form-field appearance="fill">
                 <mat-label>Enter your password</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Confirm Password" formControlName="confirm_password">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <input matInput [type]="hide1 ? 'password' : 'text'" placeholder="Confirm Password" name="confirm_password" formControlName="confirm_password">
+                <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" ConfirmPasswordValidator="password" [attr.aria-pressed]="hide1">
+                  <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
                 <mat-error *ngIf="checkError('confirm_password', 'required')">Please Confirm Password</mat-error>
                 <mat-error *ngIf="checkError('confirm_password', 'minlength')">Last Name should be more than 8
                   characters</mat-error>
                 <mat-error *ngIf="checkError('confirm_password', 'maxlength')">Last Name should be less than 14
                   characters</mat-error>
-                <mat-error *ngIf="checkError('confirm_password', 'pattern')">Only Alphanumeric is allowed</mat-error>
-                <mat-error *ngIf="checkError('confirm_password', 'pattern')">Only Alphanumeric is allowed</mat-error>
-                </mat-form-field>
+                <mat-error *ngIf="checkError('confirm_password', 'pattern')">Please enter correct password</mat-error>
+                <!-- <mat-error *ngIf="confirm_password.errors?.notEqual">Password mismatch</mat-error> -->
+                <!-- <mat-error>{{passwordcheck()}}{{match}}</mat-error> -->
+                <!-- <mat-error *ngIf="form.get(['password','confirm_password']).value != form.get(['password','confirm_password']).value && form.get(['password','confirm_password']).value != null"></mat-error> -->
+                  <!-- <mat-error *ngIf="checkError('confirm_password', 'equalTo')">Error</mat-error> -->
+              </mat-form-field>
             </p>
 
             <!-- Phone Number -->
@@ -99,7 +102,7 @@
 
             <!-- Register -->
             <div class="button">
-              <button type="submit" mat-raised-button color="accent">Register</button>
+              <button type="submit" mat-raised-button color="accent" (click)="submit()">Register</button>
             </div><br>
 
             <p style="text-align: center;">Already a Part of NeoStore yet?</p>

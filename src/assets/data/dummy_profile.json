@@ -10,7 +10,7 @@
 		"phone_no": "8998765445",
 		"gender": "male",
 		"dob": "2019-07-09",
-		"profile_img": "image_1574053862482_naveen.jpeg",
+		"profile_img": "../../../assets/images/batmanx.png",
 		"otp": "$2a$10$iYqKqmoVpFBzQ09Qsxk5l.2XyE0qyHeyjKhhuGIty5nfxVC1Ntofy",
 		"createdAt": "2019-11-14T11:13:09.313Z",
 		"updatedAt": "2019-12-05T10:37:17.904Z"

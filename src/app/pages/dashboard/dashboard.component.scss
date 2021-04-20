@@ -4,7 +4,7 @@
 }
 // Hover Color Navbar Anchors
 .mat-button:hover{
-    color:yellow;
+    color:#ffca28;
 }
 // NeoStore LOGO
 .neo{
@@ -12,11 +12,14 @@
     font-weight: 700;
 }
 .scrum{
-    color: red;
+    color:red;
     font-weight: 700;
 }
 // Search Button
 .sbutton{
     border: none;
-    max-width: 20vh;
+    max-width: 32vh;
+}
+.tstyle{
+    font-weight: 600;
 }

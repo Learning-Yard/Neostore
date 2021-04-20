@@ -17,7 +17,7 @@
             <!-- Password -->
             <p>
               <mat-form-field>
-                <input type="password" matInput placeholder="Password" formControlName="password">
+                <input type="password" [type]="hide ? 'password' : 'text'" [attr.aria-pressed]="hide" matInput placeholder="Password" formControlName="password">
                 <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </mat-form-field>
             </p>
@@ -36,7 +36,7 @@
             <div class="button">
               <button type="submit" mat-raised-button color="accent">Login</button>
             </div><br>
-
+            <p style="text-align: center; font-weight: bolder;" [routerLink]="['/forget-password']">Forgot Password?</p><br> 
             <p style="text-align: center;">Not A Part of NeoStore yet?</p>
 
             <!-- Register  -->

@@ -1,0 +1,178 @@
+<h1 mat-dialog-title>Edit Your Information</h1>
+<div mat-dialog-content>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <!-- first Name -->
+        <!-- <input
+          type="text"
+          class="m-2"
+          placeholder="First Name"
+          pattern="^[a-zA-Z]{1,20}$"
+          value="vishal"
+          required
+          minlength="3"
+          maxlength="20"
+          [formControl]="firstName"
+        /> -->
+
+        <!-- profile pic -->
+
+        <div *ngIf="!profilePic1.value; else defaultPic">
+        <img src={{profilePic}} width="100%" height="100">
+        </div>
+        <ng-template #defaultPic>
+          <img src="" width="100%" height="100">
+          <h1> {{profilePic1.value}} </h1>
+        </ng-template>
+
+          <input
+            type="file"
+            #profilePic1
+            id="file-id"
+            placeholder="Profile Pic"
+          />
+          <br>
+        <!-- First Name -->
+        <mat-form-field class="example-full-width">
+          <input
+            type="text"
+            matInput
+            [formControl]="firstNameFormControl"
+            placeholder="First Name"
+          />
+          <mat-error
+            *ngIf="
+              firstNameFormControl.hasError('pattern') &&
+              !firstNameFormControl.hasError('required')
+            "
+          >
+            First name accepts only alphabets.
+          </mat-error>
+          <mat-error *ngIf="firstNameFormControl.hasError('required')">
+            First Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <br />
+        <!-- last Name -->
+        <mat-form-field class="example-full-width">
+          <input
+            type="text"
+            matInput
+            [formControl]="lastNameFormControl"
+            placeholder="Last Name"
+          />
+          <mat-error
+            *ngIf="
+              lastNameFormControl.hasError('pattern') &&
+              !lastNameFormControl.hasError('required')
+            "
+          >
+            Last name accepts only alphabets.
+          </mat-error>
+          <mat-error *ngIf="lastNameFormControl.hasError('required')">
+            Last Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <br />
+
+        <!-- Gender -->
+
+        <mat-radio-group aria-label="Gender" [formControl]="genderFormControl">
+          <mat-radio-button value="male" checked>Male</mat-radio-button>
+          <mat-radio-button value="female">Female</mat-radio-button>
+          <!-- <mat-error *ngIf="gender.invalid">{{getErrorMessageForGender()}}</mat-error> -->
+        </mat-radio-group>
+        <br />
+
+        <!-- Dob -->
+
+        <p>
+            <!-- <mat-form-field appearance="fill">
+              <mat-label>Input disabled</mat-label>
+              <input matInput [matDatepicker]="dp3" disabled>
+              <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+              <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+            </mat-form-field> -->
+            <mat-form-field class="example-full-width">
+                <input
+                  type="date"
+                  matInput
+                />
+            </mat-form-field>
+          </p>
+          
+        <br />
+
+        <!-- Email -->
+        <mat-form-field class="example-full-width">
+          <input
+            type="text"
+            matInput
+            [formControl]="emailFormControl"
+            placeholder="email"
+          />
+          <mat-error
+            *ngIf="
+              emailFormControl.hasError('pattern') &&
+              !emailFormControl.hasError('required')
+            "
+          >
+            This is not email
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <br />
+
+        <!-- phone -->
+        <mat-form-field class="example-full-width">
+          <input
+            type="text"
+            matInput
+            [formControl]="phoneFormControl"
+            placeholder="phone"
+            maxlength="10"
+          />
+          <mat-error
+            *ngIf="
+              phoneFormControl.hasError('pattern') &&
+              !phoneFormControl.hasError('required')
+            "
+          >
+            Only digits.
+          </mat-error>
+          <mat-error *ngIf="phoneFormControl.hasError('required')">
+            Phone number is <strong>required</strong>
+          </mat-error>
+
+        </mat-form-field>
+        <br>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Show this demonstrate to mentor that value is not visible in matInput -->
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button
+    mat-button
+    [mat-dialog-close]="data.animal"
+    cdkFocusInitial
+    [disabled]="
+      lastNameFormControl.invalid ||
+      firstNameFormControl.invalid ||
+      genderFormControl.invalid ||
+      dobFormControl.invalid ||
+      emailFormControl.invalid ||
+      phoneFormControl.invalid
+    "
+    (click)="onSubmit(firstNameFormControl.value,lastNameFormControl.value,genderFormControl.value,dobFormControl.value,emailFormControl.value,phoneFormControl.value)"
+  >
+    Ok
+  </button>
+</div>

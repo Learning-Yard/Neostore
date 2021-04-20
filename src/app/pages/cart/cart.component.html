@@ -1,5 +1,5 @@
 <div class="container mt-5" style="align-items: center">
-    <div class="row" *ngFor="let item of product_details">
+    <div class="row">
         <!-- <span class="col-* textCenter headFont">My Acount</span> -->
         <div class="col-sm-12 col-lg-8 mt-5">
             <mat-card class="example-card textCenter">
@@ -23,35 +23,41 @@
                         <span></span>
                     </div>
                 </div>
-                <div *ngFor="let item of product_details">
+                <div *ngFor="let item of cartData.product_details; let i=index">
                     <hr />
 
                     <div class="row">
                         <div class="col-2 mb-1">
-                            <img class="productImage" src={{item.product_image}} />
+                            <img class="productImage" src={{item.product_id.product_image}} />
                         </div>
                         <div class="col-lg-4 col-xs-8 col-md-4 mb-1" style="text-align: left">
-                            <span class="m-1 productName">{{item.name}} </span><br />
-                            <span class="m-1 creator text-muted">By {{item.producer}} </span><br />
-                            <span class="m-1">Status:</span><span class="stock"> {{item.stock_available===true? "In Stock" : "Out of Stock"}} </span>
+                            <span class="m-1 productName">{{item.product_id.product_name}} </span><br />
+                            <span class="m-1 creator text-muted">By {{item.product_id.product_producer}} </span><br />
+                            <span class="m-1">Status:</span><span class="stock"> {{item.quantity>0? "In Stock" : "Out of Stock"}} </span>
                         </div>
                         <div class="col-4 col-lg-3 col-sm-4 col-md-3 mb-1">
-                            <button mat-mini-fab>
-                                <mat-icon (click)="removeno_of_Item(id)">remove</mat-icon>
+                            <button mat-mini-fab (click)="onRemoveClick(i)">
+                                <mat-icon>remove</mat-icon>
                             </button>
-                            <span><b>&nbsp;&nbsp;{{item.quantity}}</b></span>
-                            <button mat-mini-fab>
-                                <mat-icon (click)="addno_of_Item(id)">add</mat-icon>
+                            <span><b>&nbsp;{{quantity[i]}} &nbsp;</b></span>
+                            <button mat-mini-fab (click)="onAddClick(i)">
+                                <mat-icon>add</mat-icon>
                             </button>
                         </div>
+
+                        <!-- price per product -->
                         <div class="col-3 col-lg-1 col-xs-2 col-sm-3 col-md-1">
                             <span> {{item.product_cost}} </span>
                         </div>
+
+                        <!-- total price of single product -->
                         <div class="col-3 col-lg-1 col-xs-2 col-sm-3 col-md-1">
-                            <span #total>{{item.total_cost}}</span>
+                            <span #total> {{item.product_cost*(quantity[i])}} </span>
                         </div>
+
+                        <!-- delete product -->
                         <div class="col-2 col-lg-1 col-xs-2 col-sm-2 col-md-1">
-                            <mat-icon>delete_outline</mat-icon>
+                            <mat-icon (click)="onDeleteClick(i)">delete_outline</mat-icon>
                         </div>
                     </div>
                     <!-- <hr /> -->
@@ -69,15 +75,15 @@
                     <tbody>
                         <tr>
                             <td>Subtotal</td>
-                            <td>{{item.total_cost}}</td>
+                            <td> {{subTotal}} </td>
                         </tr>
                         <tr>
                             <td>GST(5%)</td>
-                            <td>{{(item.total_cost)*0.05}}</td>
+                            <td> {{subTotal*0.05}} </td>
                         </tr>
                         <tr>
                             <td>Order Total</td>
-                            <td>{{(item.total_cost)+((item.total_cost)*0.05)}}</td>
+                            <td>{{ (subTotal)+((subTotal)*0.05) }}</td>
                         </tr>   
                     </tbody>
                 </table>

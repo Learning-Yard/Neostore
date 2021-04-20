@@ -6,45 +6,24 @@
     <div class="col-sm-12 col-lg-5 mt-5 ">
     <mat-card class="example-card textCenter">
     <img class="profilePic mb-2" src={{profile.customer_proile.profile_img}}><br>
-    <mat-label class="nameFont m-3"> {{profile.customer_proile.first_name}}&nbsp;{{profile.customer_proile.last_name}} </mat-label><br>
+    <mat-label class="nameFont m-3"> {{profile.customer_proile.first_name | titlecase}}&nbsp;{{profile.customer_proile.last_name | titlecase}} </mat-label><br>
     <button class="button m-1" mat-stroked-button color="basic"><mat-icon>data_usage</mat-icon>Order</button><br>
-    <button class="button m-1" mat-stroked-button color="basic"><mat-icon>person</mat-icon>Profile</button><br>
-    <button class="button m-1" mat-stroked-button color="basic"><mat-icon>format_align_justify</mat-icon>Address</button><br>
-    <button class="button m-1" mat-stroked-button color="basic"><mat-icon>transform</mat-icon>Change Password</button><br>
+    <button class="button m-1" mat-stroked-button color="basic" (click)="change(1)"><mat-icon>person</mat-icon>Profile</button><br>
+    <button class="button m-1" mat-stroked-button color="basic" (click)="change(3)"><mat-icon>format_align_justify</mat-icon>Address</button><br>
+    <button class="button m-1" mat-stroked-button color="basic" (click)="change(2)"><mat-icon>transform</mat-icon>Change Password</button><br>
     
     </mat-card>
     </div>
     <div class="col-sm-12 col-lg-7 mt-5">
-    <mat-card class="example-card">
-    <div class="profileHeading p-2">
-    <h1 class="textCenter">Profile</h1>
-    </div>
-    <hr>
-    <div class=" m-3 p-1 profileContentFont" >
-    <span class="boldFont mr-5">First Name</span><span > {{profile.customer_proile.first_name}} </span>
-    </div>
-    <div class=" m-3 p-1 profileContentFont" >
-    <span class="boldFont mr-5">Last Name</span><span >{{profile.customer_proile.last_name}}</span>
-    </div>
-    <div class=" m-3 p-1 profileContentFont" >
-    <span class="boldFont mr-5">Gender</span><span >{{profile.customer_proile.gender}}</span>
-    </div>
-    <div class=" m-3 p-1 profileContentFont" >
-    <span class="boldFont mr-5">Date of Birth</span><span >{{profile.customer_proile.dob}}</span>
-    </div>
-    <div class=" m-3 p-1 profileContentFont" >
-    <span class="boldFont mr-5">Mobile Number</span><span >{{profile.customer_proile.phone_no}}</span>
-    </div>
-    <div class=" m-3 p-1 profileContentFont" >
-    <span class="boldFont mr-5">Email</span><span >{{profile.customer_proile.email}}</span>
-    </div>
-    
-    <hr>
-    
-    <button mat-stroked-button><mat-icon>edit</mat-icon>Edit</button>
-    
-    
-    </mat-card>
+      <div *ngIf="isProfile">
+      <app-profile></app-profile>
+      </div>
+      <div *ngIf="isChangePassword">
+      <app-change-password></app-change-password>
+      </div>
+      <div *ngIf="isAddress">
+      <app-address-list></app-address-list>
+      </div>
     </div>
     </div>
     </div>

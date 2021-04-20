@@ -1,15 +1,16 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators , ValidatorFn, AbstractControl } from '@angular/forms';
 import { SocialAuthService, SocialUser } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import { RouterModule, Router } from '@angular/router';
 import { AuthcheckService } from '../../../assets/services/authcheck.service';
 import { CustomValidators } from 'ngx-custom-validators';
+// import { ConfirmPasswordValidatorDirective } from '../../../assets/validator/confirm_password_validator.directive';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
+  styleUrls: ['./registration.component.scss'],
 })
 export class RegistrationComponent implements OnInit {
 
@@ -17,6 +18,9 @@ export class RegistrationComponent implements OnInit {
   success: string = "";
   user!: SocialUser;
   hide = true;
+  hide1 = true;
+  pass_match:boolean | undefined;
+  match:string="";
   /**
    * here all the fields of the form is recieved using formcontrol property
    * f_name - first name
@@ -34,6 +38,7 @@ export class RegistrationComponent implements OnInit {
     email: new FormControl(''),
     password: new FormControl(''),
     confirm_password: new FormControl(''),
+    phone_number: new FormControl(''),
     gender: new FormControl(''),
   });
   /**
@@ -63,6 +68,38 @@ export class RegistrationComponent implements OnInit {
     return this.form.controls[controlName].hasError(errorName);
   }
 
+  password(form: FormGroup) {
+    const  password  = form.get('password');
+    const  confirmPassword  = form.get('confirm_password');
+    return password === confirmPassword ? null : { passwordNotMatch: true };
+  }
+
+  // passwordcheck() {
+  //   if (this.form.value.password == this.form.value.confirm_password) {
+  //     this.match = '';
+  //     // return false
+  //     this.pass_match = true;
+  //   } else {
+  //     this.pass_match = false;
+  //     this.match = 'password not matching';
+  //   }
+  // }
+
+//   checkPasswords(form: FormGroup) {
+//     const pass = form.controls.password.value;
+//     const confirmPass = form.controls.confirm_password.value;
+
+//     return pass === confirmPass ? null : { notSame: true };
+// }
+
+// passwordConfirming(form: AbstractControl): { invalid: boolean } {
+//   console.log(this.form);
+//   if (this.form.value.password !== this.form.value.confirm_password) {
+//       return {invalid: true};
+//   }
+//   return {invalid:false};
+// }
+
   // Call to Sigin in via google in service
   signInWithGoogle() {
     this.service.signInWithGoogle();
@@ -84,6 +121,7 @@ export class RegistrationComponent implements OnInit {
   submit() {
     if (this.form.valid) {
       this.submitEM.emit(this.form.value);
+      console.log(this.form.value)
       // console.log(this.form.value);
       // if ((this.form.value.username!="admin") && (this.form.value.password!="super")){
       //   this.error="Invalid Credentials";

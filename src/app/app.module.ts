@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule , CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { RedZoomModule } from 'ngx-red-zoom';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,7 +13,8 @@ import { UserComponent } from './pages/user/user.component';
 import { MyAccountComponent } from './pages/my-account/my-account.component';
 import { CarouselComponent } from './pages/carousel/carousel.component';
 import {MatExpansionModule} from '@angular/material/expansion';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDialogModule} from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule} from "@angular/material/toolbar";
@@ -34,13 +35,24 @@ import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ShareModule } from 'ngx-sharebuttons';
+import { NgxImgZoomModule } from 'ngx-img-zoom';
 import { CustomFormsModule } from 'ngx-custom-validators';
+// import { ConfirmPasswordValidatorDirective } from '../assets/validator/confirm_password_validator.directive';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import {
   GoogleLoginProvider,
   FacebookLoginProvider
 } from 'angularx-social-login';
 import { RegistrationComponent } from './pages/registration/registration.component';
+import { DialogueProfileComponent } from './pages/dialogue-profile/dialogue-profile.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { ChangeAddressComponent } from './pages/change-address/change-address.component';
+import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
+import { ForgetPasswordNextComponent } from './pages/forget-password-next/forget-password-next.component';
+import { OrderComponent } from './pages/order/order.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { AddressListComponent } from './pages/address-list/address-list.component';
 
 // const config = new SocialAuthService([
 //   id:GoogleLoginProvider.PROVIDER_ID,
@@ -59,6 +71,16 @@ import { RegistrationComponent } from './pages/registration/registration.compone
     CarouselComponent,
     LoginComponent,
     RegistrationComponent,
+    DialogueProfileComponent,
+    CheckoutComponent,
+    ChangeAddressComponent,
+    ForgetPasswordComponent,
+    ForgetPasswordNextComponent,
+    OrderComponent,
+    ChangePasswordComponent,
+    ProfileComponent,
+    AddressListComponent,
+    // ConfirmPasswordValidatorDirective
   ],
   imports: [
     BrowserModule,
@@ -88,8 +110,13 @@ import { RegistrationComponent } from './pages/registration/registration.compone
     ShareIconsModule,
     FontAwesomeModule,
     ShareModule,
-    CustomFormsModule
+    CustomFormsModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    NgxImgZoomModule,
+    RedZoomModule
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [
     {
       provide: 'SocialAuthServiceConfig',
