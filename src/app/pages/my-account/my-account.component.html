@@ -7,7 +7,7 @@
     <mat-card class="example-card textCenter">
     <img class="profilePic mb-2" src={{profile.customer_proile.profile_img}}><br>
     <mat-label class="nameFont m-3"> {{profile.customer_proile.first_name | titlecase}}&nbsp;{{profile.customer_proile.last_name | titlecase}} </mat-label><br>
-    <button class="button m-1" mat-stroked-button color="basic"><mat-icon>data_usage</mat-icon>Order</button><br>
+    <button class="button m-1" mat-stroked-button color="basic" (click)="change(4)"><mat-icon>data_usage</mat-icon>Order</button><br>
     <button class="button m-1" mat-stroked-button color="basic" (click)="change(1)"><mat-icon>person</mat-icon>Profile</button><br>
     <button class="button m-1" mat-stroked-button color="basic" (click)="change(3)"><mat-icon>format_align_justify</mat-icon>Address</button><br>
     <button class="button m-1" mat-stroked-button color="basic" (click)="change(2)"><mat-icon>transform</mat-icon>Change Password</button><br>
@@ -23,6 +23,9 @@
       </div>
       <div *ngIf="isAddress">
       <app-address-list></app-address-list>
+      </div>
+      <div *ngIf="isOrder">
+        <app-order></app-order>
       </div>
     </div>
     </div>

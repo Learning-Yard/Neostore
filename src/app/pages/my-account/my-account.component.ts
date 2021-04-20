@@ -5,6 +5,7 @@ import { ProfileDataService } from '../../../assets/services/profile-data.servic
 import { ProfileComponent } from '../profile/profile.component'
 import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { AddressListComponent } from '../address-list/address-list.component';
+import { OrderComponent } from '../order/order.component';
 
 export interface DialogData {
   [x: string]: any;
@@ -26,6 +27,7 @@ export class MyAccountComponent implements OnInit {
   isProfile=true;
   isChangePassword=false;
   isAddress=false;
+  isOrder=false;
   key=1;
 
   constructor(private service:ProfileDataService) { }
@@ -40,16 +42,25 @@ export class MyAccountComponent implements OnInit {
       this.isProfile=true;
       this.isChangePassword=false;
       this.isAddress=false;
+      this.isOrder=false;
     }
     if (key===2){
       this.isProfile=false;
       this.isChangePassword=true;
       this.isAddress=false;
+      this.isOrder=false;
     }
     if (key===3){
       this.isProfile=false;
       this.isChangePassword=false;
       this.isAddress=true;
+      this.isOrder=false;
+    }
+    if(key===4){
+      this.isProfile=false;
+      this.isChangePassword=false;
+      this.isAddress=false;      
+      this.isOrder=true;
     }
   }
 }

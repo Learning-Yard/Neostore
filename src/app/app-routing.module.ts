@@ -12,6 +12,7 @@ import { ForgetPasswordNextComponent } from '../app/pages/forget-password-next/f
 import { ProfileComponent } from '../app/pages/profile/profile.component'
 import { ChangePasswordComponent } from '../app/pages/change-password/change-password.component';
 import { ChangeAddressComponent } from '../app/pages/change-address/change-address.component';
+import { ThankYouComponent } from '../app/pages/thank-you/thank-you.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,7 @@ const routes: Routes = [
   {path: 'profile' , component:ProfileComponent},
   {path: 'change-password' , component:ChangePasswordComponent},
   {path: 'change-address' , component:ChangeAddressComponent},
+  {path: 'thank-you' , component:ThankYouComponent },
 ];
 
 @NgModule({

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RedZoomModule } from 'ngx-red-zoom';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthconfirmGuard } from '../assets/services/authconfirm.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { CardsComponent } from './pages/cards/cards.component';
@@ -53,6 +54,7 @@ import { OrderComponent } from './pages/order/order.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { AddressListComponent } from './pages/address-list/address-list.component';
+import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 
 // const config = new SocialAuthService([
 //   id:GoogleLoginProvider.PROVIDER_ID,
@@ -80,6 +82,7 @@ import { AddressListComponent } from './pages/address-list/address-list.componen
     ChangePasswordComponent,
     ProfileComponent,
     AddressListComponent,
+    ThankYouComponent,
     // ConfirmPasswordValidatorDirective
   ],
   imports: [
@@ -117,7 +120,7 @@ import { AddressListComponent } from './pages/address-list/address-list.componen
     RedZoomModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  providers: [
+  providers: [AuthconfirmGuard,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

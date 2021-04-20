@@ -20,4 +20,13 @@ public address_list:any=[];
     this.address_list = this.address_service.senddata();
     console.log(this.address_list);
   }
+
+  del_address(i:number){
+    this.address_service.deleteItem(i);
+  }
+
+  edit_address(i:number){
+    this.address_service.editItem(i);
+  }
+
 }

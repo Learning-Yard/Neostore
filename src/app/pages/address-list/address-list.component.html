@@ -1,7 +1,7 @@
 <div class="profileHeading">
     <h1 class="text">Address</h1>
 </div>
-<div *ngFor="let address of address_list">
+<div *ngFor="let address of address_list;let i=index;">
 <mat-card>
 <div class="row">
     <div class="col-9">    
@@ -17,13 +17,13 @@
 {{address.country}}
 </tr><br>
 <tr>
-    <button mat-stroked-button><mat-icon>edit</mat-icon>Edit</button>
+    <button mat-stroked-button (click)="edit_address(i)"><mat-icon>edit</mat-icon>Edit</button>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="col-3">
-    <button mat-stroked-button><mat-icon>delete</mat-icon>Delete</button>
+    <button mat-stroked-button (click)="del_address(i)"><mat-icon>delete</mat-icon>Delete</button>
 </div>
 </div>
 </mat-card>

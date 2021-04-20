@@ -23,12 +23,21 @@ export class AddressManupulationService {
     this.address_length = this.Filterarray.length;
     console.log(_id);
 }
-// editItem(_id: number){
-//   let title = this.Filterarray[_id-1].c;
-//   let result = prompt("Edit Task Title", title);
-//   if (result !== null && result !== ""){
-//     this.Filterarray[_id-1].title = result;
-//   }
+editItem(_id: number){
+  let address = this.Filterarray[_id-1].address;
+  let city = this.Filterarray[_id-1].city;
+  let pincode = this.Filterarray[_id-1].pincode;
+  let country = this.Filterarray[_id-1].country;
+  let result1:any = prompt("Edit Address", address);
+  let result2:any = prompt("Edit City", city);
+  // let result3 = prompt("Edit Task Title", pincode);
+  let result4:any = prompt("Edit Country", country);
+  if ((result1 !== null && result1 !== "") || (result2 !== null && result2 !== "") || (result4 !== null && result4 !== "")){
+    this.Filterarray[_id-1].address = result1;
+    this.Filterarray[_id-1].city = result2;
+    this.Filterarray[_id-1].country = result4;
+  }
+}
 senddata(){
   return this.Filterarray;
 }
