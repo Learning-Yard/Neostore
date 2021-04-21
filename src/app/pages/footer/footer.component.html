@@ -29,8 +29,8 @@
         <h2 class="mt-lg-0 mt-sm-4" style="text-align: center !important;">Location</h2>
         <p>Signup to get exclusive offer from our </p>
         <p>favourite brands and to be well up in the news.</p>
-        <p><input type="text" placeholder="your email..."></p>
-        <button class="btn btn-light" style="padding: 3px ; width: 120px;">Subscribe</button>
+        <p><input type="text" pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" placeholder="your email..."></p>
+        <button class="btn btn-light" style="padding: 3px ; width: 120px;" [routerLink]="['/thank-you']" routerLinkActive="router-link-active" >Subscribe</button>
 
       </div>
     </div>

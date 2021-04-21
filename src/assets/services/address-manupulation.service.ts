@@ -10,8 +10,11 @@ export class AddressManupulationService {
   public address_length= this.Filterarray.length;
   public userDataId: any
   public DataId: any
+  public i:number=0;
 
   constructor() { }
+// recieveindex(){
+// }
 
   addItem(event:any){
     this.Filterarray.push(event)
@@ -23,20 +26,25 @@ export class AddressManupulationService {
     this.address_length = this.Filterarray.length;
     console.log(_id);
 }
-editItem(_id: number){
-  let address = this.Filterarray[_id-1].address;
-  let city = this.Filterarray[_id-1].city;
-  let pincode = this.Filterarray[_id-1].pincode;
-  let country = this.Filterarray[_id-1].country;
-  let result1:any = prompt("Edit Address", address);
-  let result2:any = prompt("Edit City", city);
-  // let result3 = prompt("Edit Task Title", pincode);
-  let result4:any = prompt("Edit Country", country);
-  if ((result1 !== null && result1 !== "") || (result2 !== null && result2 !== "") || (result4 !== null && result4 !== "")){
-    this.Filterarray[_id-1].address = result1;
-    this.Filterarray[_id-1].city = result2;
-    this.Filterarray[_id-1].country = result4;
-  }
+editItem(_id: number, _editinfo:{address:string , city:string , state:string , pincode:number , country:string}){
+  // let address = this.Filterarray[_id].address;
+  // let city = this.Filterarray[_id].city;
+  // let pincode = this.Filterarray[_id].pincode;
+  // let country = this.Filterarray[_id].country;
+  this.Filterarray[_id].address = _editinfo.address;
+  this.Filterarray[_id].city = _editinfo.city;
+  this.Filterarray[_id].pincode = _editinfo.pincode;
+  this.Filterarray[_id].country = _editinfo.country;
+
+  // let result1:any = prompt("Edit Address", address);
+  // let result2:any = prompt("Edit City", city);
+  // // let result3 = prompt("Edit Task Title", pincode);
+  // let result4:any = prompt("Edit Country", country);
+  // if ((result1 !== null && result1 !== "") || (result2 !== null && result2 !== "") || (result4 !== null && result4 !== "")){
+  //   this.Filterarray[_id].address = result1;
+  //   this.Filterarray[_id].city = result2;
+  //   this.Filterarray[_id].country = result4;
+  // }
 }
 senddata(){
   return this.Filterarray;

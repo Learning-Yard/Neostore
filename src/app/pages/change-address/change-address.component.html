@@ -1,1 +1,112 @@
-<p>change-address works!</p>
+<h1 mat-dialog-title>Edit Your Information</h1>
+<div mat-dialog-content>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <!-- First Name -->
+        <mat-form-field class="example-full-width">
+          <input
+            type="text"
+            matInput
+            [formControl]="AddressFormControl"
+            placeholder="Address"
+          />
+          <mat-error
+            *ngIf="
+              AddressFormControl.hasError('required')
+            "
+          >
+          Address required
+          </mat-error>
+          </mat-form-field>
+        <br />
+        <!-- City -->
+        <mat-form-field class="example-full-width">
+          <input
+            type="text"
+            matInput
+            [formControl]="CityFormControl"
+            placeholder="City"
+          />
+          <mat-error
+            *ngIf="
+              CityFormControl.hasError('required')
+            "
+          >
+            City required
+          </mat-error>
+        </mat-form-field>
+        <br />
+
+        <mat-form-field class="example-full-width">
+            <input
+              type="text"
+              matInput
+              [formControl]="PincodeFormControl"
+              placeholder="Pincode"
+            />
+            <mat-error
+              *ngIf="
+              PincodeFormControl.hasError('required')
+              "
+            >
+            Pincode required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input
+              type="text"
+              matInput
+              [formControl]="StateFormControl"
+              placeholder="State"
+            />
+            <mat-error
+              *ngIf="
+              StateFormControl.hasError('required')
+              "
+            >
+            State required
+            </mat-error>
+          </mat-form-field>          
+
+          <mat-form-field class="example-full-width">
+            <input
+              type="text"
+              matInput
+              [formControl]="CountryFormControl"
+              placeholder="Country"
+            />
+            <mat-error
+              *ngIf="
+              CountryFormControl.hasError('required')
+              "
+            >
+            Country required
+            </mat-error>
+          </mat-form-field> 
+          
+      </div>
+    </div>
+  </div>
+
+  <!-- Show this demonstrate to mentor that value is not visible in matInput -->
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button
+    mat-button
+    [mat-dialog-close]="data.animal"
+    cdkFocusInitial
+    [disabled]="
+    AddressFormControl.invalid ||
+    CityFormControl.invalid ||
+    PincodeFormControl.invalid ||
+    StateFormControl.invalid ||
+    CountryFormControl.invalid
+    "
+    (click)="onSubmit(AddressFormControl.value,CityFormControl.value,PincodeFormControl.value,StateFormControl.value,CountryFormControl.value)"
+  >
+    Ok
+  </button>
+</div>

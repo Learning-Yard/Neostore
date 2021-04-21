@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import Address from '../../../assets/data/dummy_address.json';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogData, AddressListComponent } from '../address-list/address-list.component';
+import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { AddressManupulationService } from '../../../assets/services/address-manupulation.service';
+
 
 @Component({
   selector: 'app-change-address',
@@ -8,31 +12,62 @@ import Address from '../../../assets/data/dummy_address.json';
 })
 export class ChangeAddressComponent implements OnInit {
 
-  public Address_List:{success:boolean,status_code:number,customer_address:{address_id:number , customer_id:number , address:string , pincode:number , city:string , state:string , country:string , isDeliveryAddress:boolean , createdAt:string , updatedAt:string}[]}= Address;
-  // public uid=(<HTMLElement> document.getElementById("id"));
-  public Filterarray=this.Address_List.customer_address;
-  public userDataId: any
-  public DataId: any
 
-  constructor() { }
 
+  constructor(    public dialogRef: MatDialogRef<AddressListComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData , private data1: AddressManupulationService) { }
+
+  
   ngOnInit(): void {
-    console.log(this.Filterarray);
+    
+  }
+  public userData = this.data1.senddata();
+  // index = this.al.sendindex()
+  address = this.userData[0].address;
+  city = this.userData[0].city;
+  pincode = this.userData[0].pincode;
+  country = this.userData[0].country;
+
+  AddressFormControl = new FormControl(this.address, [
+    Validators.required,
+  ]);
+
+  CityFormControl = new FormControl(this.city, [
+    Validators.required,
+  ]);
+
+  PincodeFormControl = new FormControl(this.pincode, [
+    Validators.required,
+  ]);
+
+  StateFormControl = new FormControl(this.country, [
+    Validators.required,
+  ]);
+
+  CountryFormControl = new FormControl(this.country, [
+    Validators.required,
+  ]);
+
+  onSubmit(
+    _address: string,
+    city: string,
+    pincode: number,
+    state: string,
+    country: string,
+  ) {
+    // console.log(data );
+    let editInfo = {
+      address: _address,
+      city: city,
+      state : state,
+      pincode: pincode,
+      country: country,
+    };
+    console.log(editInfo);
+    // this.data1.editItem(this.index,editInfo)
   }
 
-  addItem(event:any){
-    this.Filterarray.push(event)
-    console.log('filterarray new',this.Filterarray);
+  onNoClick(): void {
+    this.dialogRef.close();
   }
-  public deleteItem(_id: any) {
-    this.Filterarray.splice(_id-1, 1);
-    console.log(_id);
-}
-// editItem(_id: number){
-//   let title = this.Filterarray[_id-1].c;
-//   let result = prompt("Edit Task Title", title);
-//   if (result !== null && result !== ""){
-//     this.Filterarray[_id-1].title = result;
-//   }
-
 }

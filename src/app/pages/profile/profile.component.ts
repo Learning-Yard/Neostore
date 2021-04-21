@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
   profile:any=[]
   name: any;
   animal: any;
-
+  
   constructor(private service:ProfileDataService , public dialog: MatDialog) { }
 
   ngOnInit(): void {

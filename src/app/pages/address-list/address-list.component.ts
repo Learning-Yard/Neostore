@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AddressManupulationService } from '../../../assets/services/address-manupulation.service';
+import {MatDialog} from '@angular/material/dialog';
+import { ChangeAddressComponent } from '../change-address/change-address.component';
+
+export interface DialogData {
+  [x: string]: any;
+  animal: string;
+  name: string;
+  }
 
 @Component({
   selector: 'app-address-list',
@@ -8,7 +16,15 @@ import { AddressManupulationService } from '../../../assets/services/address-man
 })
 export class AddressListComponent implements OnInit {
 public address_list:any=[];
-  constructor(private address_service:AddressManupulationService) { }
+  name: any;
+  animal: any;
+  address: any;
+  city: any;
+  state: any;
+  pincode: any;
+  country: any;
+  i=0;
+  constructor(private address_service:AddressManupulationService , public dialog: MatDialog) { }
 
   
 
@@ -21,12 +37,24 @@ public address_list:any=[];
     console.log(this.address_list);
   }
 
+  // sendindex(i:number){
+    
+  // }
+
   del_address(i:number){
     this.address_service.deleteItem(i);
   }
 
-  edit_address(i:number){
-    this.address_service.editItem(i);
-  }
+  // edit_address(i:number){
+  //   this.address_service.editItem(i);
+  // }
 
+  openDialog(i:number): void {
+    const dialogRef = this.dialog.open(ChangeAddressComponent, {
+      width: 'auto',
+      data: {address: this.address, city:this.city , state:this.state , pincode: this.pincode , country:this.country}
+    });
+    this.i=i;
+    // this.sendindex(i);
+}
 }
