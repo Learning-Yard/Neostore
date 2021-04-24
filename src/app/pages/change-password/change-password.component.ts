@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators , ValidatorFn, AbstractControl } from '@angular/forms';
+import { ApiService } from '../../../assets/services/api.service';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-change-password',
@@ -18,14 +20,13 @@ export class ChangePasswordComponent implements OnInit {
     confirm_password: new FormControl(''),
   });
 
-  constructor() { }
-  old_password="123kokoko"
+  constructor(private api:ApiService , private route:Router) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      password: new FormControl('', [Validators.required, Validators.pattern('this.old_password')]),
-      new_password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(14), Validators.pattern('[a-zA-Z0-9\s]+')]),
-      confirm_password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(14), Validators.pattern('[a-zA-Z0-9\s]+')]),
+      password: new FormControl('', [Validators.required]),
+      new_password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(14), Validators.pattern('[a-zA-Z0-9\s]+')]),
+      confirm_password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(14), Validators.pattern('[a-zA-Z0-9\s]+')]),
     }
     );
   }
@@ -36,6 +37,17 @@ export class ChangePasswordComponent implements OnInit {
 
   submit(){
     console.log("Saved");
+    let token = localStorage.getItem("user.data.token");
+    let formdata={password:this.form.value.password , newPassword:this.form.value.new_password};
+    console.log(formdata)
+    this.api.changePassword(formdata).subscribe(
+      ((res:any) => {
+      console.log(res);  
+      this.route.navigate(['/dashboard/']);
+    }),(error)=>{
+      alert('Invalid Password')
+      console.log('from catch');
+    })
   }
 
 }

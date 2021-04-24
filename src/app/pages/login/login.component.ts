@@ -4,6 +4,7 @@ import { SocialAuthService, SocialUser } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import { RouterModule, Router } from '@angular/router';
 import { AuthcheckService } from '../../../assets/services/authcheck.service';
+import { ApiService } from '../../../assets/services/api.service';
 
 @Component({
   selector: 'app-login',
@@ -15,16 +16,18 @@ export class LoginComponent implements OnInit {
   success: string = "";
   user!: SocialUser;
   hide = true;
+  
   /**
-   * username : Username of the user
+   * email : Email of the user
    * passsword : password of the user
    * @type {FormGroup}
    * @memberof LoginComponent
    */
   form: FormGroup = new FormGroup({
-    username: new FormControl(''),
+    email: new FormControl(''),
     password: new FormControl(''),
   });
+
   /**
    * Creates an instance of LoginComponent.
    * @param {SocialAuthService} authService // Social Auth Service for FB and Google login
@@ -32,11 +35,10 @@ export class LoginComponent implements OnInit {
    * @param {AuthcheckService} service // authcheckservice has all checking functionality of the auth functions in this file
    * @memberof LoginComponent
    */
-  constructor(public authService: SocialAuthService, private routes: Router, private service: AuthcheckService) { }
+  constructor(public authService: SocialAuthService, private service: AuthcheckService , private base:ApiService , private routes: Router ) { }
 
   // Subcription to Provider ID of the social login api which gives account info as object in user object
   ngOnInit() {
-    console.log("On Init Call");
   }
   // Call to Sigin in via google in service
   signInWithGoogle() {
@@ -63,14 +65,28 @@ export class LoginComponent implements OnInit {
   submit() {
     if (this.form.valid) {
       this.submitEM.emit(this.form.value);
-      // console.log(this.form.value);
-      if ((this.form.value.username != "admin") && (this.form.value.password != "super")) {
-        this.error = "Invalid Credentials";
-      }
-      else {
-        this.success = "Sign in Successfull";
+      let formdata = this.form.value;
+      console.log(formdata);
+      this.base.loginCheck(formdata).subscribe(
+        ((res:any) => {
+        localStorage.setItem("user",JSON.stringify(res.data))
         this.routes.navigate(['/dashboard/']);
-      }
+      }),(error)=>{
+        alert('Invalid username or password')
+        console.log('from catch');
+      })
+      // .catch((res:any) => {
+      //   alert('Invalid username or password')
+      //   console.log('from catch',res)
+      // });
+      // // console.log(this.form.value);
+      // if ((this.form.value.email != "admin") && (this.form.value.password != "super")) {
+      //   this.error = "Invalid Credentials";
+      // }
+      // else {
+      //   this.success = "Sign in Successfull";
+      //   
+      // }
     }
   }
 

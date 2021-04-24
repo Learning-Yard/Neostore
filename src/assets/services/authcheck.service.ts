@@ -59,12 +59,12 @@ sendData(name:string){
 
 // Signout Call Coming from Login Component
   signOut(): void {
-    this.authService.signOut();
-    this.subcriber();
-    if(localStorage.getItem("name")!=null){
+    // this.authService.signOut();
+    // this.subcriber();
+    // if(localStorage.getItem("username")!=null){
     localStorage.clear();
     this.routes.navigate(['/login/']);
-    }
+    // }
     // console.log("Logged Out");
     // console.log(this.user);
   }

@@ -1,0 +1,33 @@
+mat-expansion-panel{
+    width: 80%;
+}
+
+@media screen and (max-width: 890px) and (min-width: 800px){
+    mat-expansion-panel{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 799px) and (min-width: 730px){
+    mat-expansion-panel{
+        width: 110%;
+    }
+}
+
+@media screen and (max-width: 729px) and (min-width: 630px){
+    mat-expansion-panel{
+        width: 120%;
+    }
+}
+
+@media screen and (max-width: 629px) and (min-width: 576px){
+    mat-expansion-panel{
+        width: 120%;
+    }
+}
+.headFont{
+    font-size: xx-large;
+    font-weight: bold;
+ }
+ .textCenter{
+     text-align: center;
+ }

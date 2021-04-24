@@ -13,6 +13,7 @@ import { ProfileComponent } from '../app/pages/profile/profile.component'
 import { ChangePasswordComponent } from '../app/pages/change-password/change-password.component';
 import { ChangeAddressComponent } from '../app/pages/change-address/change-address.component';
 import { ThankYouComponent } from '../app/pages/thank-you/thank-you.component';
+import { ProductsComponent } from '../app/pages/products/products.component'
 
 const routes: Routes = [
   {
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path: 'change-password' , component:ChangePasswordComponent},
   {path: 'change-address' , component:ChangeAddressComponent},
   {path: 'thank-you' , component:ThankYouComponent },
+  {path: 'products' , component:ProductsComponent },
 ];
 
 @NgModule({

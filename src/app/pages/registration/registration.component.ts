@@ -5,6 +5,7 @@ import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-logi
 import { RouterModule, Router } from '@angular/router';
 import { AuthcheckService } from '../../../assets/services/authcheck.service';
 import { CustomValidators } from 'ngx-custom-validators';
+import { ApiService } from '../../../assets/services/api.service';
 // import { ConfirmPasswordValidatorDirective } from '../../../assets/validator/confirm_password_validator.directive';
 
 @Component({
@@ -48,13 +49,13 @@ export class RegistrationComponent implements OnInit {
    * @param {AuthcheckService} service // custom authchecker service where validation is performed 
    * @memberof RegistrationComponent
    */
-  constructor(public authService: SocialAuthService, private routes: Router, private service: AuthcheckService) { }
+  constructor(public authService: SocialAuthService, private routes: Router, private service: AuthcheckService , private api:ApiService) { }
 
   // Subcription to Provider ID of the social login api which gives account info as object in user object
   ngOnInit(): void {
     this.form = new FormGroup({
-      f_name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20), Validators.pattern('[a-zA-Z]*')]),
-      l_name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20), Validators.pattern('[a-zA-Z]*')]),
+      f_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern('[a-zA-Z]*')]),
+      l_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern('[a-zA-Z]*')]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(14), Validators.pattern('[a-zA-Z0-9\s]+')]),
       confirm_password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(14), Validators.pattern('[a-zA-Z0-9\s]+')]),
@@ -122,6 +123,16 @@ export class RegistrationComponent implements OnInit {
     if (this.form.valid) {
       this.submitEM.emit(this.form.value);
       console.log(this.form.value)
+      let formdata = this.form.value;
+      this.api.registrationCheck(formdata).subscribe((info) =>{
+        console.log("data :",info);
+        this.routes.navigate(['/login']);
+        },(error) => {
+          let msg
+          msg = error
+          console.log(error);
+          alert(msg.error.message)
+        })
       // console.log(this.form.value);
       // if ((this.form.value.username!="admin") && (this.form.value.password!="super")){
       //   this.error="Invalid Credentials";

@@ -21,6 +21,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule} from "@angular/material/toolbar";
 import { MatSidenavModule } from '@angular/material/sidenav'
 import {  MatButtonModule } from '@angular/material/button'
+import { HttpClientModule } from '@angular/common/http';
 import { MatListModule } from '@angular/material/list'
 import { MatIconModule } from '@angular/material/icon'
 import { MatMenuModule } from '@angular/material/menu'
@@ -55,6 +56,9 @@ import { ChangePasswordComponent } from './pages/change-password/change-password
 import { ProfileComponent } from './pages/profile/profile.component';
 import { AddressListComponent } from './pages/address-list/address-list.component';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
+import { ProductsComponent } from './pages/products/products.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+
 
 // const config = new SocialAuthService([
 //   id:GoogleLoginProvider.PROVIDER_ID,
@@ -83,6 +87,7 @@ import { ThankYouComponent } from './pages/thank-you/thank-you.component';
     ProfileComponent,
     AddressListComponent,
     ThankYouComponent,
+    ProductsComponent,
     // ConfirmPasswordValidatorDirective
   ],
   imports: [
@@ -117,7 +122,9 @@ import { ThankYouComponent } from './pages/thank-you/thank-you.component';
     MatDatepickerModule,
     MatDialogModule,
     NgxImgZoomModule,
-    RedZoomModule
+    RedZoomModule,
+    HttpClientModule,
+    NgxPaginationModule,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [AuthconfirmGuard,

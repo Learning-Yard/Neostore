@@ -16,16 +16,14 @@
           <!-- Cart -->
           <a mat-button><span matBadge="8" matBadgePosition="after" matBadgeColor="accent" (click)="gotocart()"><img src="../../assets/images/cart.svg" width="28px" height="28px"></span></a>
           <!-- User Options -->
-          <a class="dropdown">
             <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img src="https://img.icons8.com/cotton/24/000000/person-male--v2.png"/>{{user}}
+              <img src="https://img.icons8.com/cotton/24/000000/person-male--v2.png"/>{{username?.firstName | titlecase }} {{username?.lastName | titlecase}}
             </button>
             <a class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" [routerLink]="['/login']" routerLinkActive="router-link-active" >Login</a>
               <a class="dropdown-item" (click)="signout()">Logout</a>
               <a class="dropdown-item" [routerLink]="['/my-account']">Profile</a>
-            </a>
-          </a>         
+            </a>        
         </div>
       </mat-toolbar-row>
     </mat-toolbar>

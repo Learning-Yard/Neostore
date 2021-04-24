@@ -12,10 +12,10 @@ import { RouterModule , Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
   user = localStorage.getItem("name");
+  username =     JSON.parse(localStorage.getItem("user")+"");
   constructor(private service: AuthcheckService , private router:Router) { }
 
   ngOnInit(): void {
-    console.log(this.user);
   }
 
   gotocart(){

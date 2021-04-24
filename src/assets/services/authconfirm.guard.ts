@@ -10,7 +10,7 @@ export class AuthconfirmGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
-      if((localStorage.getItem("name"))!= null){
+      if((localStorage.getItem("user"))!= null){
     return true;
     }else{
       this.routes.navigate(['/login']);
