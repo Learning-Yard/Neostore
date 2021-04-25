@@ -15,47 +15,12 @@
                 </mat-expansion-panel-header>
   
                 <div *ngFor="let subtask of category; let i = index">
-                  <form #myForm="ngForm">
-                    <mat-checkbox
-                      type="checkbox"
-                      #a="ngModel"
-                      [(ngModel)]="shown[i]"
-                      name="{{ i }}"
-                      (click)="getCategory(a.value, subtask)"
-                      >{{ subtask }} {{ i }}
-                    </mat-checkbox>
-                  </form>
+                  <!-- <form #myForm="ngForm"> -->
+                  <p class="m-2 p-1 pointer" (click)="onCategoryClicked()">
+                    {{ subtask }}
+                  </p>
+                  <!-- </form> -->
                 </div>
-  
-                <div *ngIf="shown">
-                  <p>abc</p>
-                </div>
-  
-                <form [formGroup]="form" (ngSubmit)="submit()">
-                  <div class="form-group">
-                    <label for="website">Website:</label>
-  
-                    <div *ngFor="let web of category">
-                      <label>
-                        <input
-                          type="checkbox"
-                          [value]="web"
-                          (change)="onCheckboxChange($event)"
-                        />
-  
-                        {{ web }}
-                      </label>
-                    </div>
-                  </div>
-  
-                  <button
-                    class="btn btn-primary"
-                    type="submit"
-                    [disabled]="!form.valid"
-                  >
-                    Submit
-                  </button>
-                </form>
   
                 <!-- <button mat-raised-button (click)="applyCategory(checkBox.value)">Apply</button> -->
   
@@ -78,25 +43,10 @@
                 </mat-expansion-panel-header>
   
                 <div *ngFor="let subtask of categoryColor; let i = index">
-                  <label>
-                  <input
-                    type="checkbox"
-                    id="{{ i }}"
-                    class="categoryClass"
-                    (click)="getColor(subtask)"
-                  />
-  
-                  {{ subtask }} {{ i }}
-                </label>
+                  <p class="m-2 p-1 pointer" (click)="onColorClicked()">
+                    {{ subtask }}
+                  </p>
                 </div>
-  
-                <button mat-raised-button (click)="applyColor()">Apply</button>
-                
-  
-                <mat-form-field>
-                  <mat-label>Age</mat-label>
-                  <input matInput type="number" min="1" />
-                </mat-form-field>
               </mat-expansion-panel>
             </mat-accordion>
           </div>
@@ -104,6 +54,23 @@
       </div>
       <div class="col-lg-9 col-sm-12">
         <!-- <app-homepage-card></app-homepage-card> -->
+        <div class="row m-4">
+          <div style="text-align: end">
+            <!-- <div class="col" > -->
+  
+            <span class="m-2 pointer" (click)="onRatingSortDesc()"
+              >Rating<mat-icon>arrow_downward</mat-icon>
+            </span>
+            <span class="m-2 pointer" (click)="onPriceSortAsc()"
+              >Price<mat-icon>arrow_upward</mat-icon>
+            </span>
+            <span class="m-2 pointer" (click)="onPriceSortDesc()"
+              >Price<mat-icon>arrow_downward</mat-icon>
+            </span>
+  
+            <!-- </div> -->
+          </div>
+        </div>
         <div class="row">
           <div
             class="col-sm-6 col-lg-4 mb-4 card-margin"
@@ -140,6 +107,7 @@
                     mat-raised-button
                     color="primary"
                     style="text-align: center"
+                    (click)="addToCart(product.id)"
                   >
                     Add to Cart
                   </button>

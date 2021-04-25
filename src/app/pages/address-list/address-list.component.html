@@ -1,29 +1,35 @@
 <div class="profileHeading">
     <h1 class="text">Address</h1>
 </div>
-<div *ngFor="let address of address_list;let i=index;">
+<div class="col-3">
+    <button mat-stroked-button (click)="openDialog2()"><mat-icon>add</mat-icon>Add</button>
+</div>
+<div *ngFor="let address of addresses;let i=index;">
 <mat-card>
 <div class="row">
     <div class="col-9">    
     <table class="table">
         <tbody>
             <tr>
-{{address.address}}
+<p>{{address.addressLine}}</p>
 </tr>
 <tr>
-{{address.city}} : {{address.pincode}}
+<p>{{address.city}} : {{address.pincode}}</p>
 </tr>
 <tr>
-{{address.country}}
+    <p>{{address.state}}</p>
+</tr>
+<tr>   
+<p>{{address.country}}</p>
 </tr><br>
 <tr>
-    <button mat-stroked-button (click)="openDialog(i)"><mat-icon>edit</mat-icon>Edit</button>
+    <button mat-stroked-button (click)="openDialog(address.addressLine ,address.city , address.pincode , address.state , address.country , address._id)"><mat-icon>edit</mat-icon>Edit</button>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="col-3">
-    <button mat-stroked-button (click)="del_address(i)"><mat-icon>delete</mat-icon>Delete</button>
+    <button mat-stroked-button (click)="del_address(address._id)"><mat-icon>delete</mat-icon>Delete</button>
 </div>
 </div>
 </mat-card>

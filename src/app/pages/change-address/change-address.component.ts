@@ -3,53 +3,63 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData, AddressListComponent } from '../address-list/address-list.component';
 import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AddressManupulationService } from '../../../assets/services/address-manupulation.service';
-
+import { ApiService } from '../../../assets/services/api.service';
 
 @Component({
   selector: 'app-change-address',
   templateUrl: './change-address.component.html',
   styleUrls: ['./change-address.component.scss']
 })
+
 export class ChangeAddressComponent implements OnInit {
-
-
-
+public userData:any={};
   constructor(    public dialogRef: MatDialogRef<AddressListComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData , private data1: AddressManupulationService) { }
+    @Inject(MAT_DIALOG_DATA) public data: DialogData , private data1: AddressManupulationService , private api:ApiService) { }
 
   
-  ngOnInit(): void {
-    
+
+  ngOnInit(){
+    // this.sub();
   }
-  public userData = this.data1.senddata();
+  sub(){
+    this.api.listAdress().subscribe((data)=>{
+      console.log(data);
+    });
+  }
+// sub(){
+//   this.api.listAdress().subscribe((data)=>{
+//     this.userData = data;
+//     console.log(data)
+//   });
+// }
   // index = this.al.sendindex()
-  address = this.userData[0].address;
-  city = this.userData[0].city;
-  pincode = this.userData[0].pincode;
-  country = this.userData[0].country;
+  // addressLine = this.userData.addressLine;
+  // city = this.userData.city;
+  // pincode = this.userData.pincode;
+  // country = this.userData.country;
 
-  AddressFormControl = new FormControl(this.address, [
+  AddressFormControl = new FormControl(this.data.addressList, [
     Validators.required,
   ]);
 
-  CityFormControl = new FormControl(this.city, [
+  CityFormControl = new FormControl(this.data.city, [
     Validators.required,
   ]);
 
-  PincodeFormControl = new FormControl(this.pincode, [
+  PincodeFormControl = new FormControl(this.data.pincode, [
     Validators.required,
   ]);
 
-  StateFormControl = new FormControl(this.country, [
+  StateFormControl = new FormControl(this.data.state, [
     Validators.required,
   ]);
 
-  CountryFormControl = new FormControl(this.country, [
+  CountryFormControl = new FormControl(this.data.country, [
     Validators.required,
   ]);
 
   onSubmit(
-    _address: string,
+    addressLine: string,
     city: string,
     pincode: number,
     state: string,
@@ -57,17 +67,21 @@ export class ChangeAddressComponent implements OnInit {
   ) {
     // console.log(data );
     let editInfo = {
-      address: _address,
+      addressLine: addressLine,
       city: city,
       state : state,
       pincode: pincode,
       country: country,
     };
     console.log(editInfo);
+    this.api.updateAdress(editInfo,this.data.id).subscribe((data)=>{
+      console.log(data);
+    });
     // this.data1.editItem(this.index,editInfo)
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close('true');
+    this.sub();
   }
 }

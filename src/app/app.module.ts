@@ -58,6 +58,7 @@ import { AddressListComponent } from './pages/address-list/address-list.componen
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { ProductsComponent } from './pages/products/products.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { AddAddressComponent } from './pages/add-address/add-address.component';
 
 
 // const config = new SocialAuthService([
@@ -88,6 +89,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     AddressListComponent,
     ThankYouComponent,
     ProductsComponent,
+    AddAddressComponent,
     // ConfirmPasswordValidatorDirective
   ],
   imports: [

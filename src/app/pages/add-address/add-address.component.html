@@ -1,6 +1,4 @@
-<h1 mat-dialog-title>Edit Your Information</h1>
-{{data.pincode}}
-<input value="{{data.pincode}}">
+<h1 mat-dialog-title>Add New Address</h1>
 <div mat-dialog-content>
   <div class="container">
     <div class="row">
@@ -98,6 +96,7 @@
   <button mat-button (click)="onNoClick()">No Thanks</button>
   <button
     mat-button
+    [mat-dialog-close]="data.animal"
     [disabled]="
     AddressFormControl.invalid ||
     CityFormControl.invalid ||
@@ -106,7 +105,6 @@
     CountryFormControl.invalid
     "
     (click)="onSubmit(AddressFormControl.value,CityFormControl.value,PincodeFormControl.value,StateFormControl.value,CountryFormControl.value)"
-    (click)="onNoClick()"
   >
     Ok
   </button>
