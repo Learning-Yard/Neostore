@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/assets/services/api.service';
 
 @Component({
   selector: 'app-carousel',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarouselComponent implements OnInit {
 
-  constructor() { }
+  constructor(private api:ApiService) { }
+
+  public carouselImg:any
 
   ngOnInit(): void {
-  }
-
+    this.api.listAllCategoryGet().subscribe(
+      (info) => {
+        this.carouselImg = info
+        console.log("category:",info);
+        
+        console.log(this.carouselImg.data[0].image);
+        
+      });
+    }
+  
 }

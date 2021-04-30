@@ -1,20 +1,20 @@
 <div *ngFor="let orders of order_listing;let i=index;">
     <mat-card>
-        <div class="row">
+        <div class="row ml-1">
             <h3>Order ID / {{orders._id}}</h3><br>
         </div>
-        <div clas="row">
-            <h5>Placed At: {{orders.productId.createdAt | date}}</h5>
+        <div clas="row ml-2">
+            <h4>Placed At: {{orders.productId.createdAt | date}} / {{orders.productId.price | currency:'INR' }}</h4>
         </div>
         <hr>
         <div class="row">
             <div class="col-3">
-                <img src={{orders.productId.mainImage}} height="50vh" width="50vh" />
+                <img src={{orders.productId.mainImage}} height="60vh" width="60vh" />
             </div>
         </div><br>
         <div class="row">
-            <button mat-raised-button color=accent>Download Invoice</button>
+            <button mat-raised-button class="ml-2" color=accent>Download Invoice</button>
         </div>
 
-    </mat-card>
+    </mat-card><br>
 </div>

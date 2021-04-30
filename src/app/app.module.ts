@@ -59,7 +59,11 @@ import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { ProductsComponent } from './pages/products/products.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { AddAddressComponent } from './pages/add-address/add-address.component';
-
+import { DialogCartComponent } from './pages/dialog-cart/dialog-cart.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { NgxUiLoaderModule } from "ngx-ui-loader";
+import { NgRatingModule } from 'd-ng-rating';
+import {MatButtonToggleModule} from '@angular/material/button-toggle'; 
 
 // const config = new SocialAuthService([
 //   id:GoogleLoginProvider.PROVIDER_ID,
@@ -90,6 +94,7 @@ import { AddAddressComponent } from './pages/add-address/add-address.component';
     ThankYouComponent,
     ProductsComponent,
     AddAddressComponent,
+    DialogCartComponent,
     // ConfirmPasswordValidatorDirective
   ],
   imports: [
@@ -127,6 +132,10 @@ import { AddAddressComponent } from './pages/add-address/add-address.component';
     RedZoomModule,
     HttpClientModule,
     NgxPaginationModule,
+    MatSnackBarModule,
+    NgxUiLoaderModule,
+    NgRatingModule,
+    MatButtonToggleModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [AuthconfirmGuard,

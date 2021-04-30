@@ -2,6 +2,21 @@
 .example-card {
     max-width: auto;
   }
-  // .big_image{
-  //   --red-zoom-thumb-size-max : 300px;
-  // }
+  .big_image{
+    max-width: 65vh;
+    max-height: 65vh;
+  }
+  .thumbnailImg{
+    width: 13vh;
+    height: 13vh;
+  }
+  .example-selected-value {
+    border: lightsteelblue;
+  }
+  @media (max-width: 576px) { 
+  .other{
+    text-align: center;
+    align-items: center;
+    align-content: center;
+  }
+}

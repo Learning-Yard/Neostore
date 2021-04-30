@@ -1,1 +1,127 @@
-<p>checkout works!</p>
+<div class="container mt-5" style="align-items: center">
+    <div class="row">
+        <div class="col-sm-12 col-lg-8 mt-5">
+            <mat-card class="example-card textCenter">
+                <div class="row">
+                    <div class="col-2">
+                        <span>Product</span>
+                    </div>
+                    <div class="col-4">
+                        <span></span>
+                    </div>
+                    <div class="col-3">
+                        <span>Quantity</span>
+                    </div>
+                    <div class="col-1">
+                        <span>Price</span>
+                    </div>
+                    <div class="col-1">
+                        <span>Total</span>
+                    </div>
+                    <div class="col-1">
+                        <span></span>
+                    </div>
+                </div>
+                <div *ngFor="let item of cartInfo?.data.products; let i=index">
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-2 mb-1">
+                            <img class="productImage" src={{item.productId.mainImage}} />
+                        </div>
+                        <div class="col-lg-4 col-xs-8 col-md-4 mb-1" style="text-align: left">
+                            <span class="m-1 productName">{{item.productId.name}} </span><br />
+                            <!-- <span class="m-1 creator text-muted">By {{item.product_id.product_producer}} </span><br /> -->
+                            <span class="m-1">Status:</span><span class="stock"> {{item.quantity>0? "In Stock" : "Out of Stock"}} </span>
+                        </div>
+                        <div class="col-4 col-lg-3 col-sm-4 col-md-3 mb-1">
+                            <button mat-mini-fab (click)="onRemoveClick(item.quantity,item._id)" 
+                                [disabled]="item.quantity ==1"
+                                >
+                                <mat-icon>remove</mat-icon>
+                            </button>
+                            <span><b>&nbsp; {{item.quantity}} &nbsp;</b></span>
+                            <button mat-mini-fab (click)="onAddClick(item.quantity,item._id)">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </div>
+
+                        <!-- price per product -->
+                        <div class="col-3 col-lg-1 col-xs-2 col-sm-3 col-md-1">
+                            <span> {{item.productId.price}} </span>
+                        </div>
+
+                        <!-- total price of single product -->
+                        <div class="col-3 col-lg-1 col-xs-2 col-sm-3 col-md-1">
+                            <span #total> {{item.totalAmount}} </span>
+                        </div>
+
+                        <!-- delete product -->
+                        <div class="col-2 col-lg-1 col-xs-2 col-sm-2 col-md-1">
+                            <mat-icon (click)="onDeleteClick(item.productId.name,item.productId.mainImage,item._id) ">delete_outline</mat-icon>
+                        </div>
+                    </div>
+                    <!-- <hr /> -->
+                </div>
+            </mat-card>
+        </div>
+        <div class="col-sm-12 col-lg-4 mt-5">
+            <mat-card class="example-card ">
+                <div class="container m-3">
+                    <span class="reviewOrderFont">Review Order</span>
+                </div>
+                <!-- <hr> -->
+                
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Subtotal</td>
+                            <td> {{cartInfo?.data.grandTotal | currency:'INR'}} </td>
+                        </tr>
+                        <tr>
+                            <td>GST(5%)</td>
+                            <td> {{(cartInfo?.data.grandTotal*0.05) |number:'1.0-2' | currency:'INR'}} </td>
+                        </tr>
+                        <tr>
+                            <td>Order Total</td>
+                            <td>{{ (cartInfo?.data.grandTotal)+((cartInfo?.data.grandTotal)*0.05) | currency:'INR' }}</td>
+                        </tr>   
+                    </tbody>
+                </table>
+            <div class="textCenter">
+                <button class="proceedToPayButton textCenter" [disabled]="cartInfo?.data.grandTotal == 0" mat-raised-button color="primary" (click)="checkout()">Order Now</button>
+            </div>
+            </mat-card>
+        </div>
+    </div>
+    <h4><mat-icon>person_pin_circle</mat-icon>Select Delivery Address</h4>
+    <div class="row">
+        <div *ngFor="let address of addresses;let i=index;">
+            <mat-card class="mx-2">
+            <div class="row">
+                <div class="col-9">    
+                <table class="table">
+                    <tbody>
+                        <tr>
+            <p>{{address.addressLine}}</p>
+            </tr>
+            <tr>
+            <p>{{address.city}} : {{address.pincode}}</p>
+            </tr>
+            <tr>
+                <p>{{address.state}}</p>
+            </tr>
+            <tr>   
+            <p>{{address.country}}</p>
+            </tr><br>
+            <tr>
+                <button mat-stroked-button color=primary style="text-indent: center;" (click)="data(address._id)">Select</button>
+            </tr>
+            </tbody>
+            </table>
+            </div>
+            </div>
+            </mat-card>
+            </div>        
+    </div>
+</div>

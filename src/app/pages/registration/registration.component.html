@@ -10,26 +10,26 @@
             <!-- First Name -->
             <p>
               <mat-form-field>
-                <input type="text" matInput placeholder="First Name" formControlName="f_name">
-                <mat-error *ngIf="checkError('f_name', 'required')">First Name is required</mat-error>
-                <mat-error *ngIf="checkError('f_name', 'minlength')">First Name should be more than 3 characters
+                <input type="text" matInput placeholder="First Name" formControlName="firstName">
+                <mat-error *ngIf="checkError('firstName', 'required')">First Name is required</mat-error>
+                <mat-error *ngIf="checkError('firstName', 'minlength')">First Name should be more than 3 characters
                 </mat-error>
-                <mat-error *ngIf="checkError('f_name', 'maxlength')">First Name should be less than 20 characters
+                <mat-error *ngIf="checkError('firstName', 'maxlength')">First Name should be less than 20 characters
                 </mat-error>
-                <mat-error *ngIf="checkError('f_name', 'pattern')">Only Alphabets</mat-error>
+                <mat-error *ngIf="checkError('firstName', 'pattern')">Only Alphabets</mat-error>
               </mat-form-field>
             </p>
 
             <!-- Last Name -->
             <p>
               <mat-form-field>
-                <input type="text" matInput placeholder="Last Name" formControlName="l_name">
-                <mat-error *ngIf="checkError('l_name', 'required')">Last Name is required</mat-error>
-                <mat-error *ngIf="checkError('l_name', 'minlength')">Last Name should be more than 5 characters
+                <input type="text" matInput placeholder="Last Name" formControlName="lastName">
+                <mat-error *ngIf="checkError('lastName', 'required')">Last Name is required</mat-error>
+                <mat-error *ngIf="checkError('lastName', 'minlength')">Last Name should be more than 5 characters
                 </mat-error>
-                <mat-error *ngIf="checkError('l_name', 'maxlength')">Last Name should be less than 20 characters
+                <mat-error *ngIf="checkError('lastName', 'maxlength')">Last Name should be less than 20 characters
                 </mat-error>
-                <mat-error *ngIf="checkError('l_name', 'pattern')">Only Alphabets</mat-error>
+                <mat-error *ngIf="checkError('lastName', 'pattern')">Only Alphabets</mat-error>
               </mat-form-field>
             </p>
 
@@ -41,6 +41,26 @@
                 <mat-error *ngIf="checkError('email', 'email')">Invalid Email</mat-error>
               </mat-form-field>
             </p>
+
+            <!-- Phone Number -->
+            <p>
+              <mat-form-field>
+                <input type="text" matInput placeholder="Phone Number" formControlName="mobile">
+                <mat-error *ngIf="checkError('mobile', 'required')">Phone Number is required</mat-error>
+                <!-- <mat-error *ngIf="checkError('phone_number', 'minlength')">Phone Number should be of 10 digits only</mat-error>
+          <mat-error *ngIf="checkError('phone_number', 'maxlength')">Phone Number should be of 10 digits only</mat-error> -->
+                <mat-error *ngIf="checkError('mobile', 'pattern')">Please Enter 10 digit Mobile number only
+                </mat-error>
+              </mat-form-field>
+            </p>
+
+            <!-- Gender -->
+            <p>Gender</p>
+            <mat-radio-group aria-label="Gender" formControlName="gender">
+              <mat-radio-button value="male" color="primary">Male</mat-radio-button>&nbsp;
+              <mat-radio-button value="female" color="primary">Female</mat-radio-button>
+              <mat-error *ngIf="checkError('gender', 'required')">Gender is required</mat-error>
+            </mat-radio-group><br>
 
             <!-- Password -->
             <p>
@@ -79,26 +99,6 @@
                   <!-- <mat-error *ngIf="checkError('confirm_password', 'equalTo')">Error</mat-error> -->
               </mat-form-field>
             </p>
-
-            <!-- Phone Number -->
-            <p>
-              <mat-form-field>
-                <input type="text" matInput placeholder="Phone Number" formControlName="phone_number">
-                <mat-error *ngIf="checkError('phone_number', 'required')">Phone Number is required</mat-error>
-                <!-- <mat-error *ngIf="checkError('phone_number', 'minlength')">Phone Number should be of 10 digits only</mat-error>
-          <mat-error *ngIf="checkError('phone_number', 'maxlength')">Phone Number should be of 10 digits only</mat-error> -->
-                <mat-error *ngIf="checkError('phone_number', 'pattern')">Please Enter 10 digit Mobile number only
-                </mat-error>
-              </mat-form-field>
-            </p>
-
-            <!-- Gender -->
-            <p>Gender</p>
-            <mat-radio-group aria-label="Gender" formControlName="gender">
-              <mat-radio-button value="Male" color="primary">Male</mat-radio-button>&nbsp;
-              <mat-radio-button value="Female" color="primary">Female</mat-radio-button>
-              <mat-error *ngIf="checkError('gender', 'required')">Gender is required</mat-error>
-            </mat-radio-group><br>
 
             <!-- Register -->
             <div class="button">

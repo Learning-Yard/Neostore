@@ -1,32 +1,44 @@
 <div class="container mt-5" style="align-items: center">
-    <div class="row">
+  <div class="row">
     <span class="col-* textCenter headFont">My Acount</span>
-    </div>
-    <div class="row">
+  </div>
+  <div class="row">
     <div class="col-sm-12 col-lg-5 mt-5 ">
-    <mat-card class="example-card textCenter">
-    <img class="profilePic mb-2" src={{profile.customer_proile.profile_img}}><br>
-    <mat-label class="nameFont m-3"> {{profile.customer_proile.first_name | titlecase}}&nbsp;{{profile.customer_proile.last_name | titlecase}} </mat-label><br>
-    <button class="button m-1" mat-stroked-button color="basic" (click)="change(4)"><mat-icon>data_usage</mat-icon>Order</button><br>
-    <button class="button m-1" mat-stroked-button color="basic" (click)="change(1)"><mat-icon>person</mat-icon>Profile</button><br>
-    <button class="button m-1" mat-stroked-button color="basic" (click)="change(3)"><mat-icon>format_align_justify</mat-icon>Address</button><br>
-    <button class="button m-1" mat-stroked-button color="basic" (click)="change(2)"><mat-icon>transform</mat-icon>Change Password</button><br>
-    
-    </mat-card>
+      <mat-card class="example-card textCenter">
+        <img class="profilePic mb-2" src={{profile.customer_proile.profile_img}}><br>
+        <mat-label class="nameFont m-3"> {{profile.customer_proile.first_name |
+          titlecase}}&nbsp;{{profile.customer_proile.last_name | titlecase}} </mat-label><br>
+        <button class="button m-1" mat-raised-button [color]="isOrder===true ? 'accent': 'basic'" (click)="change(4)">
+          <mat-icon>data_usage</mat-icon>Order
+        </button><br>
+        <button class="button m-1" mat-raised-button [color]="this.isProfile===true ? 'accent': 'basic'"
+          (click)="change(1)">
+          <mat-icon>person</mat-icon>Profile
+        </button><br>
+        <button class="button m-1" mat-raised-button [color]="this.isAddress===true ? 'accent': 'basic'"
+          (click)="change(3)">
+          <mat-icon>format_align_justify</mat-icon>Address
+        </button><br>
+        <button class="button m-1" mat-raised-button [color]="this.isChangePassword===true ? 'accent': 'basic'"
+          (click)="change(2)">
+          <mat-icon>transform</mat-icon>Change Password
+        </button><br>
+
+      </mat-card>
     </div>
-    <div class="col-sm-12 col-lg-7 mt-5">
+    <div class="col-sm-12 col-md-12 col-12 col-lg-7 mt-5">
       <div *ngIf="isProfile">
-      <app-profile></app-profile>
+        <app-profile></app-profile>
       </div>
       <div *ngIf="isChangePassword">
-      <app-change-password></app-change-password>
+        <app-change-password></app-change-password>
       </div>
       <div *ngIf="isAddress">
-      <app-address-list></app-address-list>
+        <app-address-list></app-address-list>
       </div>
       <div *ngIf="isOrder">
         <app-order></app-order>
       </div>
     </div>
-    </div>
-    </div>
+  </div>
+</div>

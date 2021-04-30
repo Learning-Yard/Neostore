@@ -6,7 +6,7 @@ import { ApiService } from '../../../assets/services/api.service';
 import { AddAddressComponent } from '../add-address/add-address.component';
 
 export interface DialogData {
-  addressList: any;
+  addressLine: any;
   pincode: any;
   city: any;
   state: any;
@@ -53,10 +53,12 @@ public address_list:any=[];
   // }
 
   del_address(id:string){
+    if (window.confirm("Do you really want to Delete?")) {  
     this.api.deleteAddress(id).subscribe((data)=>{
       console.log(data);
       this.recievedata();
     });
+  }
   }
 
   // edit_address(i:number){
@@ -86,6 +88,8 @@ openDialog2(): void {
     width: 'auto',
     data: {addressLine: this.address, pincode: this.pincode , city:this.city , state:this.state  , country:this.country}
   });
-  // this.sendindex(i);
+  dialogRef.afterClosed().subscribe((result) => {
+    this.recievedata();
+  })
 }
 }

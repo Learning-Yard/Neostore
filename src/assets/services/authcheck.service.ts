@@ -63,7 +63,6 @@ sendData(name:string){
     // this.subcriber();
     // if(localStorage.getItem("username")!=null){
     localStorage.clear();
-    this.routes.navigate(['/login/']);
     // }
     // console.log("Logged Out");
     // console.log(this.user);

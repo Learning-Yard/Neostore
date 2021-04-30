@@ -1,1 +1,59 @@
-<router-outlet></router-outlet>
+<div>
+    <!-- Toolbar -->
+      <mat-toolbar color="primary">
+          <mat-toolbar-row>
+            <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+              <mat-icon>menu</mat-icon>
+            </button>
+            <a class="navbar-brand" href="#"><span class="neo">Neo</span><span class="scrum">Store</span></a>
+            <span class="menu-spacer"></span>
+            <div fxShow="true" fxHide.lt-md>
+              <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+              <a href="#" mat-button class="tstyle">Home</a>
+              <a href="#" mat-button class="tstyle" [routerLink]="['/products']">Products</a>
+              <a href="#" mat-button class="tstyle">Order</a>
+              <!-- Search -->
+              <input type="search" class="sbutton" matInput placeholder="Search."/>
+              <!-- Cart -->
+              <button mat-button><span matBadge={{cartValue}} matBadgePosition="before" matBadgeColor="accent" (click)="gotocart()"><img src="../../assets/images/cart.svg" width="28px" height="28px"></span></button>
+              <!-- User Options -->
+                <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img src="https://img.icons8.com/cotton/24/000000/person-male--v2.png"/>{{username?.firstName | titlecase }} {{username?.lastName | titlecase}}
+                </button>
+                <a class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" [routerLink]="['/login']" routerLinkActive="router-link-active" >Login</a>
+                  <a class="dropdown-item" (click)="signout()">Logout</a>
+                  <a class="dropdown-item" [routerLink]="['/my-account']">Profile</a>
+                </a>        
+            </div>
+          </mat-toolbar-row>
+        </mat-toolbar>
+      <!-- Sidenav -->
+        <mat-sidenav-container fxFlexFill>
+          <mat-sidenav #sidenav>
+            <mat-nav-list>
+              <a (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+              <a href="#" mat-list-item>Home</a>
+              <a mat-list-item>Orders</a>
+              <input type="search" matInput placeholder="Search"><br><br>
+              <button mat-button><span matBadge={{cartValue}} matBadgePosition="before" matBadgeColor="accent" (click)="gotocart()"><img src="../../assets/images/cart.svg" width="28px" height="28px"></span></button><br><br>
+              <button class="btn btn-warning dropdown-toggle ml-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="https://img.icons8.com/cotton/24/000000/person-male--v2.png"/>{{username?.firstName | titlecase }} {{username?.lastName | titlecase}}
+              </button>
+              <a class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" [routerLink]="['/login']" routerLinkActive="router-link-active" >Login</a>
+                <a class="dropdown-item" (click)="signout()">Logout</a>
+                <a class="dropdown-item" [routerLink]="['/my-account']">Profile</a>
+              </a>
+            </mat-nav-list>
+            
+          </mat-sidenav>
+          <!-- The Content of the page strats from here -->
+          <mat-sidenav-content fxFlexFill>
+            <ngx-ui-loader></ngx-ui-loader>
+            <router-outlet></router-outlet>                  
+          </mat-sidenav-content>
+        </mat-sidenav-container>
+      </div>
+<app-footer></app-footer>     
+

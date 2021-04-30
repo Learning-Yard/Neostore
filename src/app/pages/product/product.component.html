@@ -4,8 +4,29 @@
 
             <!-- Product big image -->
             <div class="col-sm-6 col-12 col-lg-6 mb-4 mt-4" style="text-align: center;">
-                <img class="big_image" src="{{big_image}}" redZoom="{{big_image}}" redZoomClass="red-zoom--style--overlay" mat-card-image alt="Photo of Product">
-                
+              <mat-button-toggle disabled>
+                <img class="big_image" src="{{mainImage}}" redZoom="{{mainImage}}" redZoomClass="red-zoom--style--overlay" mat-card-image alt="Photo of Product">
+                  </mat-button-toggle><br><br><br><br>
+              <mat-button-toggle-group #group="matButtonToggleGroup">
+                <mat-button-toggle>
+                    <img
+                      src="{{ productDetail.mainImage }}"
+                      class="thumbnailImg"
+                      alt=""
+                      (click)="onMainImgClick()"
+                    />
+                </mat-button-toggle>
+                <mat-button-toggle *ngFor="let image of productDetail.subImages; let i = index">
+                  <img
+                    src="{{ image }}"
+                    class="thumbnailImg"
+                    id="{{ i }}"
+                    alt=""
+                    (click)="onImgClick(i)"
+                  />
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+
                 <!-- <ngx-img-zoom
     [imgSrc]="imgSrc"
     [imgStyle]="'width:515px; height:515px; bottom:0;  left:0;  right:0;  top:0;  margin:0 auto; border:1px solid #dcdcdc;'" 
@@ -18,26 +39,29 @@
             </div>
 
             <!-- other coloumn -->
-            <div class="col-sm-6 col-6 col-lg-4 mb-4"
-                style="text-align: left; justify-content: left; align-content: left;">
-                <h3><b>{{product_name}}</b></h3>
-                <p>INR.{{product_cost}}</p>
+            <div class="other col-sm-6 col-md-6 col-12 col-lg-6 mb-4 mt-4">
+                <h2><b>{{productDetail.name}}</b></h2>
+                <h3>{{productDetail.price | currency:'INR'}}</h3>
 
                 <!-- product color -->
-                <p>Color: <button mat-raised-button disabled title="{{color_name}}"
-                        [style.background-color]=color_hex>&nbsp;&nbsp;&nbsp;</button></p><br>
+                <p>Color: <button mat-raised-button disabled title=productDetail?.color?.name
+                        [style.background-color]=productDetail?.color?.name>&nbsp;&nbsp;&nbsp;</button></p><br>
+
+                  <div class=rating>
+                    <d-ng-rating [size]="5" [rating]="productDetail?.avgRating || 1"></d-ng-rating>
+                </div><br>
 
                         <!-- Social share buttons -->
-                <share-buttons mat-fab [theme]="'circles-dark'"
-                    [include]="['facebook','twitter','pinterest','telegram','messenger','whatsapp','sms','email','print','copy']"
-                    [show]="5" [size]="-1" [url]="'https://twitter.com/'" [autoSetMeta]="false"></share-buttons><br>
-                <button type="button" mat-raised-button color="accent">Add to Cart</button>&nbsp;
+                <share-buttons [theme]="'material-dark'"
+                    [include]="['facebook','twitter','pinterest','telegram','messenger','whatsapp','copy']"
+                    [show]="3" [size]="-2" [url]="fullUrl" [autoSetMeta]="false"></share-buttons><br>
+                <button type="button" mat-raised-button color="accent" (click)="addToCart(productDetail.id)">Add to Cart</button>&nbsp;
                 <button type="button" mat-raised-button color="primary">Rate Product</button>
             </div>
         </div>
         <!-- Product Description and Features area -->
             <mat-tab-group>
-                <mat-tab label="Description"> {{product_desc}}</mat-tab>
+                <mat-tab label="Description"> {{productDetail.description}}</mat-tab>
                 <mat-tab label="Features">
                     <div class="example-large-box mat-elevation-z4 center m-1 p-2">  
                     <table class="table table-bordered">
@@ -49,16 +73,16 @@
                         </thead>
                         <tbody>
                           <tr>
-                            <th scope="row">Product Material</th>
-                            <td>{{product_material}}</td>
+                            <th scope="row">Product Features</th>
+                            <td>{{productDetail.features}}</td>
                           </tr>
-                          <tr>
+                          <!-- <tr>
                             <th scope="row">Product Dimensions</th>
                           <td>{{dimension}}</td>
-                          </tr>
+                          </tr> -->
                           <tr>
                             <th scope="row">Color</th>
-                          <td>{{color_name}}</td>
+                          <td>{{productDetail.color.name}}</td>
                           </tr>
                         </tbody>
                       </table>

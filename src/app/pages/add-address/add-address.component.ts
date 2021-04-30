@@ -15,15 +15,15 @@ export class AddAddressComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData , private api:ApiService) { }
     public userData:any={};
     ngOnInit(): void {
-      this.sub();
+      this.api.listAdress().subscribe((data)=>{
+        let needdata = data;
+        this.userData = needdata;
+      });
     }
   
-  sub(){
-    this.api.listAdress().subscribe((data)=>{
-      let needdata = data;
-      this.userData = needdata;
-    });
-  }
+  // sub(){
+
+  // }
 
   addressLine = this.userData.addressLine;
   city = this.userData.city;
@@ -68,7 +68,10 @@ export class AddAddressComponent implements OnInit {
     console.log(editInfo);
     this.api.addAddress(editInfo).subscribe((data) =>{
       console.log(data);
-      this.sub();
+      this.api.listAdress().subscribe((data)=>{
+        let needdata = data;
+        this.userData = needdata;
+      });
     })
     // this.data1.editItem(this.index,editInfo)
   }

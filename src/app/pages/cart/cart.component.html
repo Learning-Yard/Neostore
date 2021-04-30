@@ -23,41 +23,43 @@
                         <span></span>
                     </div>
                 </div>
-                <div *ngFor="let item of cartData.product_details; let i=index">
+                <div *ngFor="let item of cartInfo?.data.products; let i=index">
                     <hr />
 
                     <div class="row">
                         <div class="col-2 mb-1">
-                            <img class="productImage" src={{item.product_id.product_image}} />
+                            <img class="productImage" src={{item.productId.mainImage}} />
                         </div>
                         <div class="col-lg-4 col-xs-8 col-md-4 mb-1" style="text-align: left">
-                            <span class="m-1 productName">{{item.product_id.product_name}} </span><br />
-                            <span class="m-1 creator text-muted">By {{item.product_id.product_producer}} </span><br />
+                            <span class="m-1 productName">{{item.productId.name}} </span><br />
+                            <!-- <span class="m-1 creator text-muted">By {{item.product_id.product_producer}} </span><br /> -->
                             <span class="m-1">Status:</span><span class="stock"> {{item.quantity>0? "In Stock" : "Out of Stock"}} </span>
                         </div>
                         <div class="col-4 col-lg-3 col-sm-4 col-md-3 mb-1">
-                            <button mat-mini-fab (click)="onRemoveClick(i)">
+                            <button mat-mini-fab (click)="onRemoveClick(item.quantity,item._id)" 
+                                [disabled]="item.quantity ==1"
+                                >
                                 <mat-icon>remove</mat-icon>
                             </button>
-                            <span><b>&nbsp;{{quantity[i]}} &nbsp;</b></span>
-                            <button mat-mini-fab (click)="onAddClick(i)">
+                            <span><b>&nbsp; {{item.quantity}} &nbsp;</b></span>
+                            <button mat-mini-fab (click)="onAddClick(item.quantity,item._id)">
                                 <mat-icon>add</mat-icon>
                             </button>
                         </div>
 
                         <!-- price per product -->
                         <div class="col-3 col-lg-1 col-xs-2 col-sm-3 col-md-1">
-                            <span> {{item.product_cost}} </span>
+                            <span> {{item.productId.price}} </span>
                         </div>
 
                         <!-- total price of single product -->
                         <div class="col-3 col-lg-1 col-xs-2 col-sm-3 col-md-1">
-                            <span #total> {{item.product_cost*(quantity[i])}} </span>
+                            <span #total> {{item.totalAmount}} </span>
                         </div>
 
                         <!-- delete product -->
                         <div class="col-2 col-lg-1 col-xs-2 col-sm-2 col-md-1">
-                            <mat-icon (click)="onDeleteClick(i)">delete_outline</mat-icon>
+                            <mat-icon (click)="onDeleteClick(item.productId.name,item.productId.mainImage,item._id) ">delete_outline</mat-icon>
                         </div>
                     </div>
                     <!-- <hr /> -->
@@ -75,20 +77,20 @@
                     <tbody>
                         <tr>
                             <td>Subtotal</td>
-                            <td> {{subTotal}} </td>
+                            <td> {{cartInfo?.data.grandTotal | currency:'INR'}} </td>
                         </tr>
                         <tr>
                             <td>GST(5%)</td>
-                            <td> {{subTotal*0.05}} </td>
+                            <td> &#8377;{{(cartInfo?.data.grandTotal*0.05) |number:'1.0-2'}} </td>
                         </tr>
                         <tr>
                             <td>Order Total</td>
-                            <td>{{ (subTotal)+((subTotal)*0.05) }}</td>
+                            <td>{{ (cartInfo?.data.grandTotal)+((cartInfo?.data.grandTotal)*0.05) | currency:'INR'}}</td>
                         </tr>   
                     </tbody>
                 </table>
             <div class="textCenter">
-                <button class="proceedToPayButton textCenter" mat-raised-button color="primary">Proceed to Pay</button>
+                <button class="proceedToPayButton textCenter" [disabled]="cartInfo?.data.grandTotal == 0" mat-raised-button color="primary" [routerLink]="['/checkout']" routerLinkActive="router-link-active">Proceed to Pay</button>
             </div>
             </mat-card>
         </div>

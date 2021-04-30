@@ -13,7 +13,8 @@ import { ProfileComponent } from '../app/pages/profile/profile.component'
 import { ChangePasswordComponent } from '../app/pages/change-password/change-password.component';
 import { ChangeAddressComponent } from '../app/pages/change-address/change-address.component';
 import { ThankYouComponent } from '../app/pages/thank-you/thank-you.component';
-import { ProductsComponent } from '../app/pages/products/products.component'
+import { ProductsComponent } from '../app/pages/products/products.component';
+import { CheckoutComponent } from '../app/pages/checkout/checkout.component';
 
 const routes: Routes = [
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
   {path:'cart', canActivate : [AuthconfirmGuard] , component: CartComponent },
   {path:'dashboard', component: DashboardComponent },
   // {path:'dashboard/:id', canActivate : [AuthGuard], component: DashboardComponent },
-  // {path:'checkout', component: CheckoutComponent },
+  {path:'checkout', component: CheckoutComponent },
   {path:'my-account', canActivate : [AuthconfirmGuard], component: MyAccountComponent },
   // {path:'order', component: OrderComponent },
   {path:'product/:_id', component: ProductComponent },

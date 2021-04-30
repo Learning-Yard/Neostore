@@ -1,18 +1,30 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-6 col-12 col-lg-4 mb-4 card-margin" style="text-align: center;" *ngFor="let items of products"
-      (click)="passdata( items._id )">
+    <div class="col-sm-6 col-12 col-lg-4 mb-4 card-margin" style="text-align: center;" *ngFor="let items of topFive?.data.docs"
+      >
       <mat-card class="example-card">
         <mat-card-header>
 
           <!-- Product Image -->
         </mat-card-header>
-        <img mat-card-image src="{{items.product_image}}" alt="Photo of a Shiba Inu">
+        <img mat-card-image src="{{items.mainImage}}" alt="" (click)="onCardClick( items._id )" style="height: 50vh;">
         
         <!-- Items Name and price -->
         <mat-card-content>
-          <p>{{items.category_name}}</p>
-          <p><b>INR 22,500</b></p>
+          <p (click)="onCardClick( items._id )">{{items.name}}</p>
+          <div class=rating>
+            <d-ng-rating [size]="5" [rating]="items?.avgRating || 1"></d-ng-rating>
+      </div><br>
+          <p><b>{{items.price | currency:'INR'}}</b></p>
+          <button
+          mat-raised-button
+          color="primary"
+          style="text-align: center"
+          (click)="addToCart(items._id)"
+        >
+          Add to Cart
+        </button>
+        <!-- [disabled]="token == null" -->
         </mat-card-content>
         <mat-card-actions>
         </mat-card-actions>

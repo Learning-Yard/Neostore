@@ -43,24 +43,28 @@ export class MyAccountComponent implements OnInit {
       this.isChangePassword=false;
       this.isAddress=false;
       this.isOrder=false;
+      this.key=1;
     }
     if (key===2){
       this.isProfile=false;
       this.isChangePassword=true;
       this.isAddress=false;
       this.isOrder=false;
+      this.key=2;
     }
     if (key===3){
       this.isProfile=false;
       this.isChangePassword=false;
       this.isAddress=true;
       this.isOrder=false;
+      this.key=3;
     }
     if(key===4){
       this.isProfile=false;
       this.isChangePassword=false;
       this.isAddress=false;      
       this.isOrder=true;
+      this.key=4;
     }
   }
 }

@@ -6,6 +6,7 @@ import { RouterModule, Router } from '@angular/router';
 import { AuthcheckService } from '../../../assets/services/authcheck.service';
 import { CustomValidators } from 'ngx-custom-validators';
 import { ApiService } from '../../../assets/services/api.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 // import { ConfirmPasswordValidatorDirective } from '../../../assets/validator/confirm_password_validator.directive';
 
 @Component({
@@ -34,13 +35,13 @@ export class RegistrationComponent implements OnInit {
    * @memberof RegistrationComponent
    */
   form: FormGroup = new FormGroup({
-    f_name: new FormControl(''),
-    l_name: new FormControl(''),
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
     email: new FormControl(''),
+    mobile: new FormControl(''),
+    gender: new FormControl(''),
     password: new FormControl(''),
     confirm_password: new FormControl(''),
-    phone_number: new FormControl(''),
-    gender: new FormControl(''),
   });
   /**
    * Creates an instance of RegistrationComponent.
@@ -49,18 +50,18 @@ export class RegistrationComponent implements OnInit {
    * @param {AuthcheckService} service // custom authchecker service where validation is performed 
    * @memberof RegistrationComponent
    */
-  constructor(public authService: SocialAuthService, private routes: Router, private service: AuthcheckService , private api:ApiService) { }
+  constructor(public authService: SocialAuthService, private routes: Router, private service: AuthcheckService , private api:ApiService , private ngxLoader: NgxUiLoaderService) { }
 
   // Subcription to Provider ID of the social login api which gives account info as object in user object
   ngOnInit(): void {
     this.form = new FormGroup({
-      f_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern('[a-zA-Z]*')]),
-      l_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern('[a-zA-Z]*')]),
+      firstName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern('[a-zA-Z]*')]),
+      lastName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern('[a-zA-Z]*')]),
       email: new FormControl('', [Validators.required, Validators.email]),
+      mobile: new FormControl('', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
+      gender: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(14), Validators.pattern('[a-zA-Z0-9\s]+')]),
       confirm_password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(14), Validators.pattern('[a-zA-Z0-9\s]+')]),
-      phone_number: new FormControl('', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
-      gender: new FormControl('', [Validators.required]),
     }
     );
   }
@@ -124,9 +125,12 @@ export class RegistrationComponent implements OnInit {
       this.submitEM.emit(this.form.value);
       console.log(this.form.value)
       let formdata = this.form.value;
+      console.log(formdata);
+      this.ngxLoader.start();
       this.api.registrationCheck(formdata).subscribe((info) =>{
         console.log("data :",info);
         this.routes.navigate(['/login']);
+        this.ngxLoader.stop();
         },(error) => {
           let msg
           msg = error

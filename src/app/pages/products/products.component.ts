@@ -10,6 +10,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/assets/services/api.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { AppComponent } from '../../app.component';
 
 export interface Dessert {
   calories: number;
@@ -67,8 +69,23 @@ export class ProductsComponent implements OnInit {
   public categoryColor1 = Array();
   public categoryColor = Array();
   checkBoxInstance: any;
+  cat:any
+  color:any;
   public a: any[] = ['a', 'b', 'c', 'd', 'e'];
   ngOnInit() {
+
+    this.api.listAllCategoryGet().subscribe(
+      (info) =>{
+        this.cat = info
+
+      }
+    )
+
+    this.api.listAllColorGet().subscribe(
+      (info) =>{
+        this.color = info
+      }
+    )
     // console.log(this.productList);
     // console.log(this.data.token);
 
@@ -85,7 +102,7 @@ export class ProductsComponent implements OnInit {
     // );
 
     // here we are pushing color and category of product in its respective array
-
+    this.ngxLoader.start();
     this.api.getProductList().subscribe((info) => {
       this.productList = info;
       for (let i = 0; i < info.data.docs.length; i++) {
@@ -109,13 +126,16 @@ export class ProductsComponent implements OnInit {
       console.log(this.category);
       console.log(this.categoryColor);
       console.log(this.productList.data.docs);
+      this.ngxLoader.stop();
     });
   }
 
   constructor(
     private api: ApiService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private ngxLoader: NgxUiLoaderService,
+    private timer:AppComponent,
   ) {
     for (let i = 1; i <= 10; i++) {
       this.collection.push(`item ${i}`);
@@ -138,6 +158,10 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+  onCardClick(_id: string){
+    this.router.navigate(['/product/' + _id]);
+  }
+  
   // onRatingSortAsc() {
   //   this.data.sortByRatingAscGet().subscribe((info) => {
   //     this.productList = info;
@@ -150,11 +174,16 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  onCategoryClicked() {
-    this.api.listCategoryGet().subscribe(
+  onCategoryClicked(id:any) {
+
+    // this.spinner.show();
+    this.api.listCategoryGet(id).subscribe(
       (info) => {
         console.log('data :', info);
         this.productList = info;
+        // this.spinner.hide();
+        this.p =1
+
         // this.router.navigate(['/login']);
       },
       (error) => {
@@ -166,12 +195,16 @@ export class ProductsComponent implements OnInit {
     );
   }
 
-  onColorClicked() {
-    this.api.listColorGet().subscribe(
+  onColorClicked(id:any) {
+    // this.spinner.show();
+    this.api.listColorGet(id).subscribe(
       (info) => {
         console.log('data :', info);
         this.productList = info;
         // this.router.navigate(['/login']);
+        // this.spinner.hide();
+        this.p =1
+
       },
       (error) => {
         let msg;
@@ -181,6 +214,7 @@ export class ProductsComponent implements OnInit {
       }
     );
   }
+
 
   addToCart(productId: string) {
     let data = {
@@ -192,6 +226,7 @@ export class ProductsComponent implements OnInit {
     this.api.addProductsInCartPost(data).subscribe(
       (info) => {
         console.log('data :', info);
+        this.timer.starttimer();
       },
       (error) => {
         let msg;

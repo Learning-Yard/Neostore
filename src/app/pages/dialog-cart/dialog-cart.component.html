@@ -1,0 +1,17 @@
+<div class="row ">
+    <div class="col textCenter">
+      <h1 mat-dialog-title>Remove <b>{{data.name}}</b> from Cart ?</h1>
+    </div>
+  
+  </div>
+  <div class="row">
+    <div class="col textCenter">
+      <img src={{data.img}} width="90vh" height="90vh">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col textCenter">
+      <button mat-button (click)="onNoClick()" [mat-dialog-close]>No Thanks</button>
+      <button mat-button color="primary" (click)="onOkClick()" [mat-dialog-close] cdkFocusInitial>Remove</button>
+    </div>
+  </div>

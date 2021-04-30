@@ -10,6 +10,10 @@ export class ApiService {
 
   url="https://neostore-api.herokuapp.com";
 
+  toko:any = (localStorage.getItem("user"));
+  token_it:any = JSON.parse(this.toko);
+  public cartValue:number | undefined
+  
   constructor(private http:HttpClient) { }
 
   // public getbaseurl(){
@@ -43,19 +47,27 @@ export class ApiService {
   // }
 
   getProductList(): Observable<any>{
-    return this.http.get(this.url + '/api/product')
+    return this.http.get(this.url + '/api/product?limit=100000&page=1..1000')
   }
 
   // addressedit(data:any):Observable<any>{
   //   return this.http.post(this.url + '/api/auth/register', data)
   // }
 
-  listCategoryGet(): Observable<any>{
-    return this.http.get(this.url + '/api/product?limit=100000&page=1..1000&category=6065c425f45ada6429eb42c9')
+  listAllCategoryGet(): Observable<any>{
+    return this.http.get(this.url + '/api/category')
   }
   
-  listColorGet(): Observable<any>{
-    return this.http.get(this.url + '/api/product?limit=100000&page=1..1000&color=6065ca24cec0196a6fe56e3d')
+  listAllColorGet(): Observable<any>{
+    return this.http.get(this.url + '/api/color')
+  }
+  
+  listCategoryGet(id:any): Observable<any>{
+    return this.http.get(this.url + '/api/product?limit=100000&page=1..1000&category='+id)
+  }
+  
+  listColorGet(id:any): Observable<any>{
+    return this.http.get(this.url + '/api/product?limit=100000&page=1..1000&color='+id)
   }
   
   sortByPriceAscGet(): Observable<any>{
@@ -85,11 +97,19 @@ export class ApiService {
     return this.http.post(this.url + '/api/cart',data,{ headers: { Authorization: user2.token}})
   }
 
-  cartList(data:any):Observable<any>{
-    return this.http.get(this.url + '/api/cart',{ headers: { Authorization: data}})
+  cartList():Observable<any>{
+    let user:any = (localStorage.getItem("user"));
+    let user2:any = JSON.parse(user);
+    return this.http.get(this.url + '/api/cart',{ headers: { Authorization: user2.token}})
   }
 
-  updateCartQuantity(product_id:string ,quantity:any){
+  cartProductDelete(id:string){
+    let user:any = (localStorage.getItem("user"));
+    let user2:any = JSON.parse(user);
+    return this.http.delete(this.url + '/api/cart/'+id,{ headers: { Authorization: user2.token}})
+  }
+
+  updateCartQuantity(quantity:any ,product_id:string){
     let user:any = (localStorage.getItem("user"));
     let user2:any = JSON.parse(user);
     return this.http.put(this.url + '/api/cart/'+product_id,quantity,{ headers: { Authorization: user2.token}})
@@ -123,6 +143,16 @@ export class ApiService {
     let user:any = (localStorage.getItem("user"));
     let user2:any = JSON.parse(user);
     return this.http.get(this.url + '/api/order',{ headers: { Authorization: user2.token}})    
+  }
+
+  topFiveProductGet(): Observable<any>{
+  return this.http.get(this.url + '/api/product?limit=5&page=1..1000&sortby=rating&orderby=desc')
+  }
+
+  checkout(data:string){
+    let user:any = (localStorage.getItem("user"));
+    let user2:any = JSON.parse(user);
+    return this.http.post(this.url + '/api/order/place',data,{ headers: { Authorization: user2.token}})    
   }
 
 }

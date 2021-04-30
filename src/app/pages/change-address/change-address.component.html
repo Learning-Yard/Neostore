@@ -1,6 +1,4 @@
 <h1 mat-dialog-title>Edit Your Information</h1>
-{{data.pincode}}
-<input value="{{data.pincode}}">
 <div mat-dialog-content>
   <div class="container">
     <div class="row">
@@ -107,7 +105,7 @@
     "
     (click)="onSubmit(AddressFormControl.value,CityFormControl.value,PincodeFormControl.value,StateFormControl.value,CountryFormControl.value)"
     (click)="onNoClick()"
-  >
+    >
     Ok
   </button>
 </div>

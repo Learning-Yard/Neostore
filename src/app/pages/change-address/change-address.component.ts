@@ -14,9 +14,7 @@ import { ApiService } from '../../../assets/services/api.service';
 export class ChangeAddressComponent implements OnInit {
 public userData:any={};
   constructor(    public dialogRef: MatDialogRef<AddressListComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData , private data1: AddressManupulationService , private api:ApiService) { }
-
-  
+    @Inject(MAT_DIALOG_DATA) public data: DialogData , private data1: AddressManupulationService , private api:ApiService) { }  
 
   ngOnInit(){
     // this.sub();
@@ -38,7 +36,7 @@ public userData:any={};
   // pincode = this.userData.pincode;
   // country = this.userData.country;
 
-  AddressFormControl = new FormControl(this.data.addressList, [
+  AddressFormControl = new FormControl(this.data.addressLine, [
     Validators.required,
   ]);
 
@@ -77,11 +75,10 @@ public userData:any={};
     this.api.updateAdress(editInfo,this.data.id).subscribe((data)=>{
       console.log(data);
     });
-    // this.data1.editItem(this.index,editInfo)
+    this.sub();
   }
 
   onNoClick(): void {
     this.dialogRef.close('true');
-    this.sub();
   }
 }
