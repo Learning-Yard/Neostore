@@ -1,36 +1,47 @@
 // Footer Color
-.footer{
+.footer {
     background: #37474f;
-    color:white;
-// Text Color Footer items    
-p{
-color: rgba(255, 255, 255, 0.508);
+    color: white;
+    // Text Color Footer items
+    p {
+        color: rgba(255, 255, 255, 0.508);
+    }
+    // Links hover color
+    .links {
+        ul {
+            list-style-type: none;
+        }
+        li a {
+            color: white;
+            transition: color 0.2s;
+            &:hover {
+                text-decoration: none;
+                color: #4180cb;
+            }
+        }
+    }
+    // About Company
+    .about-company {
+        i {
+            font-size: 25px;
+        }
+        a {
+            color: white;
+            transition: color 0.2s;
+            &:hover {
+                color: #4180cb;
+            }
+        }
+    }
+    // Location
+    .location {
+        i {
+            font-size: 18px;
+        }
+    }
+    // Copyright
+    .copyright {
+        border-top: 1px solid rgba(255, 255, 255, 0.8);
+        text-align: center;
+    }
 }
-// Links hover color
-.links{
-ul {list-style-type: none;}
-li a{
-color: white;
-transition: color .2s;
-&:hover{
-text-decoration:none;
-color:#4180CB;
-}
-}
-}
-// About Company
-.about-company{
-i{font-size: 25px;}
-a{
-color:white;
-transition: color .2s;
-&:hover{color:#4180CB}
-}
-}
-// Location
-.location{
-i{font-size: 18px;}
-}
-// Copyright
-.copyright {border-top:1px solid rgba(255,255,255,.8); text-align: center;}
-}  

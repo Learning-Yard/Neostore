@@ -8,6 +8,7 @@ import {
 import { ApiService } from 'src/assets/services/api.service';
 import { DialogCartComponent } from '../dialog-cart/dialog-cart.component';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { AppComponent } from '../../app.component';
 
 export interface DialogData {
   name: string;
@@ -26,12 +27,12 @@ export class CheckoutComponent implements OnInit {
   public x = 0;
   public cartInfo: any;
   public cartData = this.api.cartList();
-  public addressId:string="";
+  public addressId: string = "";
   // public price = this.cartData.product_details[0].product_cost;
   // public total = this.cartData.product_details[0].total_productCost;
   // public quantity = this.cartData.product_details[this.i].quantity;
   // public stock = this.cartData.product_details[0].product_id.product_stock;
-  public address_list:any=[];
+  public address_list: any = [];
   name: any;
   animal: any;
   address: any;
@@ -39,10 +40,10 @@ export class CheckoutComponent implements OnInit {
   state: any;
   pincode: any;
   country: any;
-  id:string="";
-  public addresses:any=[];
+  id: string = "";
+  public addresses: any = [];
 
-  constructor(private api: ApiService, public dialog: MatDialog, private ngxLoader: NgxUiLoaderService){ }
+  constructor(private api: ApiService, public dialog: MatDialog, private ngxLoader: NgxUiLoaderService, private timer:AppComponent) { }
 
   ngOnInit() {
     // trying to share quantity to dataservice
@@ -50,7 +51,7 @@ export class CheckoutComponent implements OnInit {
     console.log(this.quantity);
     console.log(this.quantity[1]);
     // this.reload()
-    
+
     // setInterval('this.reload()', 5000)
     this.ngxLoader.start();
     this.api.listProductsInCartGet().subscribe(
@@ -94,7 +95,7 @@ export class CheckoutComponent implements OnInit {
    * @param {number} i
    * @memberof CartComponent
    */
-  openDialog(name:string,img:any,i:string) {
+  openDialog(name: string, img: any, i: string) {
     let xyz: string = '';
     const dialogRef = this.dialog.open(DialogCartComponent, {
       width: '50vh',
@@ -117,21 +118,20 @@ export class CheckoutComponent implements OnInit {
         }
         this.ngxLoader.start();
         this.api.cartProductDelete(i).subscribe(
-          (info) => 
-          {
+          (info) => {
             console.log('product quantity add success :', info);
-                this.api.listProductsInCartGet().subscribe(
-                  (info) => {
-                    console.log('data :', info);
-                    this.cartInfo = info;
-                    console.log(this.cartInfo);
-                    // location.reload()
-                    this.ngxLoader.stop();
-                  },
-                  (error) => {
-                    console.log(error.error.message);
-                  });
-          
+            this.api.listProductsInCartGet().subscribe(
+              (info) => {
+                console.log('data :', info);
+                this.cartInfo = info;
+                console.log(this.cartInfo);
+                // location.reload()
+                this.ngxLoader.stop();
+              },
+              (error) => {
+                console.log(error.error.message);
+              });
+
           });
         // console.log('subtotal', this.subTotal);
         // console.log('product json', this.cartData.product_details);
@@ -172,10 +172,10 @@ export class CheckoutComponent implements OnInit {
       },
       (error) => {
         console.log('product quantity add success :', error.error.message);
-      } 
+      }
     );
 
-    
+
     // if (this.stock > 0) {
     //   this.quantity[i] = this.quantity[i] + 1;
     //   // this.quantity = this.quantity + 1;
@@ -224,7 +224,7 @@ export class CheckoutComponent implements OnInit {
             console.log(error.error.message);
           }
         );
-    
+
       },
       (error) => {
         console.log('product quantity add success :', error.error.message);
@@ -278,8 +278,8 @@ export class CheckoutComponent implements OnInit {
     // }
   }
 
-  onDeleteClick(name:string,img:any,i:string) {
-    this.openDialog(name,img,i);
+  onDeleteClick(name: string, img: any, i: string) {
+    this.openDialog(name, img, i);
 
     // if (this.abcd == "true") {
 
@@ -313,31 +313,32 @@ export class CheckoutComponent implements OnInit {
     // }
   }
 
-  addressList(){
+  addressList() {
     this.ngxLoader.start();
-      this.api.listAdress().subscribe((data)=>{
-        this.address_list = data;
-        console.log(this.address_list.data.address);
-        this.addresses = this.address_list.data.address;
-      });
-      this.ngxLoader.stop();
-  }
-data(aid:string){
-  this.addressId = aid;
-  console.log(this.addressId);
-}
-
-checkout(){
-  console.log(this.addressId);
-  let idd:any = {
-    "addressId": this.addressId,
-}
-this.ngxLoader.start();
-  this.api.checkout(idd).subscribe((data)=>{
-    console.log(data);
-    alert("Order Placed Sucessfully");
+    this.api.listAdress().subscribe((data) => {
+      this.address_list = data;
+      console.log(this.address_list.data.address);
+      this.addresses = this.address_list.data.address;
+    });
     this.ngxLoader.stop();
-  });
-}
+  }
+  data(aid: string) {
+    this.addressId = aid;
+    console.log(this.addressId);
+  }
+
+  checkout() {
+    console.log(this.addressId);
+    let idd: any = {
+      "addressId": this.addressId,
+    }
+    this.ngxLoader.start();
+    this.api.checkout(idd).subscribe((data) => {
+      console.log(data);
+      alert("Order Placed Sucessfully");
+      this.timer.starttimer();
+      this.ngxLoader.stop();
+    });
+  }
 
 }

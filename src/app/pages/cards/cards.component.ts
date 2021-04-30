@@ -13,22 +13,22 @@ import { AppComponent } from '../../app.component';
 })
 export class CardsComponent implements OnInit {
   public products: { _id: string, category_name: string, product_image: string, category_id: string, created_at: string, __v: number }[] = UserData;
-  public topFive:any
-  public snackMsg:string="";
-  constructor(private routes: Router , private api:ApiService , private _snackBar: MatSnackBar , private time:AppComponent) { }
-  public token:any;
+  public topFive: any
+  public snackMsg: string = "";
+  constructor(private routes: Router, private api: ApiService, private _snackBar: MatSnackBar, private time: AppComponent) { }
+  public token: any;
   ngOnInit(): void {
     // this.token = this.data.token
-    this.api.topFiveProductGet().subscribe((info) =>{
+    this.api.topFiveProductGet().subscribe((info) => {
       this.topFive = info
       console.log(this.topFive);
-      
+
     })
-    console.log("token",this.token);
-    
+    console.log("token", this.token);
+
   }
 
-  onCardClick(_id: string){
+  onCardClick(_id: string) {
     this.routes.navigate(['/product/' + _id]);
   }
 
@@ -38,40 +38,40 @@ export class CardsComponent implements OnInit {
       quantity: 1,
     };
 
-  // // Id comes from the selection of user 
-  // passdata(_id: string) {
-  //   console.log(_id);
-    
-  // }
+    // // Id comes from the selection of user 
+    // passdata(_id: string) {
+    //   console.log(_id);
 
-  this.api.addProductsInCartPost(data).subscribe(
-    (info) => {
-      console.log('data :', info);
-      this.snackMsg = "Product Added"
-      this.api.listProductsInCartGet().subscribe((info) =>{
-        // this.api.cartValue = info.data.products.length
-        // this.cartValue = this.data.cartValue
-        // console.log(this.cartValue);        
-      })
-      this.openSnackBar()
-      this.time.starttimer();
-    },
-    (error) => {
-      let msg;
-      msg = error;
-      this.snackMsg = error.error.message
-      this.openSnackBarError()
-      console.log(error.error.message);
-    }
-  );
-}
+    // }
+
+    this.api.addProductsInCartPost(data).subscribe(
+      (info) => {
+        console.log('data :', info);
+        this.snackMsg = "Product Added"
+        this.api.listProductsInCartGet().subscribe((info) => {
+          // this.api.cartValue = info.data.products.length
+          // this.cartValue = this.data.cartValue
+          // console.log(this.cartValue);        
+        })
+        this.openSnackBar()
+        this.time.starttimer();
+      },
+      (error) => {
+        let msg;
+        msg = error;
+        this.snackMsg = error.error.message
+        this.openSnackBarError()
+        console.log(error.error.message);
+      }
+    );
+  }
 
   openSnackBar() {
     this._snackBar.open(this.snackMsg, 'x', {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
       duration: 5000,
-      panelClass:['greenYesMatch']
+      panelClass: ['greenYesMatch']
 
     });
   }
@@ -81,8 +81,8 @@ export class CardsComponent implements OnInit {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
       duration: 5000,
-      panelClass:['redNoMatch']
-        });
+      panelClass: ['redNoMatch']
+    });
   }
 
 }

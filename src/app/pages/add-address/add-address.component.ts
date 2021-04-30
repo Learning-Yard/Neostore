@@ -12,15 +12,15 @@ import { ApiService } from '../../../assets/services/api.service';
 export class AddAddressComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<AddressListComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData , private api:ApiService) { }
-    public userData:any={};
-    ngOnInit(): void {
-      this.api.listAdress().subscribe((data)=>{
-        let needdata = data;
-        this.userData = needdata;
-      });
-    }
-  
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private api: ApiService) { }
+  public userData: any = {};
+  ngOnInit(): void {
+    this.api.listAdress().subscribe((data) => {
+      let needdata = data;
+      this.userData = needdata;
+    });
+  }
+
   // sub(){
 
   // }
@@ -61,14 +61,14 @@ export class AddAddressComponent implements OnInit {
     let editInfo = {
       addressLine: addressLine,
       city: city,
-      state : state,
+      state: state,
       pincode: pincode,
       country: country,
     };
     console.log(editInfo);
-    this.api.addAddress(editInfo).subscribe((data) =>{
+    this.api.addAddress(editInfo).subscribe((data) => {
       console.log(data);
-      this.api.listAdress().subscribe((data)=>{
+      this.api.listAdress().subscribe((data) => {
         let needdata = data;
         this.userData = needdata;
       });

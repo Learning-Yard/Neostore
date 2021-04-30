@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl, Validators , ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { ApiService } from '../../../assets/services/api.service';
 
@@ -16,7 +16,7 @@ export class ForgetPasswordComponent implements OnInit {
     email: new FormControl(''),
   });
 
-  constructor(private routes:Router , private api:ApiService) { }
+  constructor(private routes: Router, private api: ApiService) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -29,15 +29,15 @@ export class ForgetPasswordComponent implements OnInit {
     return this.form.controls[controlName].hasError(errorName);
   }
 
-  submit(){
+  submit() {
     let formdata = this.form.value;
     this.api.forgetPasswordP1(formdata).subscribe(
-      ((res:any) => {
-      this.routes.navigate(['/forget-password-next']);
-      console.log(res);
-    }),(error)=>{
-      alert('Email Does not exist')
-      console.log('from catch');
-    })
+      ((res: any) => {
+        this.routes.navigate(['/forget-password-next']);
+        console.log(res);
+      }), (error) => {
+        alert('Email Does not exist')
+        console.log('from catch');
+      })
   }
 }

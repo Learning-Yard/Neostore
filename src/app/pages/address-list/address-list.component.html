@@ -2,35 +2,42 @@
     <h1 class="text">Address</h1>
 </div>
 <div class="col-3">
-    <button mat-stroked-button (click)="openDialog2()"><mat-icon>add</mat-icon>Add</button>
+    <button mat-stroked-button (click)="openDialog2()">
+        <mat-icon>add</mat-icon>Add
+    </button>
 </div><br>
 <div *ngFor="let address of addresses;let i=index;">
-<mat-card>
-<div class="row">
-    <div class="col-9">    
-    <table class="table">
-        <tbody>
-            <tr>
-<p>{{address.addressLine}}</p>
-</tr>
-<tr>
-<p>{{address.city}} : {{address.pincode}}</p>
-</tr>
-<tr>
-    <p>{{address.state}}</p>
-</tr>
-<tr>   
-<p>{{address.country}}</p>
-</tr>
-<tr>
-    <button mat-stroked-button (click)="openDialog(address.addressLine ,address.city , address.pincode , address.state , address.country , address._id)"><mat-icon>edit</mat-icon>Edit</button>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="col-3">
-    <button mat-stroked-button (click)="del_address(address._id)"><mat-icon>delete</mat-icon>Delete</button>
-</div>
-</div>
-</mat-card><br>
+    <mat-card>
+        <div class="row">
+            <div class="col-9">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <p>{{address.addressLine}}</p>
+                        </tr>
+                        <tr>
+                            <p>{{address.city}} : {{address.pincode}}</p>
+                        </tr>
+                        <tr>
+                            <p>{{address.state}}</p>
+                        </tr>
+                        <tr>
+                            <p>{{address.country}}</p>
+                        </tr>
+                        <tr>
+                            <button mat-stroked-button
+                                (click)="openDialog(address.addressLine ,address.city , address.pincode , address.state , address.country , address._id)">
+                                <mat-icon>edit</mat-icon>Edit
+                            </button>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-3">
+                <button mat-stroked-button (click)="del_address(address._id)">
+                    <mat-icon>delete</mat-icon>Delete
+                </button>
+            </div>
+        </div>
+    </mat-card><br>
 </div>

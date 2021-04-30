@@ -3,6 +3,7 @@ import { FooterComponent } from '../../src/app/pages/footer/footer.component';
 import { AuthcheckService } from '../../src/assets/services/authcheck.service';
 import { RouterModule , Router } from '@angular/router';
 import { ApiService } from 'src/assets/services/api.service';
+import { ProfileDataService } from 'src/assets/services/profile-data.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ export class AppComponent {
   username =     JSON.parse(localStorage.getItem("user")+"");
   cartValue: any;
   b:any;
-  constructor(private service: AuthcheckService , private router:Router , private api:ApiService) { }
+  constructor(private service: AuthcheckService , private router:Router , private api:ApiService , private pro:ProfileDataService) { }
 
   ngOnInit(): void {
     this.api.listProductsInCartGet().subscribe((info) => {
@@ -60,6 +61,23 @@ starttimer(){
   gotocart(){
     this.router.navigate(['/cart']);
   }
+
+  gotoOrder(){
+    this.pro.isProfile = false;
+    this.pro.isChangePassword = false;
+    this.pro.isAddress = false;
+    this.pro.isOrder = true;
+    this.router.navigate(['/my-account']);
+  }
+
+  // onProfileClick() {
+  //   this.pro.isProfile = true;
+  //   this.pro.isChangePassword = false;
+  //   this.pro.isAddress = false;
+  //   this.pro.isOrder = false;
+  //   this.router.navigate(['/my-account']);
+  //   location.reload();
+  // }
 
   /**
    *

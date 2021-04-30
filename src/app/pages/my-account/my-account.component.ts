@@ -11,7 +11,7 @@ export interface DialogData {
   [x: string]: any;
   animal: string;
   name: string;
-  }
+}
 
 @Component({
   selector: 'app-my-account',
@@ -21,50 +21,62 @@ export interface DialogData {
 
 export class MyAccountComponent implements OnInit {
 
-  profile:any=[]
+  profile: any = []
   name: any;
   animal: any;
-  isProfile=true;
-  isChangePassword=false;
-  isAddress=false;
-  isOrder=false;
-  key=1;
+  isProfile=this.service.isProfile;
+  isChangePassword=this.service.isChangePassword;
+  isAddress=this.service.isAddress;
+  isOrder=this.service.isOrder;
+  key = 1;
 
-  constructor(private service:ProfileDataService) { }
+  constructor(private service: ProfileDataService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.profile = this.service.UserProfile;
     console.log(this.profile);
   }
-  
+
   change(key:number){
     if (key===1){
-      this.isProfile=true;
-      this.isChangePassword=false;
-      this.isAddress=false;
-      this.isOrder=false;
-      this.key=1;
+      this.service.isProfile=true;
+      this.service.isChangePassword=false;
+      this.service.isAddress=false;
+      this.service.isOrder=false;
+      this.isProfile=this.service.isProfile;
+      this.isChangePassword=this.service.isChangePassword;
+      this.isAddress=this.service.isAddress;
+      this.isOrder=this.service.isOrder;
     }
     if (key===2){
-      this.isProfile=false;
-      this.isChangePassword=true;
-      this.isAddress=false;
-      this.isOrder=false;
-      this.key=2;
+      this.service.isProfile=false;
+      this.service.isChangePassword=true;
+      this.service.isAddress=false;
+      this.service.isOrder=false;
+      this.isProfile=this.service.isProfile;
+      this.isChangePassword=this.service.isChangePassword;
+      this.isAddress=this.service.isAddress;
+      this.isOrder=this.service.isOrder;
     }
     if (key===3){
-      this.isProfile=false;
-      this.isChangePassword=false;
-      this.isAddress=true;
-      this.isOrder=false;
-      this.key=3;
+      this.service.isProfile=false;
+      this.service.isChangePassword=false;
+      this.service.isAddress=true;
+      this.service.isOrder=false;
+      this.isProfile=this.service.isProfile;
+      this.isChangePassword=this.service.isChangePassword;
+      this.isAddress=this.service.isAddress;
+      this.isOrder=this.service.isOrder;
     }
     if(key===4){
-      this.isProfile=false;
-      this.isChangePassword=false;
-      this.isAddress=false;      
-      this.isOrder=true;
-      this.key=4;
+      this.service.isProfile=false;
+      this.service.isChangePassword=false;
+      this.service.isAddress=false;      
+      this.service.isOrder=true;
+      this.isProfile=this.service.isProfile;
+      this.isChangePassword=this.service.isChangePassword;
+      this.isAddress=this.service.isAddress;
+      this.isOrder=this.service.isOrder;
     }
   }
 }

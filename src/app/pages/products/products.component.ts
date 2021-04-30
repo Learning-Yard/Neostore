@@ -69,20 +69,20 @@ export class ProductsComponent implements OnInit {
   public categoryColor1 = Array();
   public categoryColor = Array();
   checkBoxInstance: any;
-  cat:any
-  color:any;
+  cat: any
+  color: any;
   public a: any[] = ['a', 'b', 'c', 'd', 'e'];
   ngOnInit() {
 
     this.api.listAllCategoryGet().subscribe(
-      (info) =>{
+      (info) => {
         this.cat = info
 
       }
     )
 
     this.api.listAllColorGet().subscribe(
-      (info) =>{
+      (info) => {
         this.color = info
       }
     )
@@ -135,7 +135,7 @@ export class ProductsComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private ngxLoader: NgxUiLoaderService,
-    private timer:AppComponent,
+    private timer: AppComponent,
   ) {
     for (let i = 1; i <= 10; i++) {
       this.collection.push(`item ${i}`);
@@ -158,10 +158,10 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  onCardClick(_id: string){
+  onCardClick(_id: string) {
     this.router.navigate(['/product/' + _id]);
   }
-  
+
   // onRatingSortAsc() {
   //   this.data.sortByRatingAscGet().subscribe((info) => {
   //     this.productList = info;
@@ -174,15 +174,15 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  onCategoryClicked(id:any) {
+  onCategoryClicked(id: any) {
 
-    // this.spinner.show();
+    this.ngxLoader.start();
     this.api.listCategoryGet(id).subscribe(
       (info) => {
         console.log('data :', info);
         this.productList = info;
-        // this.spinner.hide();
-        this.p =1
+        this.ngxLoader.stop();
+        this.p = 1
 
         // this.router.navigate(['/login']);
       },
@@ -190,26 +190,27 @@ export class ProductsComponent implements OnInit {
         let msg;
         msg = error;
         console.log(error);
+        this.ngxLoader.stop();
         alert(msg.error.message);
       }
     );
   }
 
-  onColorClicked(id:any) {
-    // this.spinner.show();
+  onColorClicked(id: any) {
+    this.ngxLoader.start();
     this.api.listColorGet(id).subscribe(
       (info) => {
         console.log('data :', info);
         this.productList = info;
-        // this.router.navigate(['/login']);
-        // this.spinner.hide();
-        this.p =1
+        this.ngxLoader.stop();
+        this.p = 1
 
       },
       (error) => {
         let msg;
         msg = error;
         console.log(error);
+        this.ngxLoader.stop();
         alert(msg.error.message);
       }
     );
@@ -226,11 +227,14 @@ export class ProductsComponent implements OnInit {
     this.api.addProductsInCartPost(data).subscribe(
       (info) => {
         console.log('data :', info);
+        this.ngxLoader.start();
         this.timer.starttimer();
+        this.ngxLoader.stop();
       },
       (error) => {
         let msg;
         msg = error;
+        this.ngxLoader.stop();
         console.log(error);
       }
     );

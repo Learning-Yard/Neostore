@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl, Validators , ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { SocialAuthService, SocialUser } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import { RouterModule, Router } from '@angular/router';
@@ -21,8 +21,8 @@ export class RegistrationComponent implements OnInit {
   user!: SocialUser;
   hide = true;
   hide1 = true;
-  pass_match:boolean | undefined;
-  match:string="";
+  pass_match: boolean | undefined;
+  match: string = "";
   /**
    * here all the fields of the form is recieved using formcontrol property
    * f_name - first name
@@ -50,7 +50,7 @@ export class RegistrationComponent implements OnInit {
    * @param {AuthcheckService} service // custom authchecker service where validation is performed 
    * @memberof RegistrationComponent
    */
-  constructor(public authService: SocialAuthService, private routes: Router, private service: AuthcheckService , private api:ApiService , private ngxLoader: NgxUiLoaderService) { }
+  constructor(public authService: SocialAuthService, private routes: Router, private service: AuthcheckService, private api: ApiService, private ngxLoader: NgxUiLoaderService) { }
 
   // Subcription to Provider ID of the social login api which gives account info as object in user object
   ngOnInit(): void {
@@ -71,8 +71,8 @@ export class RegistrationComponent implements OnInit {
   }
 
   password(form: FormGroup) {
-    const  password  = form.get('password');
-    const  confirmPassword  = form.get('confirm_password');
+    const password = form.get('password');
+    const confirmPassword = form.get('confirm_password');
     return password === confirmPassword ? null : { passwordNotMatch: true };
   }
 
@@ -87,20 +87,20 @@ export class RegistrationComponent implements OnInit {
   //   }
   // }
 
-//   checkPasswords(form: FormGroup) {
-//     const pass = form.controls.password.value;
-//     const confirmPass = form.controls.confirm_password.value;
+  //   checkPasswords(form: FormGroup) {
+  //     const pass = form.controls.password.value;
+  //     const confirmPass = form.controls.confirm_password.value;
 
-//     return pass === confirmPass ? null : { notSame: true };
-// }
+  //     return pass === confirmPass ? null : { notSame: true };
+  // }
 
-// passwordConfirming(form: AbstractControl): { invalid: boolean } {
-//   console.log(this.form);
-//   if (this.form.value.password !== this.form.value.confirm_password) {
-//       return {invalid: true};
-//   }
-//   return {invalid:false};
-// }
+  // passwordConfirming(form: AbstractControl): { invalid: boolean } {
+  //   console.log(this.form);
+  //   if (this.form.value.password !== this.form.value.confirm_password) {
+  //       return {invalid: true};
+  //   }
+  //   return {invalid:false};
+  // }
 
   // Call to Sigin in via google in service
   signInWithGoogle() {
@@ -127,16 +127,16 @@ export class RegistrationComponent implements OnInit {
       let formdata = this.form.value;
       console.log(formdata);
       this.ngxLoader.start();
-      this.api.registrationCheck(formdata).subscribe((info) =>{
-        console.log("data :",info);
+      this.api.registrationCheck(formdata).subscribe((info) => {
+        console.log("data :", info);
         this.routes.navigate(['/login']);
         this.ngxLoader.stop();
-        },(error) => {
-          let msg
-          msg = error
-          console.log(error);
-          alert(msg.error.message)
-        })
+      }, (error) => {
+        let msg
+        msg = error
+        console.log(error);
+        alert(msg.error.message)
+      })
       // console.log(this.form.value);
       // if ((this.form.value.username!="admin") && (this.form.value.password!="super")){
       //   this.error="Invalid Credentials";

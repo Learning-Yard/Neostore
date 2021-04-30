@@ -11,8 +11,8 @@ import { ProfileDataService } from '../../../assets/services/profile-data.servic
   styleUrls: ['./dialogue-profile.component.scss']
 })
 export class DialogueProfileComponent implements OnInit {
- 
-  imagePath:any;
+
+  imagePath: any;
   imgURL: any;
   public message: string | undefined;
 
@@ -21,7 +21,7 @@ export class DialogueProfileComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private router: Router,
     private data1: ProfileDataService
-  ) {}
+  ) { }
 
   public userData = this.data1.getUserProfile();
 
@@ -30,10 +30,10 @@ export class DialogueProfileComponent implements OnInit {
     console.log(document.getElementById('profilePic1'));
   }
 
-   
+
   ngOnInit(): void {
     console.log(document.getElementById('profilePic1'));
-    
+
   }
 
   // public userModel = new EditInfo("","");
@@ -93,7 +93,7 @@ export class DialogueProfileComponent implements OnInit {
     Validators.required,
   ]);
 
-  
+
   // public firstName = new FormControl(this.f)
   // public lastName = new FormControl('')
   // public gender = new FormControl('')
@@ -154,22 +154,22 @@ export class DialogueProfileComponent implements OnInit {
   // onChangePasswordClick() {
   //   this.router.navigate(['/changepassword']);
   // }
-  preview(files:any) {
+  preview(files: any) {
     if (files.length === 0)
-    return;
-    
+      return;
+
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
-    this.message = "Only images are supported.";
-    return;
+      this.message = "Only images are supported.";
+      return;
     }
-    
+
     var reader = new FileReader();
     this.imagePath = files;
     reader.readAsDataURL(files[0]);
     reader.onload = (_event) => {
-    this.imgURL = reader.result;
+      this.imgURL = reader.result;
     }
-    }
+  }
 
 }

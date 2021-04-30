@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileDataService } from '../../../assets/services/profile-data.service';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogueProfileComponent } from '../dialogue-profile/dialogue-profile.component';
 
 export interface DialogData {
   [x: string]: any;
   animal: string;
   name: string;
-  }
+}
 
 @Component({
   selector: 'app-profile',
@@ -17,11 +17,11 @@ export interface DialogData {
 
 export class ProfileComponent implements OnInit {
 
-  profile:any=[]
+  profile: any = []
   name: any;
   animal: any;
-  
-  constructor(private service:ProfileDataService , public dialog: MatDialog) { }
+
+  constructor(private service: ProfileDataService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.profile = this.service.UserProfile;
@@ -31,8 +31,8 @@ export class ProfileComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogueProfileComponent, {
       width: 'auto',
-      data: {name: this.name, animal: this.animal}
+      data: { name: this.name, animal: this.animal }
     });
 
-}
+  }
 }

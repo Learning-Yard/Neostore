@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SocialAuthService, SocialUser } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import { RouterModule, Router } from '@angular/router';
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   success: string = "";
   user!: SocialUser;
   hide = true;
-  
+
   /**
    * email : Email of the user
    * passsword : password of the user
@@ -36,10 +36,18 @@ export class LoginComponent implements OnInit {
    * @param {AuthcheckService} service // authcheckservice has all checking functionality of the auth functions in this file
    * @memberof LoginComponent
    */
-  constructor(public authService: SocialAuthService, private service: AuthcheckService , private base:ApiService , private routes: Router , private ngxLoader: NgxUiLoaderService) { }
+  constructor(public authService: SocialAuthService, private service: AuthcheckService, private base: ApiService, private routes: Router, private ngxLoader: NgxUiLoaderService) { }
 
   // Subcription to Provider ID of the social login api which gives account info as object in user object
   ngOnInit() {
+    this.form = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(14), Validators.pattern('[a-zA-Z0-9\s]+')]),
+    });
+  }
+
+  public checkError = (controlName: string, errorName: string) => {
+    return this.form.controls[controlName].hasError(errorName);
   }
   // Call to Sigin in via google in service
   signInWithGoogle() {
@@ -70,14 +78,15 @@ export class LoginComponent implements OnInit {
       console.log(formdata);
       this.ngxLoader.start();
       this.base.loginCheck(formdata).subscribe(
-        ((res:any) => {
-        localStorage.setItem("user",JSON.stringify(res.data))
-        this.routes.navigate(['/dashboard/']).then(()=>{location.reload()});
-        this.ngxLoader.stop();
-      }),(error)=>{
-        alert('Invalid username or password')
-        console.log('from catch');
-      })
+        ((res: any) => {
+          localStorage.setItem("user", JSON.stringify(res.data))
+          this.routes.navigate(['/dashboard/']).then(() => { location.reload() });
+          this.ngxLoader.stop();
+        }), (error) => {
+          alert('Invalid username or password')
+          console.log('from catch');
+          this.ngxLoader.stop();
+        })
       // .catch((res:any) => {
       //   alert('Invalid username or password')
       //   console.log('from catch',res)

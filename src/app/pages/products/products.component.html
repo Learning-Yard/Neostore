@@ -1,118 +1,101 @@
 <div class="m-5">
-    <div class="row">
-      <div class="col-sm-12 col-lg-3" >
-        <div class="row">
-          <div class="col">
-            <span class="headFont m-2">All Products</span>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12 my-2 col-sm-4 m-2">
-            <mat-accordion class="example-headers-align" multi>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title> Categories </mat-panel-title>
-                </mat-expansion-panel-header>
-  
-                <div *ngFor="let subtask of cat?.data; let i = index">
-                  <p class="m-2 p-1 pointer" (click)="onCategoryClicked(subtask._id)">
-                    {{ subtask.name }}
-                  </p>
-                </div>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </div>
-  
-          <div class="col-lg-12 col-sm-4 m-2">
-            <mat-accordion class="example-headers-align" multi>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title> Color </mat-panel-title>
-                </mat-expansion-panel-header>
-  
-                <div class="row">
-                  <div class="col-4" *ngFor="let subtask of color?.data; let i = index">
-                   
-                    <div class="my-2 pointer" [style.background-color]="subtask?.name " style="width: 6vh; height: 6vh; border-style: solid ;border-width: 1px;" (click)="onColorClicked(subtask._id)"></div>
-                   
-                  </div>
-                </div>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </div>
+  <div class="row">
+    <div class="col-sm-12 col-lg-3">
+      <div class="row">
+        <div class="col">
+          <span class="headFont m-2">All Products</span>
         </div>
       </div>
-      <div class="col-lg-9 col-sm-12">
-        <!-- <app-homepage-card></app-homepage-card> -->
-        <div class="row m-4">
-          <div style="text-align: end">
-            <!-- <div class="col" > -->
-  
-            <span class="m-2 pointer" (click)="onRatingSortDesc()"
-              >Rating<mat-icon>arrow_downward</mat-icon>
-            </span>
-            <span class="m-2 pointer" (click)="onPriceSortAsc()"
-              >Price<mat-icon>arrow_upward</mat-icon>
-            </span>
-            <span class="m-2 pointer" (click)="onPriceSortDesc()"
-              >Price<mat-icon>arrow_downward</mat-icon>
-            </span>
-  
-            <!-- </div> -->
-          </div>
+      <div class="row">
+        <div class="col-lg-12 my-2 col-sm-4 m-2">
+          <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Categories </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div *ngFor="let subtask of cat?.data; let i = index">
+                <p class="m-2 p-1 pointer" (click)="onCategoryClicked(subtask._id)">
+                  {{ subtask.name }}
+                </p>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
         </div>
-        <div class="row">
-          <div
-            class="col-sm-6 col-lg-4 mb-4 card-margin"
-            *ngFor="let product of productList?.data.docs
+
+        <div class="col-lg-12 col-sm-4 m-2">
+          <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Color </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div class="row">
+                <div class="col-4" *ngFor="let subtask of color?.data; let i = index">
+
+                  <div class="my-2 pointer" [style.background-color]="subtask?.name "
+                    style="width: 6vh; height: 6vh; border-style: solid ;border-width: 1px;"
+                    (click)="onColorClicked(subtask._id)"></div>
+
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-9 col-sm-12">
+      <!-- <app-homepage-card></app-homepage-card> -->
+      <div class="row m-4">
+        <div style="text-align: end">
+          <!-- <div class="col" > -->
+
+          <span class="m-2 pointer" (click)="onRatingSortDesc()">Rating<mat-icon>arrow_downward</mat-icon>
+          </span>
+          <span class="m-2 pointer" (click)="onPriceSortAsc()">Price<mat-icon>arrow_upward</mat-icon>
+          </span>
+          <span class="m-2 pointer" (click)="onPriceSortDesc()">Price<mat-icon>arrow_downward</mat-icon>
+          </span>
+
+          <!-- </div> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-lg-4 mb-4 card-margin" *ngFor="let product of productList?.data.docs
                 | paginate: { itemsPerPage: 10, currentPage: p }
-            "
-          >
-            <mat-card class="example-card">
-              <img height="150vh"
-                mat-card-image
-                src="{{ product.mainImage }}"
-                (click)="onCardClick(product._id)"
-                alt=""
-              />
-              <mat-card-content>
-                <h2 class="box" style="text-align: center;">
-                  {{ product.name}}
-                </h2>
-  
-                <div style="text-align: center">
-                  <!-- <star-rating
+            ">
+          <mat-card class="example-card">
+            <img height="150vh" mat-card-image src="{{ product.mainImage }}" (click)="onCardClick(product._id)"
+              alt="" />
+            <mat-card-content>
+              <h2 class="box" style="text-align: center;">
+                {{ product.name}}
+              </h2>
+
+              <div style="text-align: center">
+                <!-- <star-rating
                     [value]="product.avgRating" 
                     checkedcolor="#ffcc00"
                     uncheckedcolor="#ffff99"
                     size="24px"
                     [readonly]="true"
                   ></star-rating> -->
-                  <div class=rating>
-                        <d-ng-rating [size]="5" [rating]="product?.avgRating || 1"></d-ng-rating>
-                  </div><br>
-                  <h3 style="text-align: center">
-                    &#8377; {{ product.price }}
-                  </h3>
-                  <button
-                    mat-raised-button
-                    color="primary"
-                    style="text-align: center"
-                    (click)="addToCart(product.id)"
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </mat-card-content>
-              <mat-card-actions> </mat-card-actions>
-            </mat-card>
-          </div>
+                <div class=rating>
+                  <d-ng-rating [size]="5" [rating]="product?.avgRating || 1"></d-ng-rating>
+                </div><br>
+                <h3 style="text-align: center">
+                  &#8377; {{ product.price }}
+                </h3>
+                <button mat-raised-button color="primary" style="text-align: center" (click)="addToCart(product.id)">
+                  Add to Cart
+                </button>
+              </div>
+            </mat-card-content>
+            <mat-card-actions> </mat-card-actions>
+          </mat-card>
         </div>
-        <pagination-controls
-          class="textCenter"
-          (pageChange)="p = $event"
-        ></pagination-controls>
       </div>
+      <pagination-controls class="textCenter" (pageChange)="p = $event"></pagination-controls>
     </div>
   </div>
-  
+</div>

@@ -1,40 +1,42 @@
 <mat-card class="example-card">
-    <div class="profileHeading p-2">
+  <div class="profileHeading p-2">
     <h1 class="textCenter">Profile</h1>
-    </div>
-    <table class="table">
-        <tbody>
-            <tr>
-              <td class="boldFont">First Name</td>
-              <td>{{profile.customer_proile.first_name | titlecase}}</td>
-            </tr>
-            <tr>
-              <td class="boldFont">Last Name</td>
-              <td>{{profile.customer_proile.last_name | titlecase}}</td>
-            </tr>
-            <tr>
-              <td class="boldFont">Gender</td>
-              <td>{{profile.customer_proile.gender | titlecase}}</td>
-            </tr>
-            <tr>
-              <td class="boldFont">Date Of Birth</td>
-              <td>{{profile.customer_proile.dob | date}}</td>
-            </tr>
-            <tr>
-              <td class="boldFont">Email</td>
-              <td>{{profile.customer_proile.phone_no}}</td>
-            </tr>
-            <tr>
-              <td class="boldFont">Phone</td>
-              <td>{{profile.customer_proile.email}}</td>
-            </tr>
-        </tbody>
-      </table>
-    
-    <hr>
-    
+  </div>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td class="boldFont">First Name</td>
+        <td>{{profile.customer_proile.first_name | titlecase}}</td>
+      </tr>
+      <tr>
+        <td class="boldFont">Last Name</td>
+        <td>{{profile.customer_proile.last_name | titlecase}}</td>
+      </tr>
+      <tr>
+        <td class="boldFont">Gender</td>
+        <td>{{profile.customer_proile.gender | titlecase}}</td>
+      </tr>
+      <tr>
+        <td class="boldFont">Date Of Birth</td>
+        <td>{{profile.customer_proile.dob | date}}</td>
+      </tr>
+      <tr>
+        <td class="boldFont">Email</td>
+        <td>{{profile.customer_proile.phone_no}}</td>
+      </tr>
+      <tr>
+        <td class="boldFont">Phone</td>
+        <td>{{profile.customer_proile.email}}</td>
+      </tr>
+    </tbody>
+  </table>
 
-    <button mat-stroked-button (click)="openDialog()"><mat-icon>edit</mat-icon>Edit</button>
-    
-    
-    </mat-card>
+  <hr>
+
+
+  <button mat-stroked-button (click)="openDialog()">
+    <mat-icon>edit</mat-icon>Edit
+  </button>
+
+
+</mat-card>

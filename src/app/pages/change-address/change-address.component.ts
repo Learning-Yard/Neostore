@@ -12,24 +12,24 @@ import { ApiService } from '../../../assets/services/api.service';
 })
 
 export class ChangeAddressComponent implements OnInit {
-public userData:any={};
-  constructor(    public dialogRef: MatDialogRef<AddressListComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData , private data1: AddressManupulationService , private api:ApiService) { }  
+  public userData: any = {};
+  constructor(public dialogRef: MatDialogRef<AddressListComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private data1: AddressManupulationService, private api: ApiService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     // this.sub();
   }
-  sub(){
-    this.api.listAdress().subscribe((data)=>{
+  sub() {
+    this.api.listAdress().subscribe((data) => {
       console.log(data);
     });
   }
-// sub(){
-//   this.api.listAdress().subscribe((data)=>{
-//     this.userData = data;
-//     console.log(data)
-//   });
-// }
+  // sub(){
+  //   this.api.listAdress().subscribe((data)=>{
+  //     this.userData = data;
+  //     console.log(data)
+  //   });
+  // }
   // index = this.al.sendindex()
   // addressLine = this.userData.addressLine;
   // city = this.userData.city;
@@ -67,12 +67,12 @@ public userData:any={};
     let editInfo = {
       addressLine: addressLine,
       city: city,
-      state : state,
+      state: state,
       pincode: pincode,
       country: country,
     };
     console.log(editInfo);
-    this.api.updateAdress(editInfo,this.data.id).subscribe((data)=>{
+    this.api.updateAdress(editInfo, this.data.id).subscribe((data) => {
       console.log(data);
     });
     this.sub();

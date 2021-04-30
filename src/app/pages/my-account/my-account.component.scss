@@ -1,37 +1,50 @@
-.profilePic{
+.profilePic {
     max-height: 80%;
     max-width: 80%;
-    }
-    .nameFont{
+}
+.nameFont {
     font-size: 4vh;
-    }
-    
-    .headFont{
+}
+
+.headFont {
     font-size: 7vh;
-    }
-    
-    .profileContentFont{
+}
+
+.profileContentFont {
     font-size: 2vw;
-    }
-    
-    .boldFont{
+}
+
+.boldFont {
     font-weight: bolder;
-    }
-    
-    mat-stroked-button{
+}
+
+mat-stroked-button {
     width: 200vh;
-    }
-    
-    .button{
+}
+
+.button {
     // width: 50vh;
     width: 90%;
-    }
-    
-    .profileHeading{
+}
+
+.profileHeading {
     // background-color: burlywood;
-    background-image: radial-gradient(circle, #d9eced, #dbecf0, #deedf2, #e1edf4, #e5edf5, #e4edf5, #e4edf5, #e3edf5, #deedf4, #d8edf2, #d3ecef, #d0ecea);
-    }
-    .textCenter{
-        text-align: center;
-    }
-    
+    background-image: radial-gradient(
+        circle,
+        #d9eced,
+        #dbecf0,
+        #deedf2,
+        #e1edf4,
+        #e5edf5,
+        #e4edf5,
+        #e4edf5,
+        #e3edf5,
+        #deedf4,
+        #d8edf2,
+        #d3ecef,
+        #d0ecea
+    );
+}
+.textCenter {
+    text-align: center;
+}

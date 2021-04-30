@@ -11,14 +11,23 @@
             <p>
               <mat-form-field>
                 <input type="text" matInput placeholder="Email" formControlName="email">
+                <mat-error *ngIf="checkError('email', 'required')">Email is required</mat-error>
+                <mat-error *ngIf="checkError('email', 'email')">Invalid Email</mat-error>
               </mat-form-field>
             </p>
 
             <!-- Password -->
             <p>
               <mat-form-field>
-                <input type="password" [type]="hide ? 'password' : 'text'" [attr.aria-pressed]="hide" matInput placeholder="Password" formControlName="password">
+                <input type="password" [type]="hide ? 'password' : 'text'" [attr.aria-pressed]="hide" matInput
+                  placeholder="Password" formControlName="password">
                 <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-error *ngIf="checkError('password', 'required')">Password is required</mat-error>
+                <mat-error *ngIf="checkError('password', 'minlength')">Last Name should be more than 8 characters
+                </mat-error>
+                <mat-error *ngIf="checkError('password', 'maxlength')">Last Name should be less than 14 characters
+                </mat-error>
+                <mat-error *ngIf="checkError('password', 'pattern')">Only Alphanumeric is allowed</mat-error>
               </mat-form-field>
             </p>
 
@@ -36,7 +45,8 @@
             <div class="button">
               <button type="submit" mat-raised-button color="accent">Login</button>
             </div><br>
-            <p style="text-align: center; font-weight: bolder;" [routerLink]="['/forget-password']">Forgot Password?</p><br> 
+            <p style="text-align: center; font-weight: bolder;" [routerLink]="['/forget-password']">Forgot Password?</p>
+            <br>
             <p style="text-align: center;">Not A Part of NeoStore yet?</p>
 
             <!-- Register  -->

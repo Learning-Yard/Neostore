@@ -8,19 +8,19 @@ import { ApiService } from 'src/assets/services/api.service';
 })
 export class CarouselComponent implements OnInit {
 
-  constructor(private api:ApiService) { }
+  constructor(private api: ApiService) { }
 
-  public carouselImg:any
+  public carouselImg: any
 
   ngOnInit(): void {
     this.api.listAllCategoryGet().subscribe(
       (info) => {
         this.carouselImg = info
-        console.log("category:",info);
-        
+        console.log("category:", info);
+
         console.log(this.carouselImg.data[0].image);
-        
+
       });
-    }
-  
+  }
+
 }

@@ -19,8 +19,8 @@
         <!-- profile pic -->
 
         <!-- <div *ngIf="!profilePic1.value; else defaultPic"> -->
-          <div *ngIf="!file.value; else defaultPic">  
-        <img src={{profilePic}} width="100%" height="100">
+        <div *ngIf="!file.value; else defaultPic">
+          <img src={{profilePic}} width="100%" height="100">
         </div>
         <ng-template #defaultPic>
           <img [src]="imgURL" width="100%" height="100" *ngIf="imgURL">
@@ -28,29 +28,16 @@
           <h1> {{file.value}}</h1>
         </ng-template>
 
-          <input
-            type="file"
-            #file
-            id="file-id"
-            accept='image/*'
-            (change)="preview(file.files)"
-            placeholder="Profile Pic"
-          />
-          <br>
+        <input type="file" #file id="file-id" accept='image/*' (change)="preview(file.files)"
+          placeholder="Profile Pic" />
+        <br>
         <!-- First Name -->
         <mat-form-field class="example-full-width">
-          <input
-            type="text"
-            matInput
-            [formControl]="firstNameFormControl"
-            placeholder="First Name"
-          />
-          <mat-error
-            *ngIf="
+          <input type="text" matInput [formControl]="firstNameFormControl" placeholder="First Name" />
+          <mat-error *ngIf="
               firstNameFormControl.hasError('pattern') &&
               !firstNameFormControl.hasError('required')
-            "
-          >
+            ">
             First name accepts only alphabets.
           </mat-error>
           <mat-error *ngIf="firstNameFormControl.hasError('required')">
@@ -60,18 +47,11 @@
         <br />
         <!-- last Name -->
         <mat-form-field class="example-full-width">
-          <input
-            type="text"
-            matInput
-            [formControl]="lastNameFormControl"
-            placeholder="Last Name"
-          />
-          <mat-error
-            *ngIf="
+          <input type="text" matInput [formControl]="lastNameFormControl" placeholder="Last Name" />
+          <mat-error *ngIf="
               lastNameFormControl.hasError('pattern') &&
               !lastNameFormControl.hasError('required')
-            "
-          >
+            ">
             Last name accepts only alphabets.
           </mat-error>
           <mat-error *ngIf="lastNameFormControl.hasError('required')">
@@ -92,36 +72,26 @@
         <!-- Dob -->
 
         <p>
-            <!-- <mat-form-field appearance="fill">
+          <!-- <mat-form-field appearance="fill">
               <mat-label>Input disabled</mat-label>
               <input matInput [matDatepicker]="dp3" disabled>
               <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
               <mat-datepicker #dp3 disabled="false"></mat-datepicker>
             </mat-form-field> -->
-            <mat-form-field class="example-full-width">
-                <input
-                  type="date"
-                  matInput
-                />
-            </mat-form-field>
-          </p>
-          
+          <mat-form-field class="example-full-width">
+            <input type="date" matInput />
+          </mat-form-field>
+        </p>
+
         <br />
 
         <!-- Email -->
         <mat-form-field class="example-full-width">
-          <input
-            type="text"
-            matInput
-            [formControl]="emailFormControl"
-            placeholder="email"
-          />
-          <mat-error
-            *ngIf="
+          <input type="text" matInput [formControl]="emailFormControl" placeholder="email" />
+          <mat-error *ngIf="
               emailFormControl.hasError('pattern') &&
               !emailFormControl.hasError('required')
-            "
-          >
+            ">
             This is not email
           </mat-error>
           <mat-error *ngIf="emailFormControl.hasError('required')">
@@ -132,19 +102,11 @@
 
         <!-- phone -->
         <mat-form-field class="example-full-width">
-          <input
-            type="text"
-            matInput
-            [formControl]="phoneFormControl"
-            placeholder="phone"
-            maxlength="10"
-          />
-          <mat-error
-            *ngIf="
+          <input type="text" matInput [formControl]="phoneFormControl" placeholder="phone" maxlength="10" />
+          <mat-error *ngIf="
               phoneFormControl.hasError('pattern') &&
               !phoneFormControl.hasError('required')
-            "
-          >
+            ">
             Only digits.
           </mat-error>
           <mat-error *ngIf="phoneFormControl.hasError('required')">
@@ -153,7 +115,7 @@
 
         </mat-form-field>
         <br>
-        
+
       </div>
     </div>
   </div>
@@ -163,11 +125,7 @@
 
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button
-    mat-button
-    [mat-dialog-close]="data.animal"
-    cdkFocusInitial
-    [disabled]="
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial [disabled]="
       lastNameFormControl.invalid ||
       firstNameFormControl.invalid ||
       genderFormControl.invalid ||
@@ -175,8 +133,7 @@
       emailFormControl.invalid ||
       phoneFormControl.invalid
     "
-    (click)="onSubmit(firstNameFormControl.value,lastNameFormControl.value,genderFormControl.value,dobFormControl.value,emailFormControl.value,phoneFormControl.value)"
-  >
+    (click)="onSubmit(firstNameFormControl.value,lastNameFormControl.value,genderFormControl.value,dobFormControl.value,emailFormControl.value,phoneFormControl.value)">
     Ok
   </button>
 </div>
