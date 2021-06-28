@@ -11,8 +11,12 @@ export class CarouselComponent implements OnInit {
   constructor(private api: ApiService) { }
 
   public carouselImg: any
-
-  ngOnInit(): void {
+/**
+ * Takes all the carousel images from the api
+ *
+ * @memberof CarouselComponent
+ */
+ngOnInit(): void {
     this.api.listAllCategoryGet().subscribe(
       (info) => {
         this.carouselImg = info

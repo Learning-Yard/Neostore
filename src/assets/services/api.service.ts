@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RouterModule , Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AngularFireMessaging } from '@angular/fire/messaging';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class ApiService {
   toko:any = (localStorage.getItem("user"));
   token_it:any = JSON.parse(this.toko);
   public cartValue:number | undefined
-  
+  public fireStoreToken:any;
+  public fireToken="key=AAAAkq4olhk:APA91bEs7WxE_syK8kUOmvJEGl2kI0pc0GEJcEkDKgJI6mroXLrXK-rjOTh1HKeDJrZ2fp7dQWAP8c8VY8oV1VKoIwDJHQuy_v5GVi4jQ4WmyyXJybBkgVm09tzelIiqboqCgHiBMtTy";
   constructor(private http:HttpClient) { }
 
   // public getbaseurl(){
@@ -24,7 +26,7 @@ export class ApiService {
     return this.http
     .post(`${this.url}/api/auth/login`, formdata)
   }
-  
+
   registrationCheck(data: any): Observable<any>{
     return this.http.post(this.url + '/api/auth/register', data)
   }
@@ -57,28 +59,28 @@ export class ApiService {
   listAllCategoryGet(): Observable<any>{
     return this.http.get(this.url + '/api/category')
   }
-  
+
   listAllColorGet(): Observable<any>{
     return this.http.get(this.url + '/api/color')
   }
-  
+
   listCategoryGet(id:any): Observable<any>{
     return this.http.get(this.url + '/api/product?limit=100000&page=1..1000&category='+id)
   }
-  
+
   listColorGet(id:any): Observable<any>{
     return this.http.get(this.url + '/api/product?limit=100000&page=1..1000&color='+id)
   }
-  
+
   sortByPriceAscGet(): Observable<any>{
     return this.http.get(this.url + '/api/product?limit=100000&page=1..1000&sortby=price&orderby=asc')
   }
-  
+
   sortByPriceDescGet(): Observable<any>{
     return this.http.get(this.url + '/api/product?limit=100000&page=1..1000&sortby=price&orderby=desc')
   }
-  
-  
+
+
   sortByRatingDescGet(): Observable<any>{
     return this.http.get(this.url + '/api/product?limit=100000&page=1..1000&sortby=rating&orderby=desc')
   }
@@ -142,7 +144,7 @@ export class ApiService {
   orderList(){
     let user:any = (localStorage.getItem("user"));
     let user2:any = JSON.parse(user);
-    return this.http.get(this.url + '/api/order',{ headers: { Authorization: user2.token}})    
+    return this.http.get(this.url + '/api/order',{ headers: { Authorization: user2.token}})
   }
 
   topFiveProductGet(): Observable<any>{
@@ -152,7 +154,11 @@ export class ApiService {
   checkout(data:string){
     let user:any = (localStorage.getItem("user"));
     let user2:any = JSON.parse(user);
-    return this.http.post(this.url + '/api/order/place',data,{ headers: { Authorization: user2.token}})    
+    return this.http.post(this.url + '/api/order/place',data,{ headers: { Authorization: user2.token}})
+  }
+
+  pushNotification(data:any){
+    return this.http.post("https://fcm.googleapis.com/fcm/send",data,{ headers: {Authorization:this.fireToken}})
   }
 
 }

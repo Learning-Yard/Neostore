@@ -17,26 +17,18 @@ export class ChangeAddressComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private data1: AddressManupulationService, private api: ApiService) { }
 
   ngOnInit() {
-    // this.sub();
   }
   sub() {
     this.api.listAdress().subscribe((data) => {
       console.log(data);
     });
   }
-  // sub(){
-  //   this.api.listAdress().subscribe((data)=>{
-  //     this.userData = data;
-  //     console.log(data)
-  //   });
-  // }
-  // index = this.al.sendindex()
-  // addressLine = this.userData.addressLine;
-  // city = this.userData.city;
-  // pincode = this.userData.pincode;
-  // country = this.userData.country;
-
-  AddressFormControl = new FormControl(this.data.addressLine, [
+/**
+ *Validaton of the fields in the form is done here
+ *
+ * @memberof ChangeAddressComponent
+ */
+AddressFormControl = new FormControl(this.data.addressLine, [
     Validators.required,
   ]);
 
@@ -55,15 +47,24 @@ export class ChangeAddressComponent implements OnInit {
   CountryFormControl = new FormControl(this.data.country, [
     Validators.required,
   ]);
-
-  onSubmit(
+/**
+ *  The Function takes the data from the form control and
+ *  passes it to adress edit form in a dialogue box and also after edit the data is send to api
+ * 
+ * @param {string} addressLine Adress of the User
+ * @param {string} city Users City
+ * @param {number} pincode Pincode of the User
+ * @param {string} state State
+ * @param {string} country Country
+ * @memberof ChangeAddressComponent
+ */
+onSubmit(
     addressLine: string,
     city: string,
     pincode: number,
     state: string,
     country: string,
   ) {
-    // console.log(data );
     let editInfo = {
       addressLine: addressLine,
       city: city,
@@ -77,8 +78,12 @@ export class ChangeAddressComponent implements OnInit {
     });
     this.sub();
   }
-
-  onNoClick(): void {
+/**
+ * Method for Closing the dialogue box
+ *
+ * @memberof ChangeAddressComponent
+ */
+onNoClick(): void {
     this.dialogRef.close('true');
   }
 }

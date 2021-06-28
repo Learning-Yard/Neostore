@@ -73,7 +73,7 @@
                     <span class="reviewOrderFont">Review Order</span>
                 </div>
                 <!-- <hr> -->
-
+                <!-- Cart Total Price Part -->
                 <table class="table">
                     <tbody>
                         <tr>
@@ -91,6 +91,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <!-- Proceed to Pay Button -->
                 <div class="textCenter">
                     <button class="proceedToPayButton textCenter" [disabled]="cartInfo?.data.grandTotal == 0"
                         mat-raised-button color="primary" [routerLink]="['/checkout']"

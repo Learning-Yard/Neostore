@@ -1,38 +1,41 @@
-// .row{
-// max-height: 300px;
-// }
-// cart{
-//     max-height: 300px;
-// }
-
+// Product Image Size
 .productImage {
     max-height: 9vh;
     max-width: 9vw;
 }
 
+// Button Width
 .button {
     width: 40%;
 }
+
+// Proceed to Checkout Button
 .proceedToPayButton {
     width: 90%;
 }
 
+// + - Button
 .mat-mini-fab {
     background-color: gray;
 }
+
+// Product Name
 .productName {
     font-weight: bold;
 }
 
+// Manufacturer's Name
 .creator {
     font-style: oblique;
 }
 
+// Stock Indication
 .stock {
     color: green;
     font-weight: bold;
 }
 
+// Review Order
 .reviewOrderFont {
     font-size: 2vw;
 }

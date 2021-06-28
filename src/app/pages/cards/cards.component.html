@@ -16,6 +16,7 @@
             <d-ng-rating [size]="5" [rating]="items?.avgRating || 1"></d-ng-rating>
           </div><br>
           <p><b>{{items.price | currency:'INR'}}</b></p>
+          <!-- Add to cart button -->
           <button mat-raised-button color="primary" style="text-align: center" (click)="addToCart(items._id)">
             Add to Cart
           </button>

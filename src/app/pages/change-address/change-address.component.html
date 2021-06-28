@@ -23,7 +23,7 @@
           </mat-error>
         </mat-form-field>
         <br />
-
+        <!-- Pincode -->
         <mat-form-field class="example-full-width">
           <input type="text" matInput [formControl]="PincodeFormControl" placeholder="Pincode" />
           <mat-error *ngIf="
@@ -32,7 +32,7 @@
             Pincode required
           </mat-error>
         </mat-form-field>
-
+        <!-- State -->
         <mat-form-field class="example-full-width">
           <input type="text" matInput [formControl]="StateFormControl" placeholder="State" />
           <mat-error *ngIf="
@@ -41,7 +41,7 @@
             State required
           </mat-error>
         </mat-form-field>
-
+        <!-- Country -->
         <mat-form-field class="example-full-width">
           <input type="text" matInput [formControl]="CountryFormControl" placeholder="Country" />
           <mat-error *ngIf="
@@ -58,7 +58,9 @@
   <!-- Show this demonstrate to mentor that value is not visible in matInput -->
 
   <div mat-dialog-actions>
+    <!-- NO Thanks Button -->
     <button mat-button (click)="onNoClick()">No Thanks</button>
+    <!-- Ok Button -->
     <button mat-button [disabled]="
     AddressFormControl.invalid ||
     CityFormControl.invalid ||

@@ -45,15 +45,21 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(14), Validators.pattern('[a-zA-Z0-9\s]+')]),
     });
   }
-
-  public checkError = (controlName: string, errorName: string) => {
+/**
+ * Error message part is handeled here
+ * 
+ * @param {string} controlName Form Control name
+ * @param {string} errorName error string
+ * @memberof LoginComponent
+ */
+public checkError = (controlName: string, errorName: string) => {
     return this.form.controls[controlName].hasError(errorName);
   }
+
   // Call to Sigin in via google in service
   signInWithGoogle() {
     this.service.signInWithGoogle();
     this.service.subcriber();
-    // return (this.user)
   }
 
   senduinfo() {
@@ -63,12 +69,7 @@ export class LoginComponent implements OnInit {
   signInWithFB() {
     this.service.signInWithFB();
     this.service.subcriber();
-    // return (this.user)
   }
-  // Call to Signout in service
-  // signOut(){
-  //   this.service.signOut();
-  // }
 
   // Login Function for standard users using Event Emitter method
   submit() {
@@ -87,18 +88,6 @@ export class LoginComponent implements OnInit {
           console.log('from catch');
           this.ngxLoader.stop();
         })
-      // .catch((res:any) => {
-      //   alert('Invalid username or password')
-      //   console.log('from catch',res)
-      // });
-      // // console.log(this.form.value);
-      // if ((this.form.value.email != "admin") && (this.form.value.password != "super")) {
-      //   this.error = "Invalid Credentials";
-      // }
-      // else {
-      //   this.success = "Sign in Successfull";
-      //   
-      // }
     }
   }
 

@@ -9,6 +9,12 @@ import { ApiService } from 'src/assets/services/api.service';
 import { DialogCartComponent } from '../dialog-cart/dialog-cart.component';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { AppComponent } from '../../app.component';
+import { AngularFireMessaging } from '@angular/fire/messaging';
+import { mergeMapTo } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { ProfileDataService } from '../../../assets/services/profile-data.service';
+import { Router } from '@angular/router';
+
 
 export interface DialogData {
   name: string;
@@ -28,10 +34,6 @@ export class CheckoutComponent implements OnInit {
   public cartInfo: any;
   public cartData = this.api.cartList();
   public addressId: string = "";
-  // public price = this.cartData.product_details[0].product_cost;
-  // public total = this.cartData.product_details[0].total_productCost;
-  // public quantity = this.cartData.product_details[this.i].quantity;
-  // public stock = this.cartData.product_details[0].product_id.product_stock;
   public address_list: any = [];
   name: any;
   animal: any;
@@ -42,17 +44,21 @@ export class CheckoutComponent implements OnInit {
   country: any;
   id: string = "";
   public addresses: any = [];
+  strikeCheckout:any = null;
+  supertoken=0;
+  b:any;
+  currentMessage = new BehaviorSubject<Object>(1);
 
-  constructor(private api: ApiService, public dialog: MatDialog, private ngxLoader: NgxUiLoaderService, private timer:AppComponent) { }
+  constructor(private api: ApiService, private service: ProfileDataService , public dialog: MatDialog, private ngxLoader: NgxUiLoaderService, private timer:AppComponent, private angularFireMessaging: AngularFireMessaging, private route:Router) {
+    // this.getoken();
+    this.requestPermission();
+    this.receiveMessage();
+  }
 
   ngOnInit() {
-    // trying to share quantity to dataservice
-    // this.api.setCartCount(this.cartData.product_details[0].quantity);
     console.log(this.quantity);
     console.log(this.quantity[1]);
-    // this.reload()
-
-    // setInterval('this.reload()', 5000)
+    this.requestPermission();
     this.ngxLoader.start();
     this.api.listProductsInCartGet().subscribe(
       (info) => {
@@ -60,34 +66,28 @@ export class CheckoutComponent implements OnInit {
         this.cartInfo = info;
         console.log(this.cartInfo);
         this.addressList();
-        // location.reload()
         this.ngxLoader.stop();
       },
       (error) => {
         console.log(error.error.message);
       }
     );
-
-    // adding quantities to quantoty Array
-    // for (let j of this.cartData.product_details) {
-    //   this.quantity[this.x] = j.quantity;
-    //   this.x = this.x + 1;
-    // }
-    // console.log('x:', this.x);
-
-    // here calculating subtotal of all product by taking index id of array from quantity array
-    // and multiply with its respective product price and add them one by one from for loop
-    // let j = this.quantity.length;
-    // console.log('array length', this.quantity.length);
-    // let subTotal1: number = 0;
-    // for (let y = 0; y < j; y++) {
-    //   subTotal1 =
-    //     subTotal1 +
-    //     this.quantity[y] * this.cartData.product_details[y].product_cost;
-    //   this.subTotal = subTotal1;
-    //   console.log('subtotal', this.subTotal);
-    // }
   }
+
+ngOnChanges(){
+  this.api.listProductsInCartGet().subscribe(
+    (info) => {
+      console.log('data :', info);
+      this.cartInfo = info;
+      console.log(this.cartInfo);
+      this.addressList();
+      this.ngxLoader.stop();
+    },
+    (error) => {
+      console.log(error.error.message);
+    }
+  );
+}
 
   /**
    * here dialog box will open on delete product click
@@ -108,7 +108,6 @@ export class CheckoutComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       console.log('result', result);
-      // this.abcd = result
       xyz = result;
 
       if (xyz == 'true') {
@@ -133,8 +132,6 @@ export class CheckoutComponent implements OnInit {
               });
 
           });
-        // console.log('subtotal', this.subTotal);
-        // console.log('product json', this.cartData.product_details);
       }
     });
   }
@@ -154,15 +151,12 @@ export class CheckoutComponent implements OnInit {
     this.api.updateCartQuantity(data, i).subscribe(
       (info) => {
         console.log('product quantity add success :', info);
-        // this.cartInfo = info
-        // console.log(this.cartInfo);
         this.ngxLoader.start();
         this.api.listProductsInCartGet().subscribe(
           (info) => {
             console.log('data :', info);
             this.cartInfo = info;
             console.log(this.cartInfo);
-            // location.reload()
           },
           (error) => {
             console.log(error.error.message);
@@ -174,25 +168,6 @@ export class CheckoutComponent implements OnInit {
         console.log('product quantity add success :', error.error.message);
       }
     );
-
-
-    // if (this.stock > 0) {
-    //   this.quantity[i] = this.quantity[i] + 1;
-    //   // this.quantity = this.quantity + 1;
-    //   this.stock = this.stock - 1;
-    //   console.log('array quantity from add method', this.quantity);
-
-    //   let j = this.quantity.length;
-    //   console.log('array length', this.quantity.length);
-    //   let subTotal1: number = 0;
-    //   for (let y = 0; y < j; y++) {
-    //     subTotal1 =
-    //       subTotal1 +
-    //       this.quantity[y] * this.cartData.product_details[y].product_cost;
-    //     this.subTotal = subTotal1;
-    //     console.log('subtotal', this.subTotal);
-    //   }
-    // }
   }
 
   /**
@@ -210,14 +185,11 @@ export class CheckoutComponent implements OnInit {
     this.api.updateCartQuantity(data, i).subscribe(
       (info) => {
         console.log('product quantity delete success :', info);
-        // this.cartInfo = info
-        // console.log(this.cartInfo);
         this.api.listProductsInCartGet().subscribe(
           (info) => {
             console.log('data :', info);
             this.cartInfo = info;
             console.log(this.cartInfo);
-            // location.reload()
             this.ngxLoader.stop();
           },
           (error) => {
@@ -230,90 +202,25 @@ export class CheckoutComponent implements OnInit {
         console.log('product quantity add success :', error.error.message);
       }
     );
-
-    // if (quantity > 1) {
-    //   console.log(
-    //     'before   this.quantity[i] = this.quantity[i] - 1;',
-    //     i,
-    //     this.quantity[i]
-    //   );
-    //   this.quantity[i] = this.quantity[i] - 1;
-    //   this.stock = this.stock + 1;
-
-    //   let j = this.quantity.length;
-    //   console.log('array length from upper remove', this.quantity.length);
-    //   let subTotal1: number = 0;
-    //   console.log('quantity array', this.quantity);
-    //   for (let y = 0; y < j; y++) {
-    //     console.log('p ', i, ':', this.quantity[i]);
-    //     subTotal1 =
-    //       subTotal1 +
-    //       this.quantity[y] * this.cartData.product_details[y].product_cost;
-    //     this.subTotal = subTotal1;
-    //     console.log('subtotal', this.subTotal);
-    //   }
-    // }
-    // // else{
-    //   if(this.quantity.length == 1){
-    //     console.log("length true");
-    //     this.subTotal = 0
-    //   }
-    //   console.log("array length before splicing",this.quantity.length);
-    //     console.log("quantity array before splicing",this.quantity);
-    //   this.quantity.splice(i,1);
-    //   console.log("array length after splicing",this.quantity.length);
-    //     console.log("quantity array after splicing",this.quantity);
-    //     this.cartData.product_details.splice(i, 1);
-    //     console.log("product json",this.cartData.product_details);
-    //     console.log("array length",this.quantity.length);
-    //     console.log("quantity array",this.quantity);
-    //   let j = this.quantity.length
-    //   let subTotal1:number = 0
-    //     for (let y = 0; y < j; y++) {
-    //       subTotal1 = subTotal1 + (this.quantity[y] * this.cartData.product_details[y].product_cost);
-    //       this.subTotal = subTotal1
-    //       console.log('subtotal', this.subTotal);
-    //     }
-    //     console.log('subtotal', this.subTotal);
-    // }
   }
-
-  onDeleteClick(name: string, img: any, i: string) {
+/**
+ * Sends data to delete dialogue and asks confirmation
+ *
+ * @param {string} name Name of the product
+ * @param {*} img Image of the product
+ * @param {string} i index
+ * @memberof CheckoutComponent
+ */
+onDeleteClick(name: string, img: any, i: string) {
     this.openDialog(name, img, i);
-
-    // if (this.abcd == "true") {
-
-    //   if (this.quantity.length == 1) {
-    //     console.log('length true');
-    //     this.subTotal = 0;
-    //   }
-    //   console.log('array length before splicing', this.quantity.length);
-    //   console.log('quantity array before splicing', this.quantity);
-    //   this.quantity[i] = this.quantity[i];
-    //   this.quantity.splice(i, 1);
-    //   console.log('i inside delete click', i);
-    //   console.log('array quantity', this.quantity);
-    //   this.cartData.product_details.splice(i, 1);
-    //   console.log('product json', this.cartData.product_details);
-
-    //   // this.quantity = 0
-    //   console.log('array length', this.quantity.length);
-    //   let subTotal1: number = 0;
-    //   let j = this.quantity.length;
-    //   for (let y = 0; y < j; y++) {
-    //     subTotal1 =
-    //       subTotal1 +
-    //       this.quantity[y] * this.cartData.product_details[y].product_cost;
-    //     this.subTotal = subTotal1;
-    //     console.log('subtotal', this.subTotal);
-    //   }
-    //   console.log('subtotal', this.subTotal);
-
-    //   console.log('product json', this.cartData.product_details);
-    // }
   }
 
-  addressList() {
+/**
+ * Checks and submits the address the user selects as delivery location
+ *
+ * @memberof CheckoutComponent
+ */
+addressList() {
     this.ngxLoader.start();
     this.api.listAdress().subscribe((data) => {
       this.address_list = data;
@@ -326,19 +233,185 @@ export class CheckoutComponent implements OnInit {
     this.addressId = aid;
     console.log(this.addressId);
   }
-
-  checkout() {
+/**
+ * This function sends the data to the order moduleand order gets placed and the cart items is set to 0
+ *
+ * @memberof CheckoutComponent
+ */
+checkout(_amount: number) {
+  console.log(_amount);
     console.log(this.addressId);
     let idd: any = {
       "addressId": this.addressId,
     }
     this.ngxLoader.start();
-    this.api.checkout(idd).subscribe((data) => {
-      console.log(data);
-      alert("Order Placed Sucessfully");
-      this.timer.starttimer();
-      this.ngxLoader.stop();
+    const strikeCheckout = (<any>window).StripeCheckout.configure({
+      key: 'pk_test_51J5R3WSCxxNJs5mUBk4vCrwtOYnuLqFWiwQXeNEYUDz8rL1hrXHQhdEBdksaC73mQyFLCv5FUGXgNg6bgBndI64J00FK4PRBrz',
+      locale: 'auto',
+      token: function (stripeToken: any) {
+        console.log(stripeToken)
+        alert('Payment Sucessfull');
+        this.supertoken=stripeToken;
+        console.log(this.supertoken);
+      }
     });
+    strikeCheckout.open({
+      name: 'RemoteStack',
+      description: 'Payment widgets',
+      amount: _amount * 100
+    });
+    this.timezone();
+  }
+
+  timezone(){
+     this.b= setInterval(() => {
+      this.placeit();
+      this.abc();
+    }, 40000);
+  }
+
+placeit(){
+  let idd: any = {
+    "addressId": this.addressId,
+  }
+
+  this.ngxLoader.stop();
+
+  this.api.checkout(idd).subscribe((data) => {
+    console.log(data);
+    alert("Order Placed Sucessfully");
+    this.timer.starttimer();
+    this.ngxLoader.stop();
+    this.ngOnChanges();
+  });
+}
+
+  stripePaymentGateway() {
+    if(!window.document.getElementById('stripe-script')) {
+      const scr = window.document.createElement("script");
+      scr.id = "stripe-script";
+      scr.type = "text/javascript";
+      scr.src = "https://checkout.stripe.com/checkout.js";
+
+      scr.onload = () => {
+        this.strikeCheckout = (<any>window).StripeCheckout.configure({
+          key: 'pk_test_51J5R3WSCxxNJs5mUBk4vCrwtOYnuLqFWiwQXeNEYUDz8rL1hrXHQhdEBdksaC73mQyFLCv5FUGXgNg6bgBndI64J00FK4PRBrz',
+          locale: 'auto',
+          token: function (token: any) {
+            console.log(token)
+            alert('Payment via stripe successfull!');
+          }
+        });
+      }
+
+      window.document.body.appendChild(scr);
+    }
+  }
+
+  // requestPermission() {
+  //   this.afMessaging.requestPermission
+  //     .pipe(mergeMapTo(this.afMessaging.tokenChanges))
+  //     .subscribe(
+  //       (token) => { console.log('Permission granted! Save to the server!', token); },
+  //       (error) => { console.error(error); },
+  //     );
+  // }
+
+  // geToken(){
+  //   this.afMessaging.getToken.subscribe(res=>console.log("Token",res))
+  // }
+
+  // showCustomNotification(payload:any){
+  //   let notify_data = payload['notification'];
+  //   let title = notify_data['title'];
+  //   let options = {
+  //     body:notify_data['body'],
+  //     icon:"../assets/image/Angular_full_color_logo.svg.png",
+  //     badge:"../assets/image/Angular_full_color_logo.svg.png",
+  //     image:"../assets/image/Angular_full_color_logo.svg.png",
+  //   }
+
+  //   console.log("new message received", notify_data);
+  //   let notify: Notification = new Notification(title,options)
+
+  //   notify.onclick = event =>{
+  //     event.preventDefault();
+  //     window.location.href = "https://www.google.com"
+  //   }
+
+  // }
+
+  // receiveMessage() {
+  //   this.afMessaging.messages.subscribe((payload) => {
+  //     console.log('new message received. ', payload);
+  //     this.currentMessage.next(payload);
+  //     this.showCustomNotification(payload)
+  //   });
+  // }
+
+  requestPermission() {
+    this.angularFireMessaging.requestToken.subscribe(
+      (token) => {
+        console.log(token);
+        this.api.fireStoreToken = token
+
+      },
+      (err) => {
+        console.error('Unable to get permission to notify.', err);
+      }
+    );
+  }
+  receiveMessage() {
+    this.angularFireMessaging.messages.subscribe((payload) => {
+      console.log('new message received. ', payload);
+      this.currentMessage.next(payload);
+      this.showCustomNotification(payload)
+    });
+  }
+
+
+  showCustomNotification(payload:any){
+    let notify_data = payload['notification'];
+    let title = notify_data['title'];
+    let options = {
+      body:notify_data['body'],
+      icon:"../assets/images/n.png",
+      badge:"../assets/images/n.png",
+      image:"../assets/images/n.png",
+    }
+
+    console.log("new message received", notify_data);
+    let notify: Notification = new Notification(title,options)
+
+    notify.onclick = event =>{
+      event.preventDefault();
+      this.service.isProfile = false;
+      this.service.isChangePassword = false;
+      this.service.isAddress = false;
+      this.service.isOrder = true;
+      window.location.href = "http://localhost:4200/my-account";
+      this.route.navigate(['/my-account']);
+
+    }
+
+  }
+
+  abc(){
+    console.log("abc token:", this.api.fireStoreToken);
+
+    let data1 = {
+      "notification": {
+      "title": "Order PLaced Successfully",
+      "body": "Click for order details",
+      "icon":"../assets/images/n.png",
+     "click_action" : "http://localhost:4200/my-account"
+      },
+         "to":this.api.fireStoreToken
+      };
+    this.api.pushNotification(data1).subscribe((data) => {
+      console.log("notification content:",data);
+
+    })
   }
 
 }

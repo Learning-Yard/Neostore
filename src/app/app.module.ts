@@ -63,7 +63,11 @@ import { DialogCartComponent } from './pages/dialog-cart/dialog-cart.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { NgRatingModule } from 'd-ng-rating';
-import {MatButtonToggleModule} from '@angular/material/button-toggle'; 
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+// import { environment } from 'ng-star-rating-master/src/environments/environment';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 // const config = new SocialAuthService([
 //   id:GoogleLoginProvider.PROVIDER_ID,
@@ -135,7 +139,9 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatSnackBarModule,
     NgxUiLoaderModule,
     NgRatingModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireMessagingModule,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [AuthconfirmGuard,

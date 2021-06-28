@@ -18,16 +18,23 @@ export class DialogCartComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // this.onNoClick()
-    // this.onOkClick()
   }
-  onNoClick(): void {
-    // this.data1.setRemoveCart("false")
+  
+/**
+ * Action is performed and the data is not passed and dialogue is closed
+ *
+ * @memberof DialogCartComponent
+ */
+onNoClick(): void {
     this.dialogRef.close('false');
   }
 
-  onOkClick() {
-    // this.data1.setRemoveCart("true")
+/**
+ *
+ * Action is performed and the data is passed and dialogue is closed
+ * @memberof DialogCartComponent
+ */
+onOkClick() {
     this.dialogRef.close('true');
   }
 

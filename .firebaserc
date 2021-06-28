@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "neostore-1db2d": {
+      "hosting": {
+        "neo-store": [
+          "neostore-1db2d"
+        ]
+      }
+    }
+  }
+}

@@ -4,7 +4,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChangeAddressComponent } from '../change-address/change-address.component';
 import { ApiService } from '../../../assets/services/api.service';
 import { AddAddressComponent } from '../add-address/add-address.component';
-
+/**
+ *
+ *
+ * @export
+ * @interface DialogData
+ * The Interface for Dialog Data is exported from here
+ */
 export interface DialogData {
   addressLine: any;
   pincode: any;
@@ -13,7 +19,13 @@ export interface DialogData {
   country: any;
   id: string;
 }
-
+/**
+ *
+ *
+ * @export
+ * @class AddressListComponent
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'app-address-list',
   templateUrl: './address-list.component.html',
@@ -37,8 +49,12 @@ export class AddressListComponent implements OnInit {
   ngOnInit(): void {
     this.recievedata();
   }
-
-  recievedata() {
+/**
+ * This function is for recieving data from api and store it in a variable
+ *
+ * @memberof AddressListComponent
+ */
+recievedata() {
     this.api.listAdress().subscribe((data) => {
       this.address_list = data;
       console.log(this.address_list.data.address);
@@ -51,8 +67,13 @@ export class AddressListComponent implements OnInit {
   // sendindex(i:number){
 
   // }
-
-  del_address(id: string) {
+/**
+ *Resonsible for deleting an address
+ *
+ * @param {string} id
+ * @memberof AddressListComponent
+ */
+del_address(id: string) {
     if (window.confirm("Do you really want to Delete?")) {
       this.api.deleteAddress(id).subscribe((data) => {
         console.log(data);
@@ -66,7 +87,17 @@ export class AddressListComponent implements OnInit {
   // }
   // onclick(addressLine:string , city:string , pincode:number ,state:string , country:string ,id:string){
 
-  // }
+  /**
+   * This function is responsible to apen dialogue of edit address 
+   *
+   * @param {string} addressLine address
+   * @param {string} city city
+   * @param {number} pincode pincode
+   * @param {string} state state
+   * @param {string} country country
+   * @param {string} id id
+   * @memberof AddressListComponent
+   */
   openDialog(addressLine: string, city: string, pincode: number, state: string, country: string, id: string): void {
     const dialogRef = this.dialog.open(ChangeAddressComponent, {
       width: 'auto',
@@ -84,8 +115,12 @@ export class AddressListComponent implements OnInit {
     })
     // this.sendindex(i);
   }
-
-  openDialog2(): void {
+/**
+ * OpenDialogue function for adding address
+ * on close the data is send to add address api and also the recievedta method is called to update data
+ * @memberof AddressListComponent
+ */
+openDialog2(): void {
     const dialogRef = this.dialog.open(AddAddressComponent, {
       width: 'auto',
       data: { addressLine: this.address, pincode: this.pincode, city: this.city, state: this.state, country: this.country }

@@ -8,7 +8,6 @@ import {
 import { ApiService } from 'src/assets/services/api.service';
 import { DialogCartComponent } from '../dialog-cart/dialog-cart.component';
 import { AppComponent } from '../../app.component';
-// import {} from '../../../assets/services/data.service'
 
 export interface DialogData {
   name: string;
@@ -24,56 +23,33 @@ export class CartComponent implements OnInit {
   @Input() quantity = Array();
   @Input() subTotal: number = 0;
   public x = 0;
-  public cartInfo: any;
-  public cartData = this.api.cartList();
-  // public price = this.cartData.product_details[0].product_cost;
-  // public total = this.cartData.product_details[0].total_productCost;
-  // public quantity = this.cartData.product_details[this.i].quantity;
-  // public stock = this.cartData.product_details[0].product_id.product_stock;
+  public cartInfo: any; 
+  public cartData = this.api.cartList(); //CartData in the CartList
   name: any;
   animal: any;
-
-  constructor(private api: ApiService, public dialog: MatDialog , private time:AppComponent) {}
-  // total2: number;
+/**
+ * Thw List products in cart get is responsiblefor lising out all data in cart 
+ * Creates an instance of CartComponent.
+ * @param {ApiService} api api service
+ * @param {MatDialog} dialog dialogue
+ * @param {AppComponent} time timer service
+ * @memberof CartComponent
+ */
+constructor(private api: ApiService, public dialog: MatDialog , private time:AppComponent) {}
   ngOnInit() {
-    // trying to share quantity to dataservice
-    // this.api.setCartCount(this.cartData.product_details[0].quantity);
     console.log(this.quantity);
     console.log(this.quantity[1]);
-    // this.reload()
     
-    // setInterval('this.reload()', 5000)
     this.api.listProductsInCartGet().subscribe(
       (info) => {
         console.log('data :', info);
         this.cartInfo = info;
         console.log(this.cartInfo);
-        // location.reload()
       },
       (error) => {
         console.log(error.error.message);
       }
     );
-
-    // adding quantities to quantoty Array
-    // for (let j of this.cartData.product_details) {
-    //   this.quantity[this.x] = j.quantity;
-    //   this.x = this.x + 1;
-    // }
-    // console.log('x:', this.x);
-
-    // here calculating subtotal of all product by taking index id of array from quantity array
-    // and multiply with its respective product price and add them one by one from for loop
-    // let j = this.quantity.length;
-    // console.log('array length', this.quantity.length);
-    // let subTotal1: number = 0;
-    // for (let y = 0; y < j; y++) {
-    //   subTotal1 =
-    //     subTotal1 +
-    //     this.quantity[y] * this.cartData.product_details[y].product_cost;
-    //   this.subTotal = subTotal1;
-    //   console.log('subtotal', this.subTotal);
-    // }
   }
 
   /**
@@ -96,7 +72,6 @@ export class CartComponent implements OnInit {
       console.log('The dialog was closed');
       console.log('result', result);
       this.time.starttimer();
-      // this.abcd = result
       xyz = result;
 
       if (xyz == 'true') {
@@ -114,15 +89,12 @@ export class CartComponent implements OnInit {
                     console.log('data :', info);
                     this.cartInfo = info;
                     console.log(this.cartInfo);
-                    // location.reload()
                   },
                   (error) => {
                     console.log(error.error.message);
                   });
           
           });
-        // console.log('subtotal', this.subTotal);
-        // console.log('product json', this.cartData.product_details);
       }
     });
   }
@@ -133,8 +105,6 @@ export class CartComponent implements OnInit {
    * @memberof CartComponent
    */
   onAddClick(quantity: number, i: string) {
-    // this.i = i;
-
     let data = {
       "quantity": quantity + 1,
     };
@@ -142,8 +112,6 @@ export class CartComponent implements OnInit {
     this.api.updateCartQuantity(data, i).subscribe(
       (info) => {
         console.log('product quantity add success :', info);
-        // this.cartInfo = info
-        // console.log(this.cartInfo);
         this.api.listProductsInCartGet().subscribe(
           (info) => {
             console.log('data :', info);
@@ -161,25 +129,6 @@ export class CartComponent implements OnInit {
         console.log('product quantity add success :', error.error.message);
       } 
     );
-
-    
-    // if (this.stock > 0) {
-    //   this.quantity[i] = this.quantity[i] + 1;
-    //   // this.quantity = this.quantity + 1;
-    //   this.stock = this.stock - 1;
-    //   console.log('array quantity from add method', this.quantity);
-
-    //   let j = this.quantity.length;
-    //   console.log('array length', this.quantity.length);
-    //   let subTotal1: number = 0;
-    //   for (let y = 0; y < j; y++) {
-    //     subTotal1 =
-    //       subTotal1 +
-    //       this.quantity[y] * this.cartData.product_details[y].product_cost;
-    //     this.subTotal = subTotal1;
-    //     console.log('subtotal', this.subTotal);
-    //   }
-    // }
   }
 
   /**
@@ -196,14 +145,11 @@ export class CartComponent implements OnInit {
     this.api.updateCartQuantity(data, i).subscribe(
       (info) => {
         console.log('product quantity delete success :', info);
-        // this.cartInfo = info
-        // console.log(this.cartInfo);
         this.api.listProductsInCartGet().subscribe(
           (info) => {
             console.log('data :', info);
             this.cartInfo = info;
             console.log(this.cartInfo);
-            // location.reload()
           },
           (error) => {
             console.log(error.error.message);
@@ -215,85 +161,16 @@ export class CartComponent implements OnInit {
         console.log('product quantity add success :', error.error.message);
       }
     );
-
-    // if (quantity > 1) {
-    //   console.log(
-    //     'before   this.quantity[i] = this.quantity[i] - 1;',
-    //     i,
-    //     this.quantity[i]
-    //   );
-    //   this.quantity[i] = this.quantity[i] - 1;
-    //   this.stock = this.stock + 1;
-
-    //   let j = this.quantity.length;
-    //   console.log('array length from upper remove', this.quantity.length);
-    //   let subTotal1: number = 0;
-    //   console.log('quantity array', this.quantity);
-    //   for (let y = 0; y < j; y++) {
-    //     console.log('p ', i, ':', this.quantity[i]);
-    //     subTotal1 =
-    //       subTotal1 +
-    //       this.quantity[y] * this.cartData.product_details[y].product_cost;
-    //     this.subTotal = subTotal1;
-    //     console.log('subtotal', this.subTotal);
-    //   }
-    // }
-    // // else{
-    //   if(this.quantity.length == 1){
-    //     console.log("length true");
-    //     this.subTotal = 0
-    //   }
-    //   console.log("array length before splicing",this.quantity.length);
-    //     console.log("quantity array before splicing",this.quantity);
-    //   this.quantity.splice(i,1);
-    //   console.log("array length after splicing",this.quantity.length);
-    //     console.log("quantity array after splicing",this.quantity);
-    //     this.cartData.product_details.splice(i, 1);
-    //     console.log("product json",this.cartData.product_details);
-    //     console.log("array length",this.quantity.length);
-    //     console.log("quantity array",this.quantity);
-    //   let j = this.quantity.length
-    //   let subTotal1:number = 0
-    //     for (let y = 0; y < j; y++) {
-    //       subTotal1 = subTotal1 + (this.quantity[y] * this.cartData.product_details[y].product_cost);
-    //       this.subTotal = subTotal1
-    //       console.log('subtotal', this.subTotal);
-    //     }
-    //     console.log('subtotal', this.subTotal);
-    // }
   }
-
-  onDeleteClick(name:string,img:any,i:string) {
+/**
+ *  This Method shows a confirmation dialogue to the user to confirm delete or not 
+ *
+ * @param {string} name Name of the Product
+ * @param {*} img Image of the product
+ * @param {string} i Index Number
+ * @memberof CartComponent
+ */
+onDeleteClick(name:string,img:any,i:string) {
     this.openDialog(name,img,i);
-    // if (this.abcd == "true") {
-
-    //   if (this.quantity.length == 1) {
-    //     console.log('length true');
-    //     this.subTotal = 0;
-    //   }
-    //   console.log('array length before splicing', this.quantity.length);
-    //   console.log('quantity array before splicing', this.quantity);
-    //   this.quantity[i] = this.quantity[i];
-    //   this.quantity.splice(i, 1);
-    //   console.log('i inside delete click', i);
-    //   console.log('array quantity', this.quantity);
-    //   this.cartData.product_details.splice(i, 1);
-    //   console.log('product json', this.cartData.product_details);
-
-    //   // this.quantity = 0
-    //   console.log('array length', this.quantity.length);
-    //   let subTotal1: number = 0;
-    //   let j = this.quantity.length;
-    //   for (let y = 0; y < j; y++) {
-    //     subTotal1 =
-    //       subTotal1 +
-    //       this.quantity[y] * this.cartData.product_details[y].product_cost;
-    //     this.subTotal = subTotal1;
-    //     console.log('subtotal', this.subTotal);
-    //   }
-    //   console.log('subtotal', this.subTotal);
-
-    //   console.log('product json', this.cartData.product_details);
-    // }
   }
 }

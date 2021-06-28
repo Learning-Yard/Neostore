@@ -9,7 +9,7 @@ export class ProfileDataService {
   public isChangePassword=false;
   public isAddress=false;
   public isOrder=false;
-  
+
   public UserProfile: {success:boolean , status_code:number , customer_proile: {
     customer_id: number;
     first_name: string;

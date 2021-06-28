@@ -26,20 +26,24 @@
                     <hr />
 
                     <div class="row">
+                        <!-- Product Image -->
                         <div class="col-2 mb-1">
                             <img class="productImage" src={{item.productId.mainImage}} />
                         </div>
                         <div class="col-lg-4 col-xs-8 col-md-4 mb-1" style="text-align: left">
+                            <!-- Product Name -->
                             <span class="m-1 productName">{{item.productId.name}} </span><br />
-                            <!-- <span class="m-1 creator text-muted">By {{item.product_id.product_producer}} </span><br /> -->
+                            <!-- Stock Check -->
                             <span class="m-1">Status:</span><span class="stock"> {{item.quantity>0? "In Stock" : "Out of
                                 Stock"}} </span>
                         </div>
+                        <!-- add button -->
                         <div class="col-4 col-lg-3 col-sm-4 col-md-3 mb-1">
                             <button mat-mini-fab (click)="onRemoveClick(item.quantity,item._id)"
                                 [disabled]="item.quantity ==1">
                                 <mat-icon>remove</mat-icon>
                             </button>
+                            <!-- subtract button -->
                             <span><b>&nbsp; {{item.quantity}} &nbsp;</b></span>
                             <button mat-mini-fab (click)="onAddClick(item.quantity,item._id)">
                                 <mat-icon>add</mat-icon>
@@ -72,7 +76,7 @@
                     <span class="reviewOrderFont">Review Order</span>
                 </div>
                 <!-- <hr> -->
-
+                <!-- Total Pricing Section -->
                 <table class="table">
                     <tbody>
                         <tr>
@@ -81,7 +85,7 @@
                         </tr>
                         <tr>
                             <td>GST(5%)</td>
-                            <td> {{(cartInfo?.data.grandTotal*0.05) |number:'1.0-2' | currency:'INR'}} </td>
+                            <td> {{(cartInfo?.data.grandTotal*0.05) | currency:'INR'}} </td>
                         </tr>
                         <tr>
                             <td>Order Total</td>
@@ -90,13 +94,15 @@
                         </tr>
                     </tbody>
                 </table>
+                <!-- Order Now Button -->
                 <div class="textCenter">
                     <button class="proceedToPayButton textCenter" [disabled]="cartInfo?.data.grandTotal == 0"
-                        mat-raised-button color="primary" (click)="checkout()">Order Now</button>
+                        mat-raised-button color="primary" (click)="checkout((cartInfo?.data.grandTotal)+((cartInfo?.data.grandTotal)*0.05))">Order Now</button>
                 </div>
             </mat-card>
         </div>
     </div>
+    <!-- Select Delivery Address -->
     <h4>
         <mat-icon>person_pin_circle</mat-icon>Select Delivery Address
     </h4>

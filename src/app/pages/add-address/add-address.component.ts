@@ -10,8 +10,14 @@ import { ApiService } from '../../../assets/services/api.service';
   styleUrls: ['./add-address.component.scss']
 })
 export class AddAddressComponent implements OnInit {
-
-  constructor(public dialogRef: MatDialogRef<AddressListComponent>,
+/**
+ * Creates an instance of AddAddressComponent.
+ * @param {MatDialogRef<AddressListComponent>} dialogRef Reference to Matdialog service
+ * @param {DialogData} data data to be send to dialog 
+ * @param {ApiService} api api comes from here
+ * @memberof AddAddressComponent
+ */
+constructor(public dialogRef: MatDialogRef<AddressListComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private api: ApiService) { }
   public userData: any = {};
   ngOnInit(): void {
@@ -24,8 +30,12 @@ export class AddAddressComponent implements OnInit {
   // sub(){
 
   // }
-
-  addressLine = this.userData.addressLine;
+/**
+ *Validators of the fields in the formm
+ *
+ * @memberof AddAddressComponent
+ */
+addressLine = this.userData.addressLine;
   city = this.userData.city;
   pincode = this.userData.pincode;
   country = this.userData.country;
@@ -49,15 +59,25 @@ export class AddAddressComponent implements OnInit {
   CountryFormControl = new FormControl(this.country, [
     Validators.required,
   ]);
-
-  onSubmit(
+/**
+ *
+ *
+ * @param {string} addressLine Adress of the user
+ * @param {string} city City of the User
+ * @param {number} pincode  Pincode of the User
+ * @param {string} state  State of the User
+ * @param {string} country  Country of the User
+ * @memberof AddAddressComponent
+ * 
+ * Edit info part is class format in which data is defined it is then passed to service and subscribed 
+ */
+onSubmit(
     addressLine: string,
     city: string,
     pincode: number,
     state: string,
     country: string,
   ) {
-    // console.log(data );
     let editInfo = {
       addressLine: addressLine,
       city: city,
@@ -73,9 +93,9 @@ export class AddAddressComponent implements OnInit {
         this.userData = needdata;
       });
     })
-    // this.data1.editItem(this.index,editInfo)
   }
 
+  // Cancel logic of Dialog
   onNoClick(): void {
     this.dialogRef.close();
   }

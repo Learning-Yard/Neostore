@@ -17,15 +17,25 @@ export class ForgetPasswordComponent implements OnInit {
   });
 
   constructor(private routes: Router, private api: ApiService) { }
-
-  ngOnInit(): void {
+/**
+ * Validator of the form is here
+ *
+ * @memberof ForgetPasswordComponent
+ */
+ngOnInit(): void {
     this.form = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
     }
     );
   }
-
-  public checkError = (controlName: string, errorName: string) => {
+/**
+ *
+ * Error display part is handeled in this function
+ * @param {string} controlName Control form name
+ * @param {string} errorName error string
+ * @memberof ForgetPasswordComponent
+ */
+public checkError = (controlName: string, errorName: string) => {
     return this.form.controls[controlName].hasError(errorName);
   }
 

@@ -21,8 +21,12 @@ export class ChangePasswordComponent implements OnInit {
   });
 
   constructor(private api:ApiService , private route:Router) { }
-
-  ngOnInit(): void {
+/**
+ * Form Validation of the fields are done here
+ *
+ * @memberof ChangePasswordComponent
+ */
+ngOnInit(): void {
     this.form = new FormGroup({
       password: new FormControl('', [Validators.required]),
       new_password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(14), Validators.pattern('[a-zA-Z0-9\s]+')]),
@@ -30,12 +34,23 @@ export class ChangePasswordComponent implements OnInit {
     }
     );
   }
-
-  public checkError = (controlName: string, errorName: string) => {
+/**
+ *
+ * This functions handles displayin of the error
+ * 
+ * @param {string} controlName Name of the formcontrol of the field
+ * @param {string} errorName Error string
+ * @memberof ChangePasswordComponent
+ */
+public checkError = (controlName: string, errorName: string) => {
     return this.form.controls[controlName].hasError(errorName);
   }
-
-  submit(){
+/**
+ * The function submitsthe form n the data is send to api from here
+ *
+ * @memberof ChangePasswordComponent
+ */
+submit(){
     console.log("Saved");
     let token = localStorage.getItem("user.data.token");
     let formdata={password:this.form.value.password , newPassword:this.form.value.new_password};

@@ -17,6 +17,11 @@ export class CardsComponent implements OnInit {
   public snackMsg: string = "";
   constructor(private routes: Router, private api: ApiService, private _snackBar: MatSnackBar, private time: AppComponent) { }
   public token: any;
+    /**
+   * This gives top 5 products on dashboard
+   *
+   * @memberof CardsComponent
+   */
   ngOnInit(): void {
     // this.token = this.data.token
     this.api.topFiveProductGet().subscribe((info) => {
@@ -27,12 +32,22 @@ export class CardsComponent implements OnInit {
     console.log("token", this.token);
 
   }
-
-  onCardClick(_id: string) {
+/**
+ * On card click the product id is passed in to router params and it navigates to product detail page
+ *
+ * @param {string} _id
+ * @memberof CardsComponent
+ */
+onCardClick(_id: string) {
     this.routes.navigate(['/product/' + _id]);
   }
-
-  addToCart(productId: string) {
+/**
+ * The products is added to the cart using this method 
+ *
+ * @param {string} productId Id of the product
+ * @memberof CardsComponent
+ */
+addToCart(productId: string) {
     let data = {
       productId: productId,
       quantity: 1,
@@ -65,8 +80,13 @@ export class CardsComponent implements OnInit {
       }
     );
   }
-
-  openSnackBar() {
+/**
+ * Open Snackbar method gives error n sucessmsg of the operation
+ * This is Sucess message part ofthe Snackbar
+ *
+ * @memberof CardsComponent
+ */
+openSnackBar() {
     this._snackBar.open(this.snackMsg, 'x', {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
@@ -75,8 +95,12 @@ export class CardsComponent implements OnInit {
 
     });
   }
-
-  openSnackBarError() {
+/**
+ * This is error message part of the snackbar
+ *
+ * @memberof CardsComponent
+ */
+openSnackBarError() {
     this._snackBar.open(this.snackMsg, 'x', {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',

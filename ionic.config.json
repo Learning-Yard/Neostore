@@ -1,0 +1,7 @@
+{
+  "name": "neostore",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
